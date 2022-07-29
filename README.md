@@ -25,3 +25,24 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+# Firebase
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAhUxR0AksJbZ2uOtP1Gpj2Q-v06JxaLQU",
+  authDomain: "sandrine-coupart-dieteticienne.firebaseapp.com",
+  projectId: "sandrine-coupart-dieteticienne",
+  storageBucket: "sandrine-coupart-dieteticienne.appspot.com",
+  messagingSenderId: "207438250227",
+  appId: "1:207438250227:web:114e64bdafc1a1f5bb7786"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+

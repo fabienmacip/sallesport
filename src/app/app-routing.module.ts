@@ -8,6 +8,8 @@ import { PolitiqueConfidentialiteComponent } from './politique-confidentialite/p
 import { RecettesComponent } from './recettes/recettes.component';
 
 const routes: Routes = [
+  /* { path: 'admin/:id', component: DashboardComponent }, */
+  { path: 'admin/patients/:id', component: DashboardComponent },
   { path: 'admin', component: DashboardComponent, loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
   { path: 'recettes', component: RecettesComponent},
   { path: 'contact', component: ContactComponent},

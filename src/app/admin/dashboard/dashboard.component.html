@@ -1,2 +1,11 @@
-<h1>ADMIN</h1>
-Page d'administration
+<h1>ADMINISTRATION</h1>
+
+<div *ngIf="currentPatient">
+  {{ currentPatient.id }}<br>
+  {{ currentPatient.sex }}<br>
+  {{ currentPatient.firstName }} {{ currentPatient.lastName | uppercase }}<br>
+  {{ currentPatient.dob }}<br>
+  {{ currentPatient.height }} cm<br>
+  {{ currentPatient.weight }} kg
+</div>
+
