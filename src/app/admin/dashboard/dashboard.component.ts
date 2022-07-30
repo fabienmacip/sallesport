@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -8,6 +9,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
+  patientForm!: FormGroup;
+
+  //patientList: any[] = [];
   patientList = [
     {
       id: 0,
@@ -46,8 +50,11 @@ export class DashboardComponent implements OnInit {
 
   currentPatient: any;
 
+
+
   constructor(
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -55,6 +62,25 @@ export class DashboardComponent implements OnInit {
     if(patientId !== null){
       this.currentPatient = this.patientList.find(el => el.id === +<string>patientId);
     }
+
+    this.initPatientForm();
+  }
+
+  initPatientForm(): void{
+    this.patientForm = this.formBuilder.group({
+      lastName: ['MACIP', [Validators.required, Validators.minLength(2), Validators.maxLength(40)]],
+      firstName: ['Fabien',[Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
+      dob: ['06/05/1977',[Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      sex: ['M',[Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
+      height: ['169',[Validators.minLength(2), Validators.maxLength(3)]],
+      weight: ['73',[Validators.maxLength(3)]]
+    })
+  }
+
+  onSubmitPatientForm(): void{
+    this.patientList.push(this.patientForm.value);
+    this.patientForm.reset();
+    console.log(this.patientList);
   }
 
 }

@@ -8,4 +8,76 @@
   {{ currentPatient.height }} cm<br>
   {{ currentPatient.weight }} kg
 </div>
+<br><br>
 
+<div class="container py-5">
+  <div class="row mb-5">
+    <div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto">
+      <div class="bg-white shadow rounded p-4">
+        <h2 class="display-5 text-dark">
+          Enregistrer un nouveau patient
+        </h2>
+        <hr class="bg-dark mb-5">
+        <form [formGroup]="patientForm" (ngSubmit)="onSubmitPatientForm()">
+          <div class="form-group mb-3">
+            <label for="lastName">NOM</label>
+            <input type="text" id="lastName" class="form-control" formControlName="lastName">
+          </div>
+          <div class="form-group mb-3">
+            <label for="firstName">Prénom</label>
+            <input type="text" id="firstName" class="form-control" formControlName="firstName">
+          </div>
+          <div class="form-group mb-3">
+            <label for="dob">Date de naissance</label>
+            <input type="text" id="dob" class="form-control" formControlName="dob">
+          </div>
+          <div class="form-group mb-3">
+            <label for="sex">Sexe</label>
+            <input type="text" id="sex" class="form-control" formControlName="sex">
+          </div>
+          <div class="form-group mb-3">
+            <label for="height">Taille en cm</label>
+            <input type="text" id="height" class="form-control" formControlName="height">
+          </div>
+          <div class="form-group mb-3">
+            <label for="weight">Poids en kg</label>
+            <input type="text" id="weight" class="form-control" formControlName="weight">
+          </div>
+          <div class="d-flex">
+            <button class="btn btn-success mx-auto" [disabled]="patientForm.invalid">Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-lg-8 mx-auto">
+      <h2 class="display-5 text-dark">Patients enregistrés</h2>
+      <hr class="bg-dark mb-5">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">NOM - Prénom</th>
+            <th scope="col">Sexe</th>
+            <th scope="col">Date naissance</th>
+            <th scope="col">Taille en cm</th>
+            <th scope="col">Poids en kg</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let patient of patientList ; let i = index">
+            <th>{{ i }}</th>
+            <td>{{ patient.lastName | uppercase }} {{ patient.firstName }}</td>
+            <td>{{ patient.sex }}</td>
+            <td>{{ patient.dob }}</td>
+            <td>{{ patient.height }}</td>
+            <td>{{ patient.weight }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
