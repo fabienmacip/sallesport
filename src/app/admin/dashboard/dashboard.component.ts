@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Patient } from 'src/app/interfaces/patient';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,40 +12,39 @@ export class DashboardComponent implements OnInit {
 
   patientForm!: FormGroup;
 
-  //patientList: any[] = [];
-  patientList = [
+  patientList: Patient[] = [
     {
       /* id: 0, */
       lastName: 'Dupont',
       firstName: 'Fabrice',
       dob: '1989-04-01',
       sex: 'M',
-      height: '178',
-      weight: '75'
+      height: 178,
+      weight: 75
     },    {
       /* id: 1, */
       lastName: 'Bucanon',
       firstName: 'Michelle',
       dob: '1979-04-11',
       sex: 'F',
-      height: '163',
-      weight: '68'
+      height: 163,
+      weight: 68
     },    {
       /* id: 2, */
       lastName: 'Roustit',
       firstName: 'Julien',
       dob: '1965-11-30',
       sex: 'M',
-      height: '169',
-      weight: '78'
+      height: 169,
+      weight: 78
     },    {
       /* id: 3, */
       lastName: 'Iglesias',
       firstName: 'Juliette',
       dob: '2001-02-15',
       sex: 'F',
-      height: '170',
-      weight: '94'
+      height: 170,
+      weight: 94
     }
   ]
 
@@ -80,7 +80,7 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  onEditPatient(patient: any, index: number): void{
+  onEditPatient(patient: Patient, index: number): void{
     console.log(patient);
     this.patientForm.setValue({...patient, index});
   }

@@ -38,11 +38,11 @@
           </div>
           <div class="form-group mb-3">
             <label for="height">Taille en cm</label>
-            <input type="text" id="height" class="form-control" formControlName="height">
+            <input type="number" id="height" class="form-control" formControlName="height">
           </div>
           <div class="form-group mb-3">
             <label for="weight">Poids en kg</label>
-            <input type="text" id="weight" class="form-control" formControlName="weight">
+            <input type="number" id="weight" class="form-control" formControlName="weight">
           </div>
           <div class="d-flex">
             <button class="btn btn-success mx-auto" [disabled]="patientForm.invalid">Enregistrer</button>
