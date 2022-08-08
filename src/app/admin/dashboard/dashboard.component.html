@@ -19,6 +19,7 @@
         </h2>
         <hr class="bg-dark mb-5">
         <form [formGroup]="patientForm" (ngSubmit)="onSubmitPatientForm()">
+          <input type="number" formControlName="index" hidden>
           <div class="form-group mb-3">
             <label for="lastName">NOM</label>
             <input type="text" id="lastName" class="form-control" formControlName="lastName">
@@ -64,6 +65,7 @@
             <th scope="col">Date naissance</th>
             <th scope="col">Taille en cm</th>
             <th scope="col">Poids en kg</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -74,6 +76,10 @@
             <td>{{ patient.dob }}</td>
             <td>{{ patient.height }}</td>
             <td>{{ patient.weight }}</td>
+            <td>
+              <button class="btn btn-primary" type="button" (click)="onEditPatient(patient, i)">Modifier</button>
+              <button class="btn btn-danger" type="button" (click)="onDeletePatient(i)">Supprimer</button>
+            </td>
           </tr>
         </tbody>
       </table>
