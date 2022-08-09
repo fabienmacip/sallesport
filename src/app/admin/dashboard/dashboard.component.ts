@@ -36,7 +36,14 @@ export class DashboardComponent implements OnInit {
     } */
 
     this.initPatientForm();
-    this.patientList = this.patientsService.getPatients();
+    this.patientsService.getPatients()
+    .then((patients: Patient[]) => {
+      this.patientList = patients
+    }).catch((error) => {
+      console.error(error);
+    }).finally(() => {
+      console.log('liste patients chargée')
+    });
   }
 
   initPatientForm(): void{

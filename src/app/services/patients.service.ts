@@ -10,7 +10,6 @@ export class PatientsService {
 
   private patients: Patient[] = [
     {
-      /* id: 0, */
       lastName: 'Dupont',
       firstName: 'Fabrice',
       dob: '1989-04-01',
@@ -18,7 +17,6 @@ export class PatientsService {
       height: 178,
       weight: 75
     },    {
-      /* id: 1, */
       lastName: 'Bucanon',
       firstName: 'Michelle',
       dob: '1979-04-11',
@@ -26,7 +24,6 @@ export class PatientsService {
       height: 163,
       weight: 68
     },    {
-      /* id: 2, */
       lastName: 'Roustit',
       firstName: 'Julien',
       dob: '1965-11-30',
@@ -34,7 +31,6 @@ export class PatientsService {
       height: 169,
       weight: 78
     },    {
-      /* id: 3, */
       lastName: 'Iglesias',
       firstName: 'Juliette',
       dob: '2001-02-15',
@@ -45,8 +41,15 @@ export class PatientsService {
   ]
 
 
-  getPatients(): Patient[]{
-    return this.patients
+  getPatients(): Promise<Patient[]>{
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if(this.patients.length === 0){
+          reject(new Error('Aucun patient enregistré'));
+        }
+        resolve(this.patients);
+      }, 2);
+    });
   }
 
   createPatient(patient: Patient): Patient[]{
