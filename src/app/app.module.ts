@@ -20,6 +20,7 @@ import { PolitiqueConfidentialiteComponent } from './politique-confidentialite/p
 import { HomeComponent } from './home/home.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UppercaseInputDirective } from './directives/uppercase-input.directive';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ContactComponent,
     MentionsLegalesComponent,
     PolitiqueConfidentialiteComponent,
-    HomeComponent
+    HomeComponent,
+    UppercaseInputDirective
   ],
   imports: [
     BrowserModule,

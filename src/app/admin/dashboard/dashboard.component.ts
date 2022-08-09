@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Directive, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Patient } from 'src/app/interfaces/patient';
+
+
 
 @Component({
   selector: 'app-dashboard',
