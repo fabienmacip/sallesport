@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+/* import { Observable } from 'rxjs'; */
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Patient } from '../interfaces/patient';
 
 @Injectable({
@@ -41,6 +42,10 @@ export class PatientsService {
     }
   ]
 
+  // Observable de type Subject (observé-observeur)
+  // On peut à la fois s'y abonnner ET émettre des données
+  /* patientsSubject: Subject<Patient[]> = new Subject(); */
+  patientsSubject: BehaviorSubject<Patient[]> = new BehaviorSubject(<Patient[]>[]);
 
 /*   getPatients(): Promise<Patient[]>{
     return new Promise((resolve, reject) => {
@@ -53,7 +58,7 @@ export class PatientsService {
     });
   } */
 
-  getPatients(): Observable<Patient[]>{
+/*   getPatients(): Observable<Patient[]>{
     return new Observable(observer => {
       if(this.patients.length === 0) {
         observer.error(new Error('Aucun patient enregistré'));
@@ -63,6 +68,15 @@ export class PatientsService {
         observer.complete();
       },2000)
     })
+  }
+ */
+
+  getPatients(){
+
+  }
+
+  dispatchPatients() {
+    this.patientsSubject.next(this.patients);
   }
 
   createPatient(patient: Patient): Patient[]{

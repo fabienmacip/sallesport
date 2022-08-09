@@ -22,6 +22,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   subscription! : Subscription;
 
+
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -37,7 +39,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
     } */
 
     this.initPatientForm();
-    this.subscription = this.patientsService.getPatients().subscribe({
+
+    this.subscription = this.patientsService.patientsSubject.subscribe({
+      next: (patients: Patient[]) => {
+        console.log('NEXT');
+        this.patientList = patients;
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
+
+    this.patientsService.dispatchPatients();
+
+    console.info(this.patientsService.patientsSubject.value);
+
+    // Avec OBSERVER
+    /*     this.subscription = this.patientsService.getPatients().subscribe({
       next: (patients: Patient[]) => {
         console.log('NEXT');
         this.patientList = patients;
@@ -49,7 +67,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         console.error(error);
       }
     });
-
+ */
     // Avec PROMISE
     /*     this.patientsService.getPatients()
     .then((patients: Patient[]) => {
@@ -60,6 +78,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
       console.log('liste patients chargée')
     }); */
   }
+
+
 
   initPatientForm(): void{
     this.patientForm = this.formBuilder.group({
