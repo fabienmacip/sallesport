@@ -94,7 +94,7 @@
             <td>{{ recette.allergens }}<br>{{ recette.diets }}</td>
             <td>
               <button class="btn btn-primary" type="button" (click)="onEditRecette(recette)">Modifier</button>
-              <button class="btn btn-danger" type="button" (click)="onDeleteRecette(i)">Supprimer</button>
+              <button class="btn btn-danger" type="button" (click)="onDeleteRecette(recette.id)">Supprimer</button>
             </td>
           </tr>
         </tbody>

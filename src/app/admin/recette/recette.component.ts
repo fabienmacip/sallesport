@@ -89,8 +89,12 @@ export class RecetteComponent implements OnInit, OnDestroy {
     this.recetteForm.reset();
   }
 
-  onDeleteRecette(index: number): void{
-    this.recettes = this.recettesService.deleteRecette(index);
+  onDeleteRecette(recetteId?: string): void{
+    if(recetteId){
+      this.recettesService.deleteRecette(recetteId).catch(console.error);
+    } else {
+      console.error('Un id doit être fourni pour pouvoir supprimer cette recette.');
+    }
   }
 
 

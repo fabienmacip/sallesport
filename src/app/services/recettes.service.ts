@@ -45,9 +45,10 @@ export class RecettesService {
   getRecettes(): void{
     this.db.list('recettes').query.limitToLast(10).once('value', snapshot => {
       const recettesSnapshotValue = snapshot.val();
-      const recettes = Object.keys(recettesSnapshotValue).map(id => ({id, ...recettesSnapshotValue[id]}));
-      console.log(recettes);
-      this.recettes = recettes;
+      if(recettesSnapshotValue){
+        const recettes = Object.keys(recettesSnapshotValue).map(id => ({id, ...recettesSnapshotValue[id]}));
+        this.recettes = recettes;
+      }
       this.dispatchRecettes();
     })
   }
@@ -81,8 +82,14 @@ export class RecettesService {
     })
   }
 
-  deleteRecette(recetteIndex: number): Recette[]{
-    this.recettes.splice(recetteIndex, 1);
-    return this.recettes;
+  deleteRecette(recetteId: string): Promise<Recette>{
+    return new Promise((resolve, reject) => {
+      this.db.list('recettes').remove(recetteId)
+      .then(() => {
+        const recetteToDeleteIndex = this.recettes.findIndex(el => el.id === recetteId);
+        this.recettes.splice(recetteToDeleteIndex, 1);
+        this.dispatchRecettes();
+      }).catch(console.error);
+    })
   }
 }
