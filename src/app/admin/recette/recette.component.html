@@ -23,14 +23,14 @@
         </h2>
         <hr class="bg-dark mb-5">
         <form [formGroup]="recetteForm" (ngSubmit)="onSubmitRecetteForm()">
-          <input type="number" formControlName="index" hidden>
+          <input type="text" formControlName="id" hidden>
           <div class="form-group mb-3">
             <label for="title">TITRE</label>
             <input type="text" id="title" class="form-control" formControlName="title" appUppercaseInput >
           </div>
           <div class="form-group mb-3">
             <label for="description">Description</label>
-            <input type="text" id="description" class="form-control" formControlName="description">
+            <textarea id="description" class="w-100 form-control" rows="10" formControlName="description"></textarea>
           </div>
           <div class="form-group mb-3">
             <label for="preparationTime">Temps de préparation</label>
@@ -93,7 +93,7 @@
             <td>{{ recette.ingredients }}<br><br>{{ recette.steps }}</td>
             <td>{{ recette.allergens }}<br>{{ recette.diets }}</td>
             <td>
-              <button class="btn btn-primary" type="button" (click)="onEditRecette(recette, i)">Modifier</button>
+              <button class="btn btn-primary" type="button" (click)="onEditRecette(recette)">Modifier</button>
               <button class="btn btn-danger" type="button" (click)="onDeleteRecette(i)">Supprimer</button>
             </td>
           </tr>

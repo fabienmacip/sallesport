@@ -46,7 +46,7 @@ export class RecetteComponent implements OnInit, OnDestroy {
 
   initRecetteForm(): void{
     this.recetteForm = this.formBuilder.group({
-      index: [null],
+      id: [null],
       title: ['Purée de pois-chiches', [Validators.required, Validators.minLength(2), Validators.maxLength(80)]],
       description: ['lorem ipsum dolor...',[Validators.required, Validators.maxLength(200)]],
       preparationTime: [25,[Validators.required, Validators.minLength(1), Validators.maxLength(3)]],
@@ -59,23 +59,32 @@ export class RecetteComponent implements OnInit, OnDestroy {
     })
   }
 
-  onEditRecette(recette: Recette, index: number): void{
-    console.log(recette);
-    this.recetteForm.setValue({...recette, index});
+  onEditRecette(recette: Recette): void{
+    this.recetteForm.setValue({
+      id: recette.id ?? '',
+      title : recette.title ?? '',
+      description: recette.description ?? '',
+      preparationTime: recette.preparationTime ?? 0,
+      breakTime : recette.breakTime ?? 0,
+      cookingTime: recette.cookingTime ?? 0,
+      ingredients: recette.ingredients ?? '',
+      steps : recette.steps ?? '',
+      allergens: recette.allergens ?? '',
+      diets : recette.diets ?? ''
+    });
   }
 
   onSubmitRecetteForm(): void{
-    console.log('submit recette');
-    const recetteIndex = this.recetteForm.value.index;
+    const recetteId = this.recetteForm.value.id;
     let recette = this.recetteForm.value;
-    if(recetteIndex == null || recetteIndex == undefined){
+    if(!recetteId || recetteId && recetteId === ''){
       // CREATION
-      delete recette.index;
+      delete recette.id;
       this.recettesService.createRecette(recette).catch(console.error);
     } else {
       // MODIFICATION
-      delete recette.index;
-      this.recettes = this.recettesService.editRecette(recette, recetteIndex);
+      delete recette.id;
+      this.recettesService.editRecette(recette, recetteId).catch(console.error);
     }
     this.recetteForm.reset();
   }

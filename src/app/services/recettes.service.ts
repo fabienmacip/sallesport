@@ -68,8 +68,17 @@ export class RecettesService {
     });
   }
 
-  editRecette(recette: Recette, index: number): Recette[]{
-    return this.recettes;
+  editRecette(recette: Recette, recetteId: string): Promise<Recette>{
+    return new Promise((resolve, reject) => {
+      this.db.list('recettes').update(recetteId, recette)
+      .then(() => {
+        const updatedRecette = {...recette, id: recetteId};
+        const recetteToUpdateIndex = this.recettes.findIndex(el => el.id === recetteId);
+        this.recettes[recetteToUpdateIndex] = updatedRecette;
+        this.dispatchRecettes();
+        resolve({...recette, id: recetteId});
+      }).catch(reject);
+    })
   }
 
   deleteRecette(recetteIndex: number): Recette[]{
