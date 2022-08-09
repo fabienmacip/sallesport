@@ -42,7 +42,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     this.subscription = this.patientsService.patientsSubject.subscribe({
       next: (patients: Patient[]) => {
-        console.log('NEXT');
         this.patientList = patients;
       },
       error: (error) => {

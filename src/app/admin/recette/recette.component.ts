@@ -36,8 +36,8 @@ export class RecetteComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.recettesService.dispatchRecettes();
-    console.info(this.recettesService.recettesSubject.value);
+    this.recettesService.getRecettes();
+
   }
 
   ngOnDestroy(): void {
@@ -46,7 +46,7 @@ export class RecetteComponent implements OnInit, OnDestroy {
 
   initRecetteForm(): void{
     this.recetteForm = this.formBuilder.group({
-      index: [0],
+      index: [null],
       title: ['Purée de pois-chiches', [Validators.required, Validators.minLength(2), Validators.maxLength(80)]],
       description: ['lorem ipsum dolor...',[Validators.required, Validators.maxLength(200)]],
       preparationTime: [25,[Validators.required, Validators.minLength(1), Validators.maxLength(3)]],
@@ -69,9 +69,11 @@ export class RecetteComponent implements OnInit, OnDestroy {
     const recetteIndex = this.recetteForm.value.index;
     let recette = this.recetteForm.value;
     if(recetteIndex == null || recetteIndex == undefined){
+      // CREATION
       delete recette.index;
-      this.recettes = this.recettesService.createRecette(recette);
+      this.recettesService.createRecette(recette).catch(console.error);
     } else {
+      // MODIFICATION
       delete recette.index;
       this.recettes = this.recettesService.editRecette(recette, recetteIndex);
     }

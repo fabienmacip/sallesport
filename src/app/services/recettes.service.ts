@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { BehaviorSubject } from 'rxjs';
 import { Recette } from '../interfaces/recette';
 
@@ -8,10 +9,14 @@ import { Recette } from '../interfaces/recette';
 
 export class RecettesService {
 
-  constructor() { }
+  constructor(
+    private db: AngularFireDatabase
+  ) {
+    //this.getRecettes();
+  }
 
   private recettes: Recette[] = [
-    {
+/*     {
       title: 'Pain au chocolat',
       description: 'Viennoiserie fourrée au chocolat',
       preparationTime: 20,
@@ -33,21 +38,34 @@ export class RecettesService {
       allergens: '',
       diets : 'végétarien, végétalien, vegan, sans lactose'
     }
-  ]
+ */  ]
 
   recettesSubject: BehaviorSubject<Recette[]> = new BehaviorSubject(<Recette[]>[]);
 
-  getRecettes(){
-
+  getRecettes(): void{
+    this.db.list('recettes').query.limitToLast(10).once('value', snapshot => {
+      const recettesSnapshotValue = snapshot.val();
+      const recettes = Object.keys(recettesSnapshotValue).map(id => ({id, ...recettesSnapshotValue[id]}));
+      console.log(recettes);
+      this.recettes = recettes;
+      this.dispatchRecettes();
+    })
   }
 
   dispatchRecettes() {
     this.recettesSubject.next(this.recettes);
   }
 
-  createRecette(recette: Recette): Recette[]{
-    this.recettes.push(recette);
-    return this.recettes;
+  createRecette(recette: Recette): Promise<Recette>{
+    return new Promise((resolve,reject) => {
+      this.db.list('recettes').push(recette)
+      .then(res => {
+        const createdRecette = {...recette, id: <string>res.key};
+        this.recettes.push(createdRecette);
+        this.dispatchRecettes();
+        resolve(createdRecette);
+      }).catch(reject);
+    });
   }
 
   editRecette(recette: Recette, index: number): Recette[]{

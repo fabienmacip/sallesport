@@ -1,4 +1,5 @@
 export interface Recette {
+  id?: string;
   title: string;
   description?: string;
   preparationTime?: number;
