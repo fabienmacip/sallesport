@@ -1,1 +1,105 @@
-<p>recette works!</p>
+<h1>RECETTES</h1>
+
+<div *ngIf="currentRecette">
+  {{ currentRecette.id }}<br>
+  {{ currentRecette.title }}<br>
+  {{ currentRecette.description }}<br>
+  {{ currentRecette.preparationTime }} mn<br>
+  {{ currentRecette.breakTime }} mn<br>
+  {{ currentRecette.cookingTime }} mn<br>
+  {{ currentRecette.ingredients }}<br>
+  {{ currentRecette.steps }}<br>
+  {{ currentRecette.allergens }}<br>
+  {{ currentRecette.diets }}<br>
+</div>
+<br><br>
+
+<div class="container py-5">
+  <div class="row mb-5">
+    <div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto">
+      <div class="bg-white shadow rounded p-4">
+        <h2 class="display-5 text-dark">
+          Enregistrer une nouvelle recette
+        </h2>
+        <hr class="bg-dark mb-5">
+        <form [formGroup]="recetteForm" (ngSubmit)="onSubmitRecetteForm()">
+          <input type="number" formControlName="index" hidden>
+          <div class="form-group mb-3">
+            <label for="title">TITRE</label>
+            <input type="text" id="title" class="form-control" formControlName="title" appUppercaseInput >
+          </div>
+          <div class="form-group mb-3">
+            <label for="description">Description</label>
+            <input type="text" id="description" class="form-control" formControlName="description">
+          </div>
+          <div class="form-group mb-3">
+            <label for="preparationTime">Temps de préparation</label>
+            <input type="number" id="preparationTime" class="form-control" formControlName="preparationTime">
+          </div>
+          <div class="form-group mb-3">
+            <label for="breakTime">Temps de pause</label>
+            <input type="number" id="breakTime" class="form-control" formControlName="breakTime">
+          </div>
+          <div class="form-group mb-3">
+            <label for="cookingTime">Temps de cuisson</label>
+            <input type="number" id="cookingTime" class="form-control" formControlName="cookingTime">
+          </div>
+          <div class="form-group mb-3">
+            <label for="ingredients">Ingrédients</label>
+            <input type="text" id="ingredients" class="form-control" formControlName="ingredients">
+          </div>
+          <div class="form-group mb-3">
+            <label for="steps">Etapes</label>
+            <input type="text" id="steps" class="form-control" formControlName="steps">
+          </div>
+          <div class="form-group mb-3">
+            <label for="allergens">Allergènes</label>
+            <input type="text" id="allergens" class="form-control" formControlName="allergens">
+          </div>
+          <div class="form-group mb-3">
+            <label for="diets">Régimes alimentaires</label>
+            <input type="text" id="diets" class="form-control" formControlName="diets">
+          </div>
+          <div class="d-flex">
+            <button class="btn btn-success mx-auto" [disabled]="recetteForm.invalid">Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-lg-8 mx-auto">
+      <h2 class="display-5 text-dark">Recettes enregistrées</h2>
+      <hr class="bg-dark mb-5">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Titre</th>
+            <th scope="col">Description</th>
+            <th scope="col">Durées</th>
+            <th scope="col">Ingrédients & Etapes</th>
+            <th scope="col">Allergènes & Régimes</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let recette of recettes ; let i = index">
+            <th>{{ i }}</th>
+            <td>{{ recette.title }}</td>
+            <td>{{ recette.description }}</td>
+            <td>{{ recette.preparationTime }} - {{ recette.breakTime }} - {{ recette.cookingTime }}</td>
+            <td>{{ recette.ingredients }}<br><br>{{ recette.steps }}</td>
+            <td>{{ recette.allergens }}<br>{{ recette.diets }}</td>
+            <td>
+              <button class="btn btn-primary" type="button" (click)="onEditRecette(recette, i)">Modifier</button>
+              <button class="btn btn-danger" type="button" (click)="onDeleteRecette(i)">Supprimer</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
