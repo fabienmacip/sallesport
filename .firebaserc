@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "sandrine-coupart-dieteticienne": {
+      "hosting": {
+        "scd": [
+          "sandrine-coupart-dieteticienne"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "sandrine-coupart-dieteticienne"
+  }
+}

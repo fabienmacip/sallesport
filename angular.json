@@ -119,6 +119,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "scd:build:production",
+            "firebaseProject": "sandrine-coupart-dieteticienne",
+            "firebaseHostingSite": "sandrine-coupart-dieteticienne"
+          }
         }
       }
     }
