@@ -2,6 +2,7 @@ import { Component, Directive, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Patient } from 'src/app/interfaces/patient';
+import { PatientsService } from 'src/app/services/patients.service';
 
 
 
@@ -14,41 +15,7 @@ export class DashboardComponent implements OnInit {
 
   patientForm!: FormGroup;
 
-  patientList: Patient[] = [
-    {
-      /* id: 0, */
-      lastName: 'Dupont',
-      firstName: 'Fabrice',
-      dob: '1989-04-01',
-      sex: 'M',
-      height: 178,
-      weight: 75
-    },    {
-      /* id: 1, */
-      lastName: 'Bucanon',
-      firstName: 'Michelle',
-      dob: '1979-04-11',
-      sex: 'F',
-      height: 163,
-      weight: 68
-    },    {
-      /* id: 2, */
-      lastName: 'Roustit',
-      firstName: 'Julien',
-      dob: '1965-11-30',
-      sex: 'M',
-      height: 169,
-      weight: 78
-    },    {
-      /* id: 3, */
-      lastName: 'Iglesias',
-      firstName: 'Juliette',
-      dob: '2001-02-15',
-      sex: 'F',
-      height: 170,
-      weight: 94
-    }
-  ]
+  patientList: Patient[] = [];
 
   currentPatient: any;
 
@@ -56,7 +23,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private patientsService: PatientsService
   ) {
 
   }
@@ -68,6 +36,7 @@ export class DashboardComponent implements OnInit {
     } */
 
     this.initPatientForm();
+    this.patientList = this.patientsService.getPatients();
   }
 
   initPatientForm(): void{
@@ -92,19 +61,18 @@ export class DashboardComponent implements OnInit {
     let patient = this.patientForm.value;
     if(patientIndex == null || patientIndex == undefined){
       delete patient.index;
-      this.patientList.push(patient);
+      this.patientList = this.patientsService.createPatient(patient);
     } else {
       delete patient.index;
-      this.patientList[patientIndex] = patient;
+      this.patientList = this.patientsService.editPatient(patient, patientIndex);
     }
 
     //this.patientList.push(this.patientForm.value);
     this.patientForm.reset();
-    console.log(this.patientList);
   }
 
   onDeletePatient(index: number): void{
-    this.patientList.splice(index, 1);
+    this.patientList = this.patientsService.deletePatient(index);
   }
 
 }
