@@ -1,6 +1,7 @@
-import { Component, Directive, OnInit } from '@angular/core';
+import { Component, Directive, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Patient } from 'src/app/interfaces/patient';
 import { PatientsService } from 'src/app/services/patients.service';
 
@@ -11,7 +12,7 @@ import { PatientsService } from 'src/app/services/patients.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   patientForm!: FormGroup;
 
@@ -19,7 +20,7 @@ export class DashboardComponent implements OnInit {
 
   currentPatient: any;
 
-
+  subscription! : Subscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -36,14 +37,28 @@ export class DashboardComponent implements OnInit {
     } */
 
     this.initPatientForm();
-    this.patientsService.getPatients()
+    this.subscription = this.patientsService.getPatients().subscribe({
+      next: (patients: Patient[]) => {
+        console.log('NEXT');
+        this.patientList = patients;
+      },
+      complete: () => {
+        console.log('Patient observable completed.');
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
+
+    // Avec PROMISE
+    /*     this.patientsService.getPatients()
     .then((patients: Patient[]) => {
       this.patientList = patients
     }).catch((error) => {
       console.error(error);
     }).finally(() => {
       console.log('liste patients chargée')
-    });
+    }); */
   }
 
   initPatientForm(): void{
@@ -80,6 +95,10 @@ export class DashboardComponent implements OnInit {
 
   onDeletePatient(index: number): void{
     this.patientList = this.patientsService.deletePatient(index);
+  }
+
+  ngOnDestroy(): void {
+      this.subscription.unsubscribe();
   }
 
 }

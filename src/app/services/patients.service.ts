@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Patient } from '../interfaces/patient';
 
 @Injectable({
@@ -41,7 +42,7 @@ export class PatientsService {
   ]
 
 
-  getPatients(): Promise<Patient[]>{
+/*   getPatients(): Promise<Patient[]>{
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if(this.patients.length === 0){
@@ -50,6 +51,18 @@ export class PatientsService {
         resolve(this.patients);
       }, 2);
     });
+  } */
+
+  getPatients(): Observable<Patient[]>{
+    return new Observable(observer => {
+      if(this.patients.length === 0) {
+        observer.error(new Error('Aucun patient enregistré'));
+      }
+      setTimeout(() => {
+        observer.next(this.patients);
+        observer.complete();
+      },2000)
+    })
   }
 
   createPatient(patient: Patient): Patient[]{
