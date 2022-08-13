@@ -30,6 +30,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+/* import { SafeUrlPipe } from './pipes/safe-url.pipe'; */
 
 
 
@@ -41,7 +42,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     RegimeListComponent,
     PatientListComponent,
     AllergeneListComponent,
-    RecetteComponent,
+    /* RecetteComponent, */
     RegimeComponent,
     AllergeneComponent,
     PatientComponent,
@@ -49,7 +50,8 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     ContactComponent,
     MentionsLegalesComponent,
     PolitiqueConfidentialiteComponent,
-    HomeComponent
+    HomeComponent,
+    /* SafeUrlPipe */
   ],
   imports: [
     BrowserModule,

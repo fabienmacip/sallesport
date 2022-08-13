@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { PhoneMultiFactorGenerator } from 'firebase/auth';
 import { BehaviorSubject } from 'rxjs';
 import { Recette } from '../interfaces/recette';
 
@@ -10,7 +12,8 @@ import { Recette } from '../interfaces/recette';
 export class RecettesService {
 
   constructor(
-    private db: AngularFireDatabase
+    private db: AngularFireDatabase,
+    private storage: AngularFireStorage
   ) {
     //this.getRecettes();
   }
@@ -57,6 +60,7 @@ export class RecettesService {
     this.recettesSubject.next(this.recettes);
   }
 
+/*// VERSION sans upload de photo
   createRecette(recette: Recette): Promise<Recette>{
     return new Promise((resolve,reject) => {
       this.db.list('recettes').push(recette)
@@ -67,6 +71,19 @@ export class RecettesService {
         resolve(createdRecette);
       }).catch(reject);
     });
+  } */
+
+  async createRecette(recette: Recette, recettePhoto?: any): Promise<Recette>{
+    try {
+       const photoUrl = recettePhoto ? await this.uploadPhoto(recettePhoto) : '';
+       const response = this.db.list('recettes').push({...recette, photo: photoUrl});
+       const createdRecette = {...recette, photo: photoUrl, id: <string>response.key};
+       this.recettes.push(createdRecette);
+       this.dispatchRecettes();
+       return createdRecette;
+    } catch(error) {
+      throw error;
+    }
   }
 
   editRecette(recette: Recette, recetteId: string): Promise<Recette>{
@@ -82,14 +99,39 @@ export class RecettesService {
     })
   }
 
-  deleteRecette(recetteId: string): Promise<Recette>{
+  async deleteRecette(recetteId: string): Promise<Recette>{
+    try {
+      const recetteToDeleteIndex = this.recettes.findIndex(el => el.id === recetteId);
+      const recetteToDelete = this.recettes[recetteToDeleteIndex];
+      if(recetteToDelete.photo && recetteToDelete.photo !== ''){
+          await this.removePhoto(recetteToDelete.photo);
+      }
+      await this.db.list('recettes').remove(recetteId);
+      this.recettes.splice(recetteToDeleteIndex, 1);
+      this.dispatchRecettes();
+      return recetteToDelete;
+    } catch(error) {
+      throw error;
+    }
+  }
+
+  private uploadPhoto(photo: any): Promise<string>{
     return new Promise((resolve, reject) => {
-      this.db.list('recettes').remove(recetteId)
-      .then(() => {
-        const recetteToDeleteIndex = this.recettes.findIndex(el => el.id === recetteId);
-        this.recettes.splice(recetteToDeleteIndex, 1);
-        this.dispatchRecettes();
-      }).catch(console.error);
+      const upload = this.storage.upload('recettes/' + Date.now().toString() + '-' + photo.name, photo);
+      upload.then((res) => {
+        //console.info(res.ref.getDownloadURL());
+        resolve(res.ref.getDownloadURL());
+      }).catch(reject);
     })
   }
+
+  private removePhoto(photoUrl: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.storage.refFromURL(photoUrl).delete().subscribe({
+        complete: () => resolve({}),
+        error: reject
+      })
+    })
+  }
+
 }

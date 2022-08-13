@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Recette } from 'src/app/interfaces/recette';
 import { RecettesService } from 'src/app/services/recettes.service';
+
 @Component({
   selector: 'app-recette',
   templateUrl: './recette.component.html',
@@ -17,6 +18,9 @@ export class RecetteComponent implements OnInit, OnDestroy {
   currentRecette: any;
 
   subscription! : Subscription;
+
+  currentRecettePhotoFile!: any;
+  currentRecettePhotoUrl! : string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -48,6 +52,7 @@ export class RecetteComponent implements OnInit, OnDestroy {
     this.recetteForm = this.formBuilder.group({
       id: [null],
       title: ['Purée de pois-chiches', [Validators.required, Validators.minLength(2), Validators.maxLength(80)]],
+      photo:[],
       description: ['lorem ipsum dolor...',[Validators.required, Validators.maxLength(200)]],
       preparationTime: [25,[Validators.required, Validators.minLength(1), Validators.maxLength(3)]],
       breakTime: [30,[Validators.maxLength(3)]],
@@ -57,6 +62,15 @@ export class RecetteComponent implements OnInit, OnDestroy {
       allergens: ['aucun',[Validators.maxLength(150)]],
       diets: ['vegan, végétarien, végétalien, protéiné', [Validators.maxLength(150)]]
     })
+  }
+
+  onChangePhotoFile($event: any): void{
+    this.currentRecettePhotoFile = $event.target.files[0];
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(this.currentRecettePhotoFile);
+    fileReader.onloadend = (e) => {
+      this.currentRecettePhotoUrl = <string>e.target?.result;
+    }
   }
 
   onEditRecette(recette: Recette): void{
@@ -80,13 +94,15 @@ export class RecetteComponent implements OnInit, OnDestroy {
     if(!recetteId || recetteId && recetteId === ''){
       // CREATION
       delete recette.id;
-      this.recettesService.createRecette(recette).catch(console.error);
+      this.recettesService.createRecette(recette, this.currentRecettePhotoFile).catch(console.error);
     } else {
       // MODIFICATION
       delete recette.id;
       this.recettesService.editRecette(recette, recetteId).catch(console.error);
     }
     this.recetteForm.reset();
+    this.currentRecettePhotoFile = null;
+    this.currentRecettePhotoUrl = '';
   }
 
   onDeleteRecette(recetteId?: string): void{

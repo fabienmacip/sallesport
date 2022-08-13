@@ -28,6 +28,13 @@
             <label for="title">TITRE</label>
             <input type="text" id="title" class="form-control" formControlName="title" appUppercaseInput >
           </div>
+          <div class="px-3" *ngIf="currentRecettePhotoUrl && currentRecettePhotoUrl !== ''">
+            <img [src]="currentRecettePhotoUrl" alt="Photo de la recette" class="w-100 rounded">
+          </div>
+          <div class="mb-3">
+            <label for="recettePhotoInput" class="form-label">Choisir une image</label>
+            <input type="file" id="recettePhotoInput" class="form-control" formControlName="photo" (change)="onChangePhotoFile($event)">
+          </div>
           <div class="form-group mb-3">
             <label for="description">Description</label>
             <textarea id="description" class="w-100 form-control" rows="10" formControlName="description"></textarea>
@@ -76,6 +83,7 @@
         <thead>
           <tr>
             <th scope="col">#</th>
+            <th>Photo</th>
             <th scope="col">Titre</th>
             <th scope="col">Description</th>
             <th scope="col">Durées</th>
@@ -87,6 +95,9 @@
         <tbody>
           <tr *ngFor="let recette of recettes ; let i = index">
             <th>{{ i }}</th>
+            <td>
+              <img *ngIf="recette.photo" [src]="recette.photo | safeUrl" alt="Photo de la recette" width="90">
+            </td>
             <td>{{ recette.title }}</td>
             <td>{{ recette.description }}</td>
             <td>{{ recette.preparationTime }} - {{ recette.breakTime }} - {{ recette.cookingTime }}</td>

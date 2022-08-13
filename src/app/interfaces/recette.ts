@@ -1,6 +1,7 @@
 export interface Recette {
   id?: string;
   title: string;
+  photo?: string;
   description?: string;
   preparationTime?: number;
   breakTime?: number;
