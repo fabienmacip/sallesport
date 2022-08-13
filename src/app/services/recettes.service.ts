@@ -86,17 +86,23 @@ export class RecettesService {
     }
   }
 
-  editRecette(recette: Recette, recetteId: string): Promise<Recette>{
-    return new Promise((resolve, reject) => {
-      this.db.list('recettes').update(recetteId, recette)
-      .then(() => {
-        const updatedRecette = {...recette, id: recetteId};
-        const recetteToUpdateIndex = this.recettes.findIndex(el => el.id === recetteId);
-        this.recettes[recetteToUpdateIndex] = updatedRecette;
-        this.dispatchRecettes();
-        resolve({...recette, id: recetteId});
-      }).catch(reject);
-    })
+  async editRecette(recette: Recette, recetteId: string, newRecettePhoto?: any): Promise<Recette>{
+    try {
+      if(newRecettePhoto && recette.photo && recette.photo !== ''){
+        await this.removePhoto(recette.photo);
+      }
+      if(newRecettePhoto){
+        const newPhotoUrl = await this.uploadPhoto(newRecettePhoto);
+        recette.photo = newPhotoUrl;
+      }
+      await this.db.list('recettes').update(recetteId, recette)
+      const recetteIndexToUpdate = this.recettes.findIndex(el => el.id === recetteId);
+      this.recettes[recetteIndexToUpdate] = {...recette, id: recetteId};
+      this.dispatchRecettes();
+      return {...recette, id: recetteId};
+    } catch(error) {
+      throw error;
+    }
   }
 
   async deleteRecette(recetteId: string): Promise<Recette>{

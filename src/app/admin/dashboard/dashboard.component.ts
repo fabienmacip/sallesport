@@ -93,7 +93,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   onEditPatient(patient: Patient, index: number): void{
-    console.log(patient);
     this.patientForm.setValue({...patient, index});
   }
 

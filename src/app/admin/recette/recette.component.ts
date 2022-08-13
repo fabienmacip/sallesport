@@ -32,7 +32,6 @@ export class RecetteComponent implements OnInit, OnDestroy {
 
     this.subscription = this.recettesService.recettesSubject.subscribe({
       next: (recettes: Recette[]) => {
-        console.log('NEXT recette');
         this.recettes = recettes;
       },
       error: (error) => {
@@ -74,9 +73,11 @@ export class RecetteComponent implements OnInit, OnDestroy {
   }
 
   onEditRecette(recette: Recette): void{
+    this.currentRecettePhotoUrl = recette.photo ?? '';
     this.recetteForm.setValue({
       id: recette.id ?? '',
       title : recette.title ?? '',
+      photo: '',
       description: recette.description ?? '',
       preparationTime: recette.preparationTime ?? 0,
       breakTime : recette.breakTime ?? 0,
@@ -91,6 +92,8 @@ export class RecetteComponent implements OnInit, OnDestroy {
   onSubmitRecetteForm(): void{
     const recetteId = this.recetteForm.value.id;
     let recette = this.recetteForm.value;
+    const recettePhotoUrl = this.recettes.find(el => el.id === recetteId)?.photo;
+    recette = {...recette, photo: recettePhotoUrl};
     if(!recetteId || recetteId && recetteId === ''){
       // CREATION
       delete recette.id;
@@ -98,7 +101,7 @@ export class RecetteComponent implements OnInit, OnDestroy {
     } else {
       // MODIFICATION
       delete recette.id;
-      this.recettesService.editRecette(recette, recetteId).catch(console.error);
+      this.recettesService.editRecette(recette, recetteId, this.currentRecettePhotoFile).catch(console.error);
     }
     this.recetteForm.reset();
     this.currentRecettePhotoFile = null;

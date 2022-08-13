@@ -12,11 +12,8 @@ export class UppercaseInputDirective {
   ) { }
 
   @HostListener('input', ['$event']) onInputChange($event: any){
-    console.log('before');
     if(this.control){
-      console.log('into');
       this.control.control?.setValue($event.target.value.toUpperCase());
     }
-    console.log('after');
   }
 }
