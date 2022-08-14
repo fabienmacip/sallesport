@@ -1,11 +1,59 @@
-<div>
-  <a [routerLink]="['home']" routerLinkActive="active-link">Accueil</a> -
-  <a [routerLink]="['/admin','dashboard']" routerLinkActive="active-link">Admin</a> -
-  <a [routerLink]="['/admin','recettes']" routerLinkActive="active-link">Recettes</a> -
-  <a [routerLink]="['contact']" routerLinkActive="active-link">Contact</a> -
-  <a [routerLink]="['mentions-legales']" routerLinkActive="active-link">Mentions Légales</a> -
-  <a [routerLink]="['politique-confidentialite']" routerLinkActive="active-link">Politique de confidentialité</a>
-</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
+  <div class="container">
+    <a href="#" class="navbar-brand">{{ getTitle() }}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['home']" routerLinkActive="active-link">Accueil</a>
+        </li>
+        <li class="nav-item" *ngIf="!currentUser">
+          <a class="nav-link" [routerLink]="['/auth','signin']" routerLinkActive="active-link">Connexion</a>
+        </li>
+        <li class="nav-item" *ngIf="!currentUser">
+          <a class="nav-link" [routerLink]="['/auth','signup']" routerLinkActive="active-link">Inscription</a>
+        </li>
+
+        <li class="nav-item dropdown" *ngIf="currentUser">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Admin
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbar-dropdown">
+            <li>
+              <a class="dropdown-item" [routerLink]="['/admin','dashboard']" routerLinkActive="active-link">Tableau de bord</a>
+            </li>
+            <li class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item text-danger" routerLinkActive="active-link" (click)="onSignOut()">Déconnexion</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/admin','dashboard']" routerLinkActive="active-link">Admin</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/admin','recettes']" routerLinkActive="active-link">Recettes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['contact']" routerLinkActive="active-link">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['mentions-legales']" routerLinkActive="active-link">Mentions Légales</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['politique-confidentialite']" routerLinkActive="active-link">Politique de confidentialité</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
 
 
 
