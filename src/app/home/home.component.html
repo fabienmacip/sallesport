@@ -1,1 +1,29 @@
-<p>home works!</p>
+<div class="container py-5">
+  <h1 class="display-5 mb-5">Toutes les recettes</h1>
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-4 col-xl-3 mx-auto" *ngFor="let recette of recettes">
+      <div class="card">
+        <img [src]="recette.photo" alt="Photo de la recette" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">{{ recette.title }}</h5>
+          <h6 class="fw-normal fs-5">Régime(s) : {{ recette.diets }}</h6>
+          <p class="card-text">{{ recette.description }}</p>
+          <a href="#" class="btn btn-primary">Voir</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- id?: string;
+  title: string;
+  photo?: string;
+  description?: string;
+  preparationTime?: number;
+  breakTime?: number;
+  cookingTime?: number;
+  ingredients? : string;
+  steps?: string;
+  allergens?: string;
+  diets? : string; -->
