@@ -32,4 +32,24 @@ export class EditAuthInfosComponent implements OnInit {
       newPasswordConfirm: ['', [Validators.required]]
     })
   }
+
+  onEditPassword(modal: any): void {
+    this.modalService.open(modal, { centered: true});
+  }
+
+  onSubmitPasswordForm(): void {
+
+    this.authService.signinUser(<string>this.currentUser.email, this.passwordForm.value.oldPassword)
+    .then(() => {
+
+      this.currentUser.updatePassword(this.passwordForm.value.newPassword)
+      .then(() => {
+        this.modalService.dismissAll();
+        this.passwordForm.reset();
+      }).catch(console.error);
+
+    }).catch(console.error);
+
+  }
+
 }
