@@ -19,4 +19,13 @@ export class AuthService {
     });
   }
 
+  signinUser(email: string, password: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.auth.signInWithEmailAndPassword(email, password)
+      .then(resolve)
+      .catch(reject);
+    });
+  }
+
+
 }
