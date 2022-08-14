@@ -13,6 +13,7 @@ const routes: Routes = [
   /* { path: 'admin', component: DashboardComponent, loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) }, */
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+  { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
   /* { path: 'recettes', component: RecettesComponent}, */
   { path: 'contact', component: ContactComponent},
   { path: 'mentions-legales', component: MentionsLegalesComponent},
