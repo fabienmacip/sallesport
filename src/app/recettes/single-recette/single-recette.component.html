@@ -1,0 +1,25 @@
+<div class="container py-5" *ngIf="currentRecette">
+  <h1 class="display-5">{{ currentRecette.title }}</h1>
+  <div class="row">
+    <div class="col-12 col-md-8 col-lg-6 col-xl-4">
+      <img [src]="currentRecette.photo" alt="Photo de la recette" class="w-100">
+    </div>
+  </div>
+  <h2 class="display-6">{{ currentRecette.description }}</h2>
+  <hr>
+  <div class="row mb-3">
+    <div class="col-4">Préparation : {{ currentRecette.preparationTime ?? 0 }} mn</div>
+    <div class="col-4">Pause : {{ currentRecette.breakTime ?? 0 }} mn</div>
+    <div class="col-4">Cuisson : {{ currentRecette.cookingTime ?? 0 }} mn</div>
+  </div>
+  <h3 class="display-6">Ingrédients</h3>
+  <p>{{ currentRecette.ingredients }}</p>
+  <h3 class="display-6">Etapes</h3>
+  <p>{{ currentRecette.steps }}</p>
+  <hr>
+  <p>Allergènes : {{ currentRecette.allergens ?? 'aucun' }}</p>
+  <p>Régimes : {{ currentRecette.diets ?? 'tous' }}</p>
+</div>
+
+
+

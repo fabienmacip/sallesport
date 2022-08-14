@@ -8,7 +8,7 @@
           <h5 class="card-title">{{ recette.title }}</h5>
           <h6 class="fw-normal fs-5">Régime(s) : {{ recette.diets }}</h6>
           <p class="card-text">{{ recette.description }}</p>
-          <a href="#" class="btn btn-primary">Voir</a>
+          <a [routerLink]="['/recettes', recette.id]" class="btn btn-primary">Voir</a>
         </div>
       </div>
     </div>

@@ -56,6 +56,17 @@ export class RecettesService {
     })
   }
 
+  getRecetteById(recetteId: string): Promise<Recette> {
+    return new Promise((resolve, reject) => {
+      this.db.database.ref(`recettes/${recetteId}`).once('value', (snapshot, err) => {
+        if(err) {
+          reject(err);
+        }
+        resolve(snapshot.val());
+      });
+    });
+  }
+
   dispatchRecettes() {
     this.recettesSubject.next(this.recettes);
   }
