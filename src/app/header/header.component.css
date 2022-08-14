@@ -4,3 +4,6 @@ a{
 .active-link{
   text-decoration: underline;
 }
+.pointer-cursor{
+  cursor: pointer;
+}
