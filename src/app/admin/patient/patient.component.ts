@@ -46,29 +46,37 @@ export class PatientComponent implements OnInit, OnDestroy {
     });
 
     this.patientsService.getPatients();
-
-    //this.patientsService.dispatchPatients();
   }
-
-
 
   initPatientForm(): void{
     this.patientForm = this.formBuilder.group({
       id: [0],
-      lastName: ['MACIP', [Validators.required, Validators.minLength(2), Validators.maxLength(40)]],
-      firstName: ['Fabien',[Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
-      dob: ['06/05/1977',[Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-      sex: ['M',[Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
-      height: ['169',[Validators.minLength(2), Validators.maxLength(3)]],
-      weight: ['73',[Validators.maxLength(3)]],
+      lastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(40)]],
+      firstName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
+      dob: ['01/01/1999', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      sex: ['M', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
+      height: ['', [Validators.minLength(2), Validators.maxLength(3)]],
+      weight: ['', [Validators.maxLength(3)]],
       email: ['', [Validators.email, Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       passwordConfirm: ['', [Validators.required]]
     })
   }
 
-  onEditPatient(patient: Patient, index: number): void{
-    this.patientForm.setValue({...patient, index});
+  onEditPatient(patient: Patient): void{
+    this.patientForm.setValue({
+      id: patient.id ?? '',
+      firstName : patient.firstName ?? '',
+      lastName: patient.lastName ?? '',
+      email: patient.email,
+      password: patient.password,
+      passwordConfirm: patient.password,
+      dob: patient.dob ?? 0,
+      sex : patient.sex ?? 0,
+      height: patient.height ?? 0,
+      weight: patient.weight ?? '',
+    });
+
   }
 
   onSubmitPatientForm(): void{
@@ -85,18 +93,22 @@ export class PatientComponent implements OnInit, OnDestroy {
         //this.router.navigate(['/admin','dashboard']);
       }).catch(console.error);
 
-
     } else {
       // UPDATE
       delete patient.id;
-      this.patients = this.patientsService.editPatient(patient, patientId);
+      this.patientsService.editTuple(patient, patientId);
     }
 
     this.patientForm.reset();
   }
 
-  onDeletePatient(index: number): void{
-    this.patients = this.patientsService.deletePatient(index);
+  onDeletePatient(patientId?: string): void{
+    if(patientId){
+      this.patientsService.deleteTuple(patientId).catch(console.error);
+    } else {
+      console.error('Un id doit être fourni pour pouvoir supprimer ce patient.');
+    }
+
   }
 
   ngOnDestroy(): void {

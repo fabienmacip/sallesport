@@ -4,6 +4,7 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 /* import { Observable } from 'rxjs'; */
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Patient } from '../interfaces/patient';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class PatientsService {
 
   constructor(
     private db: AngularFireDatabase,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private authService: AuthService
   ) { }
 
   private patients: Patient[] = [];
@@ -50,13 +52,28 @@ export class PatientsService {
     }
   }
 
-  editPatient(patient: Patient, id: number): Patient[]{
-    this.patients[id] = patient;
-    return this.patients;
+  async editTuple(patient: Patient, patientId: string): Promise<Patient>{
+    try {
+      await this.db.list('patients').update(patientId, patient)
+      const tupleIndexToUpdate = this.patients.findIndex(el => el.id === patientId);
+      this.patients[tupleIndexToUpdate] = {...patient, id: patientId};
+      this.dispatchPatients();
+      return {...patient, id: patientId};
+    } catch(error) {
+      throw error;
+    }
   }
 
-  deletePatient(patientIndex: number): Patient[]{
-    this.patients.splice(patientIndex, 1);
-    return this.patients;
+  async deleteTuple(patientId: string): Promise<Patient>{
+    try {
+      const tupleToDeleteIndex = this.patients.findIndex(el => el.id === patientId);
+      const tupleToDelete = this.patients[tupleToDeleteIndex];
+      await this.db.list('patients').remove(patientId);
+      this.patients.splice(tupleToDeleteIndex, 1);
+      this.dispatchPatients();
+      return tupleToDelete;
+    } catch(error) {
+      throw error;
+    }
   }
 }
