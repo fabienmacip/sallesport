@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 /* import { Observable } from 'rxjs'; */
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Patient } from '../interfaces/patient';
@@ -8,80 +10,44 @@ import { Patient } from '../interfaces/patient';
 })
 export class PatientsService {
 
-  constructor() { }
+  constructor(
+    private db: AngularFireDatabase,
+    private storage: AngularFireStorage
+  ) { }
 
-  private patients: Patient[] = [
-    {
-      lastName: 'Dupont',
-      firstName: 'Fabrice',
-      dob: '1989-04-01',
-      sex: 'M',
-      height: 178,
-      weight: 75
-    },    {
-      lastName: 'Bucanon',
-      firstName: 'Michelle',
-      dob: '1979-04-11',
-      sex: 'F',
-      height: 163,
-      weight: 68
-    },    {
-      lastName: 'Roustit',
-      firstName: 'Julien',
-      dob: '1965-11-30',
-      sex: 'M',
-      height: 169,
-      weight: 78
-    },    {
-      lastName: 'Iglesias',
-      firstName: 'Juliette',
-      dob: '2001-02-15',
-      sex: 'F',
-      height: 170,
-      weight: 94
-    }
-  ]
+  private patients: Patient[] = [];
 
-  // Observable de type Subject (observé-observeur)
-  // On peut à la fois s'y abonnner ET émettre des données
-  /* patientsSubject: Subject<Patient[]> = new Subject(); */
   patientsSubject: BehaviorSubject<Patient[]> = new BehaviorSubject(<Patient[]>[]);
 
-/*   getPatients(): Promise<Patient[]>{
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if(this.patients.length === 0){
-          reject(new Error('Aucun patient enregistré'));
-        }
-        resolve(this.patients);
-      }, 2);
-    });
-  } */
-
-/*   getPatients(): Observable<Patient[]>{
-    return new Observable(observer => {
-      if(this.patients.length === 0) {
-        observer.error(new Error('Aucun patient enregistré'));
+  getPatients(){
+    this.db.list('patients').query.limitToLast(10).once('value', snapshot => {
+      const tuplesSnapshotValue = snapshot.val();
+      if(tuplesSnapshotValue){
+        const tuples = Object.keys(tuplesSnapshotValue).map(id => ({id, ...tuplesSnapshotValue[id]}));
+        this.patients = tuples;
       }
-      setTimeout(() => {
-        observer.next(this.patients);
-        observer.complete();
-      },2000)
+      this.dispatchPatients();
     })
   }
- */
 
-  getPatients(){
-
+  getPatientById(){
+    alert('GET Patient by id');
   }
 
   dispatchPatients() {
     this.patientsSubject.next(this.patients);
   }
 
-  createPatient(patient: Patient): Patient[]{
-    this.patients.push(patient);
-    return this.patients;
+  async createTuple(patient: Patient): Promise<Patient>{
+    try {
+       const response = this.db.list('patients').push(patient);
+       const createdTuple = {...patient, id: <string>response.key};
+       this.patients.push(createdTuple);
+       this.dispatchPatients();
+       return createdTuple;
+    } catch(error) {
+      throw error;
+    }
   }
 
   editPatient(patient: Patient, index: number): Patient[]{

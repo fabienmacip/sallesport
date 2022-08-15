@@ -23,7 +23,10 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbar-dropdown">
             <li>
-              <a class="dropdown-item" [routerLink]="['/admin','dashboard']" routerLinkActive="active-link">Tableau de bord</a>
+              <a class="dropdown-item" [routerLink]="['/admin','patients']" routerLinkActive="active-link">Patients</a>
+            </li>
+            <li class="nav-item">
+              <a class="dropdown-item" [routerLink]="['/admin','recettes']" routerLinkActive="active-link">Recettes</a>
             </li>
             <li>
               <a class="dropdown-item" [routerLink]="['/account']" routerLinkActive="active-link">Mon compte</a>
@@ -35,12 +38,6 @@
           </ul>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/admin','dashboard']" routerLinkActive="active-link">Admin</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/admin','recettes']" routerLinkActive="active-link">Recettes</a>
-        </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['contact']" routerLinkActive="active-link">Contact</a>
         </li>

@@ -101,7 +101,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     let patient = this.patientForm.value;
     if(patientIndex == null || patientIndex == undefined){
       delete patient.index;
-      this.patientList = this.patientsService.createPatient(patient);
+   //   this.patientList = this.patientsService.createPatient(patient);
     } else {
       delete patient.index;
       this.patientList = this.patientsService.editPatient(patient, patientIndex);
