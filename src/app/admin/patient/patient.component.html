@@ -61,6 +61,35 @@
               <option value="Protéiné">Protéiné</option>
             </select>
           </div>
+          <div class="form-group mb-3">
+            <div class="form-check">
+              <div>
+                <input type="checkbox" class="form-check-input" id="allergenCacao" formControlName="allergenCacao">
+                <label for="allergenCacao" class="form-check-label">Cacao</label>
+              </div>
+              <div>
+                <input type="checkbox" class="form-check-input" id="allergenCacahuete" formControlName="allergenCacahuete">
+                <label for="allergenCacahuete" class="form-check-label">Cacahuètes</label>
+              </div>
+              <div>
+                <input type="checkbox" class="form-check-input" id="allergenLait" formControlName="allergenLait">
+                <label for="allergenLait" class="form-check-label">Lait</label>
+              </div>
+              <div>
+                <input type="checkbox" class="form-check-input" id="allergenGluten" formControlName="allergenGluten">
+                <label for="allergenGluten" class="form-check-label">Gluten</label>
+              </div>
+            </div>
+          </div>
+          <div class="mb-5" *ngIf="lesChecboxesFonctionnent">
+            Allergènes<br>
+            <div *ngFor="let item of allergens; let i=index" class="form-check form-check-inline">
+              <label>
+                <input type="checkbox" [value]="item.value" (change)="onCbChange($event)" />
+                {{item.name}}
+              </label>
+            </div>
+          </div>
           <div class="d-flex">
             <button class="btn btn-success mx-auto" [disabled]="patientForm.invalid || patientForm.value.password !== patientForm.value.passwordConfirm">Enregistrer</button>
           </div>
