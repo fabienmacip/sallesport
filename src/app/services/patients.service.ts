@@ -50,8 +50,8 @@ export class PatientsService {
     }
   }
 
-  editPatient(patient: Patient, index: number): Patient[]{
-    this.patients[index] = patient;
+  editPatient(patient: Patient, id: number): Patient[]{
+    this.patients[id] = patient;
     return this.patients;
   }
 

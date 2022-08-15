@@ -1,15 +1,5 @@
 <h1>ADMINISTRATION</h1>
 
-<div *ngIf="currentPatient">
-  {{ currentPatient.id }}<br>
-  {{ currentPatient.sex }}<br>
-  {{ currentPatient.firstName }} {{ currentPatient.lastName | uppercase }}<br>
-  {{ currentPatient.dob }}<br>
-  {{ currentPatient.height }} cm<br>
-  {{ currentPatient.weight }} kg
-</div>
-<br><br>
-
 <div class="container py-5">
   <div class="row mb-5">
     <div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto">
@@ -19,7 +9,7 @@
         </h2>
         <hr class="bg-dark mb-5">
         <form [formGroup]="patientForm" (ngSubmit)="onSubmitPatientForm()">
-          <input type="number" formControlName="index" hidden>
+          <input type="number" formControlName="id" hidden>
           <div class="form-group mb-3">
             <label for="lastName">NOM</label>
             <input type="text" id="lastName" class="form-control" formControlName="lastName" appUppercaseInput >

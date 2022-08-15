@@ -38,9 +38,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.currentPatient = this.patientList.find(el => el.id === +<string>patientId);
     } */
 
-    this.initPatientForm();
+  //  this.initPatientForm();
 
-    this.subscription = this.patientsService.patientsSubject.subscribe({
+/*     this.subscription = this.patientsService.patientsSubject.subscribe({
       next: (patients: Patient[]) => {
         this.patientList = patients;
       },
@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.patientsService.dispatchPatients();
 
     console.info(this.patientsService.patientsSubject.value);
-
+ */
     // Avec OBSERVER
     /*     this.subscription = this.patientsService.getPatients().subscribe({
       next: (patients: Patient[]) => {
@@ -79,7 +79,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
 
-
+/*
   initPatientForm(): void{
     this.patientForm = this.formBuilder.group({
       index: [0],
@@ -91,13 +91,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
       weight: ['73',[Validators.maxLength(3)]]
     })
   }
-
+*/
   onEditPatient(patient: Patient, index: number): void{
-    this.patientForm.setValue({...patient, index});
+  //  this.patientForm.setValue({...patient, index});
   }
 
   onSubmitPatientForm(): void{
-    const patientIndex = this.patientForm.value.index;
+/*    const patientIndex = this.patientForm.value.index;
     let patient = this.patientForm.value;
     if(patientIndex == null || patientIndex == undefined){
       delete patient.index;
@@ -108,15 +108,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     //this.patientList.push(this.patientForm.value);
-    this.patientForm.reset();
+    this.patientForm.reset();*/
   }
 
   onDeletePatient(index: number): void{
-    this.patientList = this.patientsService.deletePatient(index);
+    //this.patientList = this.patientsService.deletePatient(index);
   }
 
   ngOnDestroy(): void {
-      this.subscription.unsubscribe();
+   //   this.subscription.unsubscribe();
   }
 
 }

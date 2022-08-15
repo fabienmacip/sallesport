@@ -16,7 +16,7 @@ export class PatientComponent implements OnInit, OnDestroy {
 
   patientForm!: FormGroup;
 
-  patientList: Patient[] = [];
+  patients: Patient[] = [];
 
   currentPatient: any;
 
@@ -38,20 +38,23 @@ export class PatientComponent implements OnInit, OnDestroy {
 
     this.subscription = this.patientsService.patientsSubject.subscribe({
       next: (patients: Patient[]) => {
-        this.patientList = patients;
+        this.patients = patients;
       },
       error: (error) => {
         console.error(error);
       }
     });
-    this.patientsService.dispatchPatients();
+
+    this.patientsService.getPatients();
+
+    //this.patientsService.dispatchPatients();
   }
 
 
 
   initPatientForm(): void{
     this.patientForm = this.formBuilder.group({
-      index: [0],
+      id: [0],
       lastName: ['MACIP', [Validators.required, Validators.minLength(2), Validators.maxLength(40)]],
       firstName: ['Fabien',[Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
       dob: ['06/05/1977',[Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
@@ -86,14 +89,14 @@ export class PatientComponent implements OnInit, OnDestroy {
     } else {
       // UPDATE
       delete patient.id;
-      this.patientList = this.patientsService.editPatient(patient, patientId);
+      this.patients = this.patientsService.editPatient(patient, patientId);
     }
 
     this.patientForm.reset();
   }
 
   onDeletePatient(index: number): void{
-    this.patientList = this.patientsService.deletePatient(index);
+    this.patients = this.patientsService.deletePatient(index);
   }
 
   ngOnDestroy(): void {
