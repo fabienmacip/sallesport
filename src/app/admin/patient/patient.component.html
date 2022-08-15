@@ -50,6 +50,17 @@
             <label for="weight">Poids en kg</label>
             <input type="number" id="weight" class="form-control" formControlName="weight">
           </div>
+          <div class="form-group mb-3">
+            <label for="diet">Régime</label>
+            <select class="form-control" id="diet" formControlName="diet">
+              <option value="">Aucun</option>
+              <option value="Végan">Végan</option>
+              <option value="Végétarien">Végétarien</option>
+              <option value="Paléo">Paléo</option>
+              <option value="Diabète">Diabète</option>
+              <option value="Protéiné">Protéiné</option>
+            </select>
+          </div>
           <div class="d-flex">
             <button class="btn btn-success mx-auto" [disabled]="patientForm.invalid || patientForm.value.password !== patientForm.value.passwordConfirm">Enregistrer</button>
           </div>

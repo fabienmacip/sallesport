@@ -8,4 +8,5 @@ export interface Patient {
   sex: string;
   height?: number;
   weight?: number;
+  diet?: string;
 }

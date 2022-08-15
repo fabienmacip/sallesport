@@ -57,6 +57,7 @@ export class PatientComponent implements OnInit, OnDestroy {
       sex: ['M', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
       height: ['', [Validators.minLength(2), Validators.maxLength(3)]],
       weight: ['', [Validators.maxLength(3)]],
+      diet: [''],
       email: ['', [Validators.email, Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       passwordConfirm: ['', [Validators.required]]
@@ -75,6 +76,7 @@ export class PatientComponent implements OnInit, OnDestroy {
       sex : patient.sex ?? 0,
       height: patient.height ?? 0,
       weight: patient.weight ?? '',
+      diet: patient.diet ?? ''
     });
 
   }

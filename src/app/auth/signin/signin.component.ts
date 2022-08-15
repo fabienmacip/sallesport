@@ -32,7 +32,7 @@ export class SigninComponent implements OnInit {
   onSubmitSigninForm(): void {
     this.authService.signinUser(this.signinForm.value.email, this.signinForm.value.password)
     .then(() => {
-      this.router.navigate(['/admin','dashboard']);
+      this.router.navigate(['home']);
     }).catch(console.error);
   }
 }
