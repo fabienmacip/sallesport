@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 /* import { DashboardComponent } from './admin/dashboard/dashboard.component'; */
 import { ContactComponent } from './contact/contact.component';
+import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component';
 import { PolitiqueConfidentialiteComponent } from './politique-confidentialite/politique-confidentialite.component';
@@ -11,9 +12,9 @@ const routes: Routes = [
   /* { path: 'admin/:id', component: DashboardComponent }, */
   /* { path: 'admin/patients/:id', component: DashboardComponent }, */
   /* { path: 'admin', component: DashboardComponent, loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) }, */
-  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
+  { path: 'admin', canActivate: [AuthGuard], loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
-  { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
+  { path: 'account', canActivate: [AuthGuard], loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
   { path: 'recettes', loadChildren: () => import('./recettes/recettes.module').then(m => m.RecettesModule) },
   /* { path: 'recettes', component: RecettesComponent}, */
   { path: 'contact', component: ContactComponent},
