@@ -17,7 +17,7 @@
     <div class="col-12 col-md-6 col-lg-4 col-xl-3 mx-auto py-2" *ngFor="let recette of recettes">
       <div class="card">
         <img [src]="recette.photo" alt="Photo de la recette" class="card-img-top">
-        <div class="card-body">
+        <div class="card-body"  [ngClass]="recette.patientsOnlyCheck ? 'patientsOnly' : ''">
           <h5 class="card-title">{{ recette.title }}</h5>
           <h6 class="fw-normal fs-5">Régime(s) : {{ recette.diets }}</h6>
           <p class="card-text">{{ recette.description }}</p>

@@ -10,4 +10,5 @@ export interface Recette {
   steps?: string;
   allergens?: string;
   diets? : string;
+  patientsOnlyCheck?: boolean;
 }

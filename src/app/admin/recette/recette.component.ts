@@ -59,7 +59,8 @@ export class RecetteComponent implements OnInit, OnDestroy {
       ingredients: ['200 g de pois-chiches, 3 cuillères d\'huile, 1 pincée de sel',[Validators.maxLength(300)]],
       steps: ['1. Hacher les pois-chiches // 2. Ajouter l\'huile et le sel // 3. Mélanger',[Validators.maxLength(300)]],
       allergens: ['aucun',[Validators.maxLength(150)]],
-      diets: ['vegan, végétarien, végétalien, protéiné', [Validators.maxLength(150)]]
+      diets: ['vegan, végétarien, végétalien, protéiné', [Validators.maxLength(150)]],
+      patientsOnlyCheck: [false]
     })
   }
 
@@ -85,7 +86,8 @@ export class RecetteComponent implements OnInit, OnDestroy {
       ingredients: recette.ingredients ?? '',
       steps : recette.steps ?? '',
       allergens: recette.allergens ?? '',
-      diets : recette.diets ?? ''
+      diets : recette.diets ?? '',
+      patientsOnlyCheck: recette.patientsOnlyCheck ?? false
     });
   }
 

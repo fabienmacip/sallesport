@@ -1,4 +1,4 @@
-<div class="container py-5" *ngIf="currentRecette">
+<div class="container py-5" *ngIf="currentRecette" [ngClass]="currentRecette.patientsOnlyCheck ? 'patientsOnly' : ''">
   <h1 class="display-5">{{ currentRecette.title }}</h1>
   <div class="row">
     <div class="col-12 col-md-8 col-lg-6 col-xl-4">
