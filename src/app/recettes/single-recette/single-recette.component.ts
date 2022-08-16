@@ -47,7 +47,7 @@ export class SingleRecetteComponent implements OnInit, OnDestroy {
       }
     })
 
-    this.commentairesService.getCommentaires();
+    this.commentairesService.getCommentaires(<string>recetteId);
 
     this.initCommentaireForm(<string>recetteId, 'inconnu');
 

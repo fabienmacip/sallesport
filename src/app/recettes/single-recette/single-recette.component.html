@@ -33,6 +33,27 @@
   </p>
 </div>
 
+<div class="container py-5">
+  <h2 class="display-5 text-dark">Commentaires</h2>
+  <hr class="bg-dark mb-5">
+  <div class="row">
+    <div *ngIf="commentaires.length > 0; else aucuncom">
+      <div *ngFor="let com of commentaires" class="col-12 col-md-6 col-lg-4 col-xl-3 py-2">
+        <div class="card p-3">
+          {{ com.description }}
+        </div>
+      </div>
+    </div>
+    <ng-template #aucuncom>
+      <div class="col-12 col-md-6 col-lg-4 col-xl-3 py-2">
+        <div class="card p-3">
+          Aucun commentaire pour le moment.
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
 
 <div class="container py-5">
   <div class="row mb-5">

@@ -17,11 +17,12 @@ export class CommentairesService {
   private commentaires: Commentaire[] = [];
   commentairesSubject: BehaviorSubject<Commentaire[]> = new BehaviorSubject(<Commentaire[]>[]);
 
-  getCommentaires(): void{
+  getCommentaires(recetteId: string = ''): void{
     this.db.list('commentaires').query.limitToLast(20).once('value', snapshot => {
       const commentsSnapshotValue = snapshot.val();
       if(commentsSnapshotValue){
-        const comments = Object.keys(commentsSnapshotValue).map(id => ({id, ...commentsSnapshotValue[id]}));
+        let comments = Object.keys(commentsSnapshotValue).map(id => ({id, ...commentsSnapshotValue[id]}));
+        comments = comments.filter(e => e.idRecette == recetteId);
         this.commentaires = comments;
       }
       this.dispatchCommentaires();
