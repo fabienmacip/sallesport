@@ -5,10 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 
-import { RecetteListComponent } from './recette-list/recette-list.component';
-import { RegimeListComponent } from './regime-list/regime-list.component';
+/* import { RecetteListComponent } from './recette-list/recette-list.component'; */
+/* import { RegimeListComponent } from './regime-list/regime-list.component'; */
 import { PatientListComponent } from './patient-list/patient-list.component';
-import { AllergeneListComponent } from './allergene-list/allergene-list.component';
+/* import { AllergeneListComponent } from './allergene-list/allergene-list.component'; */
 import { RecetteComponent } from './admin/recette/recette.component';
 import { RegimeComponent } from './admin/regime/regime.component';
 import { AllergeneComponent } from './admin/allergene/allergene.component';
@@ -40,10 +40,10 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
   declarations: [
     AppComponent,
     HeaderComponent,
-    RecetteListComponent,
-    RegimeListComponent,
+    /* RecetteListComponent, */
+    /* RegimeListComponent, */
     PatientListComponent,
-    AllergeneListComponent,
+    /* AllergeneListComponent, */
     /* RecetteComponent, */
     RegimeComponent,
     AllergeneComponent,

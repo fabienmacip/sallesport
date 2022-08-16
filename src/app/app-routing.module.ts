@@ -9,14 +9,10 @@ import { PolitiqueConfidentialiteComponent } from './politique-confidentialite/p
 import { RecettesComponent } from './recettes/recettes.component';
 
 const routes: Routes = [
-  /* { path: 'admin/:id', component: DashboardComponent }, */
-  /* { path: 'admin/patients/:id', component: DashboardComponent }, */
-  /* { path: 'admin', component: DashboardComponent, loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) }, */
   { path: 'admin', canActivate: [AuthGuard], loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
   { path: 'account', canActivate: [AuthGuard], loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
   { path: 'recettes', loadChildren: () => import('./recettes/recettes.module').then(m => m.RecettesModule) },
-  /* { path: 'recettes', component: RecettesComponent}, */
   { path: 'contact', component: ContactComponent},
   { path: 'mentions-legales', component: MentionsLegalesComponent},
   { path: 'politique-confidentialite', component: PolitiqueConfidentialiteComponent},

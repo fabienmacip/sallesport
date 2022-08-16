@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { RecettesRoutingModule } from './recettes-routing.module';
 import { SingleRecetteComponent } from './single-recette/single-recette.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { SingleRecetteComponent } from './single-recette/single-recette.componen
   ],
   imports: [
     CommonModule,
-    RecettesRoutingModule
+    RecettesRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class RecettesModule { }

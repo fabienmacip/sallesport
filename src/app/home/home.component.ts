@@ -76,16 +76,16 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     if(connecte){
       this.recettesService.getRecettesPatient(
-        this.currentPatient[0].allergenCacahuete,
-        this.currentPatient[0].allergenCacao,
-        this.currentPatient[0].allergenGluten,
-        this.currentPatient[0].allergenLait,
-        this.currentPatient[0].dietNormal,
-        this.currentPatient[0].dietDiabete,
-        this.currentPatient[0].dietPaleo,
-        this.currentPatient[0].dietProteine,
-        this.currentPatient[0].dietVegan,
-        this.currentPatient[0].dietVegetarien
+        this.currentPatient[0]?.allergenCacahuete,
+        this.currentPatient[0]?.allergenCacao,
+        this.currentPatient[0]?.allergenGluten,
+        this.currentPatient[0]?.allergenLait,
+        this.currentPatient[0]?.dietNormal,
+        this.currentPatient[0]?.dietDiabete,
+        this.currentPatient[0]?.dietPaleo,
+        this.currentPatient[0]?.dietProteine,
+        this.currentPatient[0]?.dietVegan,
+        this.currentPatient[0]?.dietVegetarien
         );
     } else {
       this.recettesService.getRecettes();
