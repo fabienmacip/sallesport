@@ -57,9 +57,19 @@ export class RecetteComponent implements OnInit, OnDestroy {
       breakTime: [30,[Validators.maxLength(3)]],
       cookingTime: [5,[Validators.maxLength(3)]],
       ingredients: ['200 g de pois-chiches, 3 cuillères d\'huile, 1 pincée de sel',[Validators.maxLength(300)]],
-      steps: ['1. Hacher les pois-chiches // 2. Ajouter l\'huile et le sel // 3. Mélanger',[Validators.maxLength(300)]],
-      allergens: ['aucun',[Validators.maxLength(150)]],
-      diets: ['vegan, végétarien, végétalien, protéiné', [Validators.maxLength(150)]],
+      steps: ['1. Hacher les pois-chiches // 2. Ajouter l\'huile et le sel // 3. Mélanger',[Validators.maxLength(600)]],
+      /* allergens: ['aucun',[Validators.maxLength(150)]],
+      diets: ['vegan, végétarien, végétalien, protéiné', [Validators.maxLength(150)]], */
+      allergenCacao: [''],
+      allergenLait: [''],
+      allergenCacahuete: [''],
+      allergenGluten: [''],
+      dietNormal: [''],
+      dietVegan: [''],
+      dietVegetarien: [''],
+      dietPaleo: [''],
+      dietDiabete: [''],
+      dietProteine: [''],
       patientsOnlyCheck: [false]
     })
   }
@@ -85,8 +95,16 @@ export class RecetteComponent implements OnInit, OnDestroy {
       cookingTime: recette.cookingTime ?? 0,
       ingredients: recette.ingredients ?? '',
       steps : recette.steps ?? '',
-      allergens: recette.allergens ?? '',
-      diets : recette.diets ?? '',
+      allergenCacao : recette.allergenCacao ?? false,
+      allergenLait : recette.allergenLait ?? false,
+      allergenCacahuete : recette.allergenCacahuete ?? false,
+      allergenGluten : recette.allergenGluten ?? false,
+      dietNormal : recette.dietNormal ?? false,
+      dietVegan : recette.dietVegan ?? false,
+      dietVegetarien : recette.dietVegetarien ?? false,
+      dietPaleo : recette.dietPaleo ?? false,
+      dietDiabete : recette.dietDiabete ?? false,
+      dietProteine : recette.dietProteine ?? false,
       patientsOnlyCheck: recette.patientsOnlyCheck ?? false
     });
   }

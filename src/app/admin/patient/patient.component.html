@@ -5,7 +5,7 @@
     <div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto">
       <div class="bg-white shadow rounded p-4">
         <h2 class="display-5 text-dark">
-          Enregistrer un nouveau patient
+          {{ titrePage }}
         </h2>
         <hr class="bg-dark mb-5">
         <form [formGroup]="patientForm" (ngSubmit)="onSubmitPatientForm()">
@@ -50,18 +50,48 @@
             <label for="weight">Poids en kg</label>
             <input type="number" id="weight" class="form-control" formControlName="weight">
           </div>
-          <div class="form-group mb-3">
+<!--           <div class="form-group mb-3">
             <label for="diet">Régime</label>
             <select class="form-control" id="diet" formControlName="diet">
-              <option value="">Aucun</option>
+              <option value="Normal">Normal</option>
               <option value="Végan">Végan</option>
               <option value="Végétarien">Végétarien</option>
               <option value="Paléo">Paléo</option>
               <option value="Diabète">Diabète</option>
               <option value="Protéiné">Protéiné</option>
             </select>
+          </div> -->
+          <div class="form-group mb-3">
+            <b>Régime</b>
+              <div class="form-check">
+                <div>
+                  <input type="checkbox" class="form-check-input" id="dietNormal" formControlName="dietNormal">
+                  <label for="dietNormal" class="form-check-label">Normal</label>
+                </div>
+                <div>
+                  <input type="checkbox" class="form-check-input" id="dietVegan" formControlName="dietVegan">
+                  <label for="dietVegan" class="form-check-label">Végan</label>
+                </div>
+                <div>
+                  <input type="checkbox" class="form-check-input" id="dietVegetarien" formControlName="dietVegetarien">
+                  <label for="dietVegetarien" class="form-check-label">Végétarien</label>
+                </div>
+                <div>
+                  <input type="checkbox" class="form-check-input" id="dietPaleo" formControlName="dietPaleo">
+                  <label for="dietPaleo" class="form-check-label">Paléo</label>
+                </div>
+                <div>
+                  <input type="checkbox" class="form-check-input" id="dietDiabete" formControlName="dietDiabete">
+                  <label for="dietDiabete" class="form-check-label">Diabète</label>
+                </div>
+                <div>
+                  <input type="checkbox" class="form-check-input" id="dietProteine" formControlName="dietProteine">
+                  <label for="dietProteine" class="form-check-label">Protéiné</label>
+                </div>
+              </div>
           </div>
           <div class="form-group mb-3">
+            <b>Allergies</b>
             <div class="form-check">
               <div>
                 <input type="checkbox" class="form-check-input" id="allergenCacao" formControlName="allergenCacao">

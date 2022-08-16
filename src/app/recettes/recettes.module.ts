@@ -4,10 +4,9 @@ import { CommonModule } from '@angular/common';
 import { RecettesRoutingModule } from './recettes-routing.module';
 import { SingleRecetteComponent } from './single-recette/single-recette.component';
 
-
 @NgModule({
   declarations: [
-    SingleRecetteComponent
+    SingleRecetteComponent,
   ],
   imports: [
     CommonModule,

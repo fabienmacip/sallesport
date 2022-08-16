@@ -30,6 +30,8 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+
+/* import { StepsPipe } from './pipes/steps.pipe'; */
 /* import { SafeUrlPipe } from './pipes/safe-url.pipe'; */
 
 
@@ -51,6 +53,8 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     MentionsLegalesComponent,
     PolitiqueConfidentialiteComponent,
     HomeComponent,
+
+    /* StepsPipe */
     /* SafeUrlPipe */
   ],
   imports: [

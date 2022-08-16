@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SafeUrlPipe } from './safe-url.pipe';
-
 @NgModule({
   declarations: [
-    SafeUrlPipe
+    SafeUrlPipe,
   ],
   imports: [
     CommonModule,
   ],
   exports: [
-    SafeUrlPipe
+    SafeUrlPipe,
   ]
 })
 export class PipesModule { }

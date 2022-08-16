@@ -9,6 +9,12 @@ export interface Patient {
   height?: number;
   weight?: number;
   diet?: string;
+  dietNormal? : boolean;
+  dietVegan? : boolean;
+  dietVegetarien? : boolean;
+  dietPaleo? : boolean;
+  dietDiabete? : boolean;
+  dietProteine? : boolean;
   allergenCacao? : string;
   allergenLait? : string;
   allergenCacahuete? : string;

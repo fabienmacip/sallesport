@@ -23,7 +23,7 @@
           </div>
           <div class="form-group mb-3">
             <label for="description">Description</label>
-            <textarea id="description" class="w-100 form-control" rows="10" formControlName="description"></textarea>
+            <textarea id="description" class="w-100 form-control" rows="6" formControlName="description"></textarea>
           </div>
           <div class="form-group mb-3">
             <label for="preparationTime">Temps de préparation</label>
@@ -43,17 +43,60 @@
           </div>
           <div class="form-group mb-3">
             <label for="steps">Etapes</label>
-            <input type="text" id="steps" class="form-control" formControlName="steps">
+            <textarea id="steps" class="w-100 form-control" rows="10" formControlName="steps"></textarea>
           </div>
           <div class="form-group mb-3">
-            <label for="allergens">Allergènes</label>
-            <input type="text" id="allergens" class="form-control" formControlName="allergens">
+            <b>Régime</b>
+              <div class="form-check">
+                <div>
+                  <input type="checkbox" class="form-check-input" id="dietNormal" formControlName="dietNormal">
+                  <label for="dietNormal" class="form-check-label">Normal</label>
+                </div>
+                <div>
+                  <input type="checkbox" class="form-check-input" id="dietVegan" formControlName="dietVegan">
+                  <label for="dietVegan" class="form-check-label">Végan</label>
+                </div>
+                <div>
+                  <input type="checkbox" class="form-check-input" id="dietVegetarien" formControlName="dietVegetarien">
+                  <label for="dietVegetarien" class="form-check-label">Végétarien</label>
+                </div>
+                <div>
+                  <input type="checkbox" class="form-check-input" id="dietPaleo" formControlName="dietPaleo">
+                  <label for="dietPaleo" class="form-check-label">Paléo</label>
+                </div>
+                <div>
+                  <input type="checkbox" class="form-check-input" id="dietDiabete" formControlName="dietDiabete">
+                  <label for="dietDiabete" class="form-check-label">Diabète</label>
+                </div>
+                <div>
+                  <input type="checkbox" class="form-check-input" id="dietProteine" formControlName="dietProteine">
+                  <label for="dietProteine" class="form-check-label">Protéiné</label>
+                </div>
+              </div>
           </div>
           <div class="form-group mb-3">
-            <label for="diets">Régimes alimentaires</label>
-            <input type="text" id="diets" class="form-control" formControlName="diets">
+            <b>Allergies</b>
+            <div class="form-check">
+              <div>
+                <input type="checkbox" class="form-check-input" id="allergenCacao" formControlName="allergenCacao">
+                <label for="allergenCacao" class="form-check-label">Cacao</label>
+              </div>
+              <div>
+                <input type="checkbox" class="form-check-input" id="allergenCacahuete" formControlName="allergenCacahuete">
+                <label for="allergenCacahuete" class="form-check-label">Cacahuètes</label>
+              </div>
+              <div>
+                <input type="checkbox" class="form-check-input" id="allergenLait" formControlName="allergenLait">
+                <label for="allergenLait" class="form-check-label">Lait</label>
+              </div>
+              <div>
+                <input type="checkbox" class="form-check-input" id="allergenGluten" formControlName="allergenGluten">
+                <label for="allergenGluten" class="form-check-label">Gluten</label>
+              </div>
+            </div>
           </div>
-          <div class="form-check">
+          <hr>
+          <div class="form-check mb-3">
             <input type="checkbox" class="form-check-input" id="patientsOnlyCheck" formControlName="patientsOnlyCheck">
             <label for="patientsOnlyCheck" class="form-check-label">Réservée au patients uniquement</label>
           </div>
@@ -77,8 +120,9 @@
             <th scope="col">Titre</th>
             <th scope="col">Description</th>
             <th scope="col">Durées</th>
-            <th scope="col">Ingrédients & Etapes</th>
-            <th scope="col">Allergènes & Régimes</th>
+            <th scope="col">Ingrédients</th>
+            <th scope="col">Allergènes</th>
+            <th scope="col">Régimes</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -91,8 +135,21 @@
             <td>{{ recette.title }}</td>
             <td>{{ recette.description }}</td>
             <td>{{ recette.preparationTime }} - {{ recette.breakTime }} - {{ recette.cookingTime }}</td>
-            <td>{{ recette.ingredients }}<br><br>{{ recette.steps }}</td>
-            <td>{{ recette.allergens }}<br>{{ recette.diets }}</td>
+            <td>{{ recette.ingredients }}</td>
+            <td>
+              {{ recette.allergenCacao ? 'Cacao, ' : '' }}
+              {{ recette.allergenLait ? 'Lait, ' : '' }}
+              {{ recette.allergenCacahuete ? 'Cacahuètes, ' : '' }}
+              {{ recette.allergenGluten ? 'Gluten, ' : '' }}
+            </td>
+            <td>
+              {{ recette.dietVegan ? 'Normal, ' : '' }}
+              {{ recette.dietVegan ? 'Végan, ' : '' }}
+              {{ recette.dietVegetarien ? 'Végétarien, ' : '' }}
+              {{ recette.dietPaleo ? 'Paléo, ' : '' }}
+              {{ recette.dietDiabete ? 'Diabète, ' : '' }}
+              {{ recette.dietProteine ? 'Protéiné, ' : '' }}
+            </td>
             <td>
               <button class="btn btn-primary" type="button" (click)="onEditRecette(recette)">Modifier</button>
               <button class="btn btn-danger" type="button" (click)="onDeleteRecette(recette.id)">Supprimer</button>

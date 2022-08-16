@@ -6,7 +6,7 @@ import { RecettesService } from 'src/app/services/recettes.service';
 @Component({
   selector: 'app-single-recette',
   templateUrl: './single-recette.component.html',
-  styleUrls: ['./single-recette.component.css']
+  styleUrls: ['./single-recette.component.css'],
 })
 export class SingleRecetteComponent implements OnInit {
 
@@ -20,8 +20,13 @@ export class SingleRecetteComponent implements OnInit {
   ngOnInit(): void {
     const recetteId = this.activatedRoute.snapshot.paramMap.get('id');
     this.recettesService.getRecetteById(<string>recetteId)
-    .then(recette => this.currentRecette = recette)
-    .catch(console.error)
+    .then(recette => {
+      console.log(recette.steps);
+      this.currentRecette = recette;
+    })
+    .catch(console.error);
+
+
   }
 
 }

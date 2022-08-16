@@ -15,10 +15,10 @@
   <h3 class="display-6">Ingrédients</h3>
   <p>{{ currentRecette.ingredients }}</p>
   <h3 class="display-6">Etapes</h3>
-  <p>{{ currentRecette.steps }}</p>
+  <p class="white-space-pre">{{ currentRecette.steps }}</p>
   <hr>
-  <p>Allergènes : {{ currentRecette.allergens ?? 'aucun' }}</p>
-  <p>Régimes : {{ currentRecette.diets ?? 'tous' }}</p>
+  <p>Allergènes : {{ currentRecette.allergenCacao ?? 'aucun' }}</p>
+  <p>Régimes : {{ currentRecette.dietVegan ?? 'tous' }}</p>
 </div>
 
 

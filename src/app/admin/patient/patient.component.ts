@@ -22,6 +22,8 @@ export class PatientComponent implements OnInit, OnDestroy {
 
   subscription! : Subscription;
 
+  titrePage: string = 'Enregistrer un nouveau patient';
+
   lesChecboxesFonctionnent = false; // Utilisé pour savoir si on affiche les checkboxes comme indiqué ici :
   // https://remotestack.io/angular-checkboxes-tutorial-example/
 
@@ -65,12 +67,17 @@ export class PatientComponent implements OnInit, OnDestroy {
       sex: ['M', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
       height: ['', [Validators.minLength(2), Validators.maxLength(3)]],
       weight: ['', [Validators.maxLength(3)]],
-      diet: [''],
       /* allergens: this.formBuilder.array([], [Validators.required]), */
       allergenCacao: [''],
       allergenLait: [''],
       allergenCacahuete: [''],
       allergenGluten: [''],
+      dietNormal: [''],
+      dietVegan: [''],
+      dietVegetarien: [''],
+      dietPaleo: [''],
+      dietDiabete: [''],
+      dietProteine: [''],
       email: ['', [Validators.email, Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       passwordConfirm: ['', [Validators.required]]
@@ -96,6 +103,8 @@ export class PatientComponent implements OnInit, OnDestroy {
 
 
   onEditPatient(patient: Patient): void{
+    this.titrePage = 'Modifier un patient';
+
     this.patientForm.setValue({
       id: patient.id ?? '',
       firstName : patient.firstName ?? '',
@@ -107,11 +116,16 @@ export class PatientComponent implements OnInit, OnDestroy {
       sex : patient.sex ?? 0,
       height: patient.height ?? 0,
       weight: patient.weight ?? '',
-      diet: patient.diet ?? '',
-      allergenCacao: patient.allergenCacao ?? '',
-      allergenLait: patient.allergenLait ?? '',
-      allergenCacahuete: patient.allergenCacahuete ?? '',
-      allergenGluten : patient.allergenGluten ?? ''
+      dietNormal : patient.dietNormal ?? false,
+      dietVegan : patient.dietVegan ?? false,
+      dietVegetarien : patient.dietVegetarien ?? false,
+      dietPaleo : patient.dietPaleo ?? false,
+      dietDiabete : patient.dietDiabete ?? false,
+      dietProteine : patient.dietProteine ?? false,
+      allergenCacao: patient.allergenCacao ?? false,
+      allergenLait: patient.allergenLait ?? false,
+      allergenCacahuete: patient.allergenCacahuete ?? false,
+      allergenGluten : patient.allergenGluten ?? false
     });
 
   }
@@ -137,6 +151,7 @@ export class PatientComponent implements OnInit, OnDestroy {
     }
 
     this.patientForm.reset();
+    this.titrePage = 'Enregistrer un nouveau patient';
   }
 
   onDeletePatient(patientId?: string): void{

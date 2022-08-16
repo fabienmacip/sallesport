@@ -8,7 +8,18 @@ export interface Recette {
   cookingTime?: number;
   ingredients? : string;
   steps?: string;
-  allergens?: string;
-  diets? : string;
+  allergenCacao? : string;
+  allergenLait? : string;
+  allergenCacahuete? : string;
+  allergenGluten? : string;
+  dietNormal? : boolean;
+  dietVegan? : boolean;
+  dietVegetarien? : boolean;
+  dietPaleo? : boolean;
+  dietDiabete? : boolean;
+  dietProteine? : boolean;
   patientsOnlyCheck?: boolean;
 }
+
+
+
