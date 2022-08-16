@@ -15,8 +15,8 @@ export interface Patient {
   dietPaleo? : boolean;
   dietDiabete? : boolean;
   dietProteine? : boolean;
-  allergenCacao? : string;
-  allergenLait? : string;
-  allergenCacahuete? : string;
-  allergenGluten? : string;
+  allergenCacao? : boolean;
+  allergenLait? : boolean;
+  allergenCacahuete? : boolean;
+  allergenGluten? : boolean;
 }

@@ -1,0 +1,17 @@
+.infos{
+  padding: 1px 5px;
+
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+}
+
+.green-ng-template{
+  background-color: rgb(158, 255, 158);
+}
+
+.red-ng-template{
+  background-color: rgb(255, 151, 151);
+}

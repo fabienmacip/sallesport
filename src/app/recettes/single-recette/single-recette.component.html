@@ -17,8 +17,21 @@
   <h3 class="display-6">Etapes</h3>
   <p class="white-space-pre">{{ currentRecette.steps }}</p>
   <hr>
-  <p>Allergènes : {{ currentRecette.allergenCacao ?? 'aucun' }}</p>
-  <p>Régimes : {{ currentRecette.dietVegan ?? 'tous' }}</p>
+  <p>Allergènes :
+    {{ currentRecette.allergenCacao ? 'Cacao, ' : '' }}
+    {{ currentRecette.allergenLait ? 'Lait, ' : '' }}
+    {{ currentRecette.allergenCacahuete ? 'Cacahuètes, ' : '' }}
+    {{ currentRecette.allergenGluten ? 'Gluten, ' : '' }}
+  </p>
+  <p>Régimes :
+    {{ currentRecette.dietVegan ? 'Normal, ' : '' }}
+    {{ currentRecette.dietVegan ? 'Végan, ' : '' }}
+    {{ currentRecette.dietVegetarien ? 'Végétarien, ' : '' }}
+    {{ currentRecette.dietPaleo ? 'Paléo, ' : '' }}
+    {{ currentRecette.dietDiabete ? 'Diabète, ' : '' }}
+    {{ currentRecette.dietProteine ? 'Protéiné, ' : '' }}
+
+  </p>
 </div>
 
 

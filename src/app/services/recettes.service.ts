@@ -21,10 +21,35 @@ export class RecettesService {
   recettesSubject: BehaviorSubject<Recette[]> = new BehaviorSubject(<Recette[]>[]);
 
   getRecettes(): void{
-    this.db.list('recettes').query.limitToLast(10).once('value', snapshot => {
+    this.db.list('recettes').query.limitToLast(20).once('value', snapshot => {
       const recettesSnapshotValue = snapshot.val();
       if(recettesSnapshotValue){
         const recettes = Object.keys(recettesSnapshotValue).map(id => ({id, ...recettesSnapshotValue[id]}));
+        this.recettes = recettes;
+      }
+      this.dispatchRecettes();
+    })
+  }
+
+  getRecettesPatient(allergenCacahuete: boolean = false, allergenCacao: boolean = false,
+    allergenGluten: boolean = false, allergenLait: boolean = false,
+    dietNormal: boolean = false, dietDiabete: boolean = false,
+    dietPaleo: boolean = false, dietProteine: boolean = false,
+    dietVegan: boolean = false, dietVegetarien: boolean = false): void{
+    this.db.list('recettes').query.limitToLast(20).once('value', snapshot => {
+      const recettesSnapshotValue = snapshot.val();
+      if(recettesSnapshotValue){
+        let recettes = Object.keys(recettesSnapshotValue).map(id => ({id, ...recettesSnapshotValue[id]}));
+        recettes = allergenCacahuete ? recettes.filter(e => !e.allergenCacahuete) : recettes;
+        recettes = allergenCacao ? recettes.filter(e => !e.allergenCacao) : recettes;
+        recettes = allergenGluten ? recettes.filter(e => !e.allergenGluten) : recettes;
+        recettes = allergenLait ? recettes.filter(e => !e.allergenLait) : recettes;
+        recettes = recettes.filter(e => e.dietNormal && dietNormal ||
+                                        e.dietDiabete && dietDiabete ||
+                                        e.dietPaleo && dietPaleo ||
+                                        e.dietProteine && dietProteine ||
+                                        e.dietVegan && dietVegan ||
+                                        e.dietVegetarien && dietVegetarien);
         this.recettes = recettes;
       }
       this.dispatchRecettes();

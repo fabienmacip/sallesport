@@ -36,6 +36,18 @@ export class PatientsService {
     alert('GET Patient by id');
   }
 
+/*   getPatientByEmail(email: string): Promise<Patient> {
+    return new Promise((resolve, reject) => {
+      this.db.database.ref(`patients/${patientId}`).once('value', (snapshot, err) => {
+        if(err) {
+          reject(err);
+        }
+        resolve(snapshot.val());
+      });
+    });
+
+  } */
+
   dispatchPatients() {
     this.patientsSubject.next(this.patients);
   }

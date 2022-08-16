@@ -133,9 +133,9 @@
               <img *ngIf="recette.photo" [src]="recette.photo | safeUrl" alt="Photo de la recette" width="90">
             </td>
             <td>{{ recette.title }}</td>
-            <td>{{ recette.description }}</td>
+            <td>{{ (recette.description && recette.description.length > 50) ? (recette.description | slice:0:40) + '...' : recette.description }}</td>
             <td>{{ recette.preparationTime }} - {{ recette.breakTime }} - {{ recette.cookingTime }}</td>
-            <td>{{ recette.ingredients }}</td>
+            <td>{{ (recette.ingredients && recette.ingredients.length > 50) ? (recette.ingredients | slice:0:40) + '...' : recette.ingredients }}</td>
             <td>
               {{ recette.allergenCacao ? 'Cacao, ' : '' }}
               {{ recette.allergenLait ? 'Lait, ' : '' }}
@@ -161,3 +161,6 @@
   </div>
 
 </div>
+
+
+

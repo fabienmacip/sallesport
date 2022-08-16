@@ -152,6 +152,7 @@ export class PatientComponent implements OnInit, OnDestroy {
 
     this.patientForm.reset();
     this.titrePage = 'Enregistrer un nouveau patient';
+
   }
 
   onDeletePatient(patientId?: string): void{

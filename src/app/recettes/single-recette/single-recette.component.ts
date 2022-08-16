@@ -21,12 +21,9 @@ export class SingleRecetteComponent implements OnInit {
     const recetteId = this.activatedRoute.snapshot.paramMap.get('id');
     this.recettesService.getRecetteById(<string>recetteId)
     .then(recette => {
-      console.log(recette.steps);
       this.currentRecette = recette;
     })
     .catch(console.error);
-
-
   }
 
 }
