@@ -60,7 +60,7 @@ export class SingleRecetteComponent implements OnInit, OnDestroy {
       idRecette: idRecett ?? '',
       prenom: prenom ?? '',
       description: ['',[Validators.minLength(2), Validators.required]],
-      note : [0, [Validators.max(5), Validators.min(0)]]
+      note : [0, [Validators.max(5), Validators.min(0), Validators.maxLength(1)]]
     })
   }
 
