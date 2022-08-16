@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   recettesSubscription!: Subscription;
   recettes: Recette[] = [];
-  recettesForThisPatient: Recette[] = [];
+  //recettesForThisPatient: Recette[] = [];
   currentUserSubscription!: Subscription;
   currentUser!: User;
   currentPatientEmail!: string;
@@ -50,6 +50,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.patientsService.getPatients();
     this.currentPatientEmail = <string>this.authService.currentUserSubject.value?.email ?? '';
+
     if(this.currentPatientEmail !== '' && this.currentPatientEmail !== 'fabien.macip@gmail.com'){
       this.currentPatient = this.patients.filter(e => e.email === this.currentPatientEmail);
       this.initRecettes(true);
