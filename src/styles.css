@@ -1,6 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.min.css";
 
+*{
+  --green : #609A7D;
+  --red : #DC9A7D;
+  --white : #F3F3F7;
+  --grey: #BDB9B3;
+  --black: #0C0920;
+}
+
+
 .patientsOnly{
   background-color: lightblue;
+}
+
+*{
+  font-family: 'Noto Sans', sans-serif;
+  color: var(--black);
+  /* background-color: var(--white); */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Baloo Bhaina 2', cursive;
+  color: var(--grey);
+}
+
+body{
+  background-color: var(--white);
+}
+
+nav{
+  background-color: var(--grey);
+}
+
+.signature{
+  font-family: 'Reenie Beanie', cursive;
+  font-size: 1.5rem;
+}
+
+.btn-primary{
+  --bs-btn-bg: #609A7D;
+  --bs-btn-border-color: #609A7D;
 }

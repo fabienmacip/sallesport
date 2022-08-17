@@ -41,7 +41,7 @@
       <div *ngFor="let com of commentaires" class="col-12 col-md-6 col-lg-4 col-xl-3 py-2">
         <div class="card p-3 white-space-pre">
           <div>
-            {{ com.prenom }}
+            <span class="signature">{{ com.prenom }}</span>
           </div>
           <div *ngIf="com.note == 0">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
@@ -189,13 +189,3 @@
     </div>
   </div>
 
-
-
-<!--
-id
-idRecette
-prenom
-description
-note
-
- -->
