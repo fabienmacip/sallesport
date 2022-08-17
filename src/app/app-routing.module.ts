@@ -6,7 +6,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component';
 import { PolitiqueConfidentialiteComponent } from './politique-confidentialite/politique-confidentialite.component';
-import { RecettesComponent } from './recettes/recettes.component';
+//import { RecettesComponent } from './recettes/recettes.component';
 
 const routes: Routes = [
   { path: 'admin', canActivate: [AuthGuard], loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },

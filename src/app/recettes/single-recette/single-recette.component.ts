@@ -5,6 +5,7 @@ import { User } from 'firebase/auth';
 import { Subscription } from 'rxjs';
 import { Commentaire } from 'src/app/interfaces/commentaire';
 import { Recette } from 'src/app/interfaces/recette';
+import { AuthService } from 'src/app/services/auth.service';
 import { CommentairesService } from 'src/app/services/commentaires.service';
 import { RecettesService } from 'src/app/services/recettes.service';
 
@@ -21,12 +22,15 @@ export class SingleRecetteComponent implements OnInit, OnDestroy {
   commentaires: Commentaire[] = [];
   currentCommentaire: any;
   subscription!: Subscription;
+  currentUserName!: string;
+  currentUserEmail!: string;
 
   constructor(
     private recettesService: RecettesService,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private commentairesService: CommentairesService,
+    private authService: AuthService
 
   ) { }
 
@@ -49,8 +53,14 @@ export class SingleRecetteComponent implements OnInit, OnDestroy {
 
     this.commentairesService.getCommentaires(<string>recetteId);
 
-    this.initCommentaireForm(<string>recetteId, 'inconnu');
-
+    if(this.authService.currentUserSubject.value){
+      if(<string>this.authService.currentUserSubject.value.displayName !== '' && <string>this.authService.currentUserSubject.value.displayName !== null){
+        this.currentUserName = <string>this.authService.currentUserSubject.value.displayName;
+      } else {
+        this.currentUserName = <string>this.authService.currentUserSubject.value.email?.substring(0,10) + '...';
+      }
+      this.initCommentaireForm(<string>recetteId, this.currentUserName);
+    }
   }
 
   initCommentaireForm(idRecett: string = '', prenom: string = ''): void {
