@@ -37,7 +37,7 @@
   <h2 class="display-5 text-dark">Commentaires</h2>
   <hr class="bg-dark mb-5">
   <div class="row">
-    <div *ngIf="commentaires.length > 0; else aucuncom">
+    <div *ngIf="commentaires.length > 0; else aucuncom" class="row">
       <div *ngFor="let com of commentaires" class="col-12 col-md-6 col-lg-4 col-xl-3 py-2">
         <div class="card p-3 white-space-pre">
           <div>
