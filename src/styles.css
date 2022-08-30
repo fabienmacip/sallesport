@@ -14,31 +14,3 @@
   background-color: lightblue;
 }
 
-*{
-  font-family: 'Noto Sans', sans-serif;
-  color: var(--black);
-  /* background-color: var(--white); */
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Baloo Bhaina 2', cursive;
-  color: var(--grey);
-}
-
-body{
-  background-color: var(--white);
-}
-
-nav{
-  background-color: var(--grey);
-}
-
-.signature{
-  font-family: 'Reenie Beanie', cursive;
-  font-size: 1.5rem;
-}
-
-.btn-primary{
-  --bs-btn-bg: #609A7D;
-  --bs-btn-border-color: #609A7D;
-}
