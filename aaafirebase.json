@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/scd",
+    "public": "dist/sallesport",
     "ignore": [
       "firebase.json",
       "**/.*",

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "sallesport": {
+      "hosting": {
+        "sallesport": [
+          "sallesport"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "sallesport"
+  }
+}
