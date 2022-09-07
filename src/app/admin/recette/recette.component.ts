@@ -70,7 +70,7 @@ export class RecetteComponent implements OnInit, OnDestroy {
       dietPaleo: [''],
       dietDiabete: [''],
       dietProteine: [''],
-      patientsOnlyCheck: [false]
+      partenairesOnlyCheck: [false]
     })
   }
 
@@ -105,7 +105,7 @@ export class RecetteComponent implements OnInit, OnDestroy {
       dietPaleo : recette.dietPaleo ?? false,
       dietDiabete : recette.dietDiabete ?? false,
       dietProteine : recette.dietProteine ?? false,
-      patientsOnlyCheck: recette.patientsOnlyCheck ?? false
+      partenairesOnlyCheck: recette.partenairesOnlyCheck ?? false
     });
   }
 

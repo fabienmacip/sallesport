@@ -21,9 +21,9 @@
   <h1 class="display-5 mb-5">Toutes les recettes</h1>
   <div class="row">
     <div class="col-12 col-md-6 col-lg-4 col-xl-3 py-2" *ngFor="let recette of recettes">
-      <div class="card" *ngIf="currentUser || !currentUser && !recette.patientsOnlyCheck">
+      <div class="card" *ngIf="currentUser || !currentUser && !recette.partenairesOnlyCheck">
         <img [src]="recette.photo" alt="Photo de la recette" class="card-img-top">
-        <div class="card-body"  [ngClass]="recette.patientsOnlyCheck ? 'patientsOnly' : ''">
+        <div class="card-body">
           <h5 class="card-title">{{ recette.title }}</h5>
           <p class="card-text">{{ recette.description }}</p>
           <hr>

@@ -18,7 +18,7 @@ export interface Recette {
   dietPaleo? : boolean;
   dietDiabete? : boolean;
   dietProteine? : boolean;
-  patientsOnlyCheck?: boolean;
+  partenairesOnlyCheck?: boolean;
 }
 
 

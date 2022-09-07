@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { GrantsComponent } from './grants/grants.component';
 import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component';
 import { PolitiqueConfidentialiteComponent } from './politique-confidentialite/politique-confidentialite.component';
+import { PartenaireComponent } from './admin/partenaire/partenaire.component';
 //import { RecettesComponent } from './recettes/recettes.component';
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'account', canActivate: [AuthGuard], loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
   { path: 'recettes', loadChildren: () => import('./recettes/recettes.module').then(m => m.RecettesModule) },
   { path: 'grants', component: GrantsComponent},
+  { path: 'partenaires', component: PartenaireComponent},
   { path: 'contact', component: ContactComponent},
   { path: 'mentions-legales', component: MentionsLegalesComponent},
   { path: 'politique-confidentialite', component: PolitiqueConfidentialiteComponent},

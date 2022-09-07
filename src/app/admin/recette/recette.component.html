@@ -97,8 +97,8 @@
           </div>
           <hr>
           <div class="form-check mb-3">
-            <input type="checkbox" class="form-check-input" id="patientsOnlyCheck" formControlName="patientsOnlyCheck">
-            <label for="patientsOnlyCheck" class="form-check-label">Réservée au patients uniquement</label>
+            <input type="checkbox" class="form-check-input" id="partenairesOnlyCheck" formControlName="partenairesOnlyCheck">
+            <label for="partenairesOnlyCheck" class="form-check-label">Réservée au patients uniquement</label>
           </div>
           <div class="d-flex">
             <button class="btn btn-success mx-auto" [disabled]="recetteForm.invalid">Enregistrer</button>
@@ -127,7 +127,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let recette of recettes ; let i = index" [ngClass]="recette.patientsOnlyCheck ? 'patientsOnly' : ''">
+          <tr *ngFor="let recette of recettes ; let i = index" [ngClass]="recette.partenairesOnlyCheck ? 'patientsOnly' : ''">
             <th>{{ i }}</th>
             <td>
               <img *ngIf="recette.photo" [src]="recette.photo | safeUrl" alt="Photo de la recette" width="90">

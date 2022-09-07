@@ -7,12 +7,11 @@ import { HeaderComponent } from './header/header.component';
 
 /* import { RecetteListComponent } from './recette-list/recette-list.component'; */
 /* import { RegimeListComponent } from './regime-list/regime-list.component'; */
-import { PatientListComponent } from './patient-list/patient-list.component';
 /* import { AllergeneListComponent } from './allergene-list/allergene-list.component'; */
 import { RecetteComponent } from './admin/recette/recette.component';
 import { RegimeComponent } from './admin/regime/regime.component';
 import { AllergeneComponent } from './admin/allergene/allergene.component';
-import { PatientComponent } from './admin/patient/patient.component';
+import { PartenaireComponent } from './admin/partenaire/partenaire.component';
 import { RecettesComponent } from './recettes/recettes.component';
 import { ContactComponent } from './contact/contact.component';
 import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component';
@@ -45,12 +44,11 @@ import { GrantsComponent } from './grants/grants.component';
     HeaderComponent,
     /* RecetteListComponent, */
     /* RegimeListComponent, */
-    PatientListComponent,
     /* AllergeneListComponent, */
     /* RecetteComponent, */
     RegimeComponent,
     AllergeneComponent,
-    PatientComponent,
+    PartenaireComponent,
     RecettesComponent,
     ContactComponent,
     MentionsLegalesComponent,

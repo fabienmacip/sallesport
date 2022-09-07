@@ -1,0 +1,96 @@
+<h1>PARTENAIRES</h1>
+
+<div class="container py-5">
+  <div class="row mb-5">
+    <div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto">
+      <div class="bg-white shadow rounded p-4">
+        <h2 class="display-5 text-dark">
+          {{ titrePage }}
+        </h2>
+        <hr class="bg-dark mb-5">
+        <form [formGroup]="partenaireForm" (ngSubmit)="onSubmitPartenaireForm()">
+          <input type="text" formControlName="id" hidden>
+          <div class="form-group mb-3">
+            <label for="nomfranchise">NOM FRANCHISE</label>
+            <input type="text" id="nomfranchise" class="form-control" formControlName="nomfranchise" appUppercaseInput >
+          </div>
+          <div class="form-group mb-3">
+            <label for="sexegerant">Sexe Gérant</label>
+            <input type="text" id="sexegerant" class="form-control" formControlName="sexegerant">
+          </div>
+          <div class="form-group mb-3">
+            <label for="nomgerant">Gérant</label>
+            <input type="text" id="nomgerant" class="form-control" formControlName="nomgerant">
+          </div>
+          <div class="form-group mb-3">
+            <label for="mail">Mail</label>
+            <input type="mail" id="mail" class="form-control" formControlName="mail">
+          </div>
+          <div class="form-group mb-3" *ngIf="!partenaireForm.value.id">
+            <label for="password">Mot de passe</label>
+            <input type="password" class="form-control" placeholder="Minimum 8 caractères" id="password" formControlName="password"
+            [ngClass]="partenaireForm.value.id ? 'noUpdate' : ''">
+          </div>
+          <div class="form-group mb-3" *ngIf="!partenaireForm.value.id">
+            <label for="passwordConfirm">Confirmez le mot de passe</label>
+            <input type="password" class="form-control" placeholder="Minimum 8 caractères" id="passwordConfirm" formControlName="passwordConfirm"
+            [ngClass]="partenaireForm.value.id ? 'noUpdate' : ''">
+          </div>
+          <div class="form-group mb-3">
+            <b>Actif</b>
+              <div class="form-check">
+                <div>
+                  <input type="checkbox" class="form-check-input" id="actif" formControlName="actif">
+                  <label for="actif" class="form-check-label">Actif</label>
+                </div>
+              </div>
+          </div>
+          <div class="form-group mb-3">
+            <b>Droits</b>
+            <div class="form-check">
+              ICI, formulaire GRANTS
+              <input type="number" class="form-control" id="grantsid" formControlName="grantsid" hidden>
+            </div>
+          </div>
+          <div class="d-flex">
+            <button class="btn btn-success mx-auto" [disabled]="partenaireForm.invalid || partenaireForm.value.password !== partenaireForm.value.passwordConfirm">Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-12 col-lg-8 mx-auto">
+      <h2 class="display-5 text-dark">Partenaires enregistrés</h2>
+      <hr class="bg-dark mb-5">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Franchise</th>
+            <th scope="col">Gérant</th>
+            <th scope="col">Email</th>
+            <th scope="col">Actif ?</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let partenaire of partenaires; let i = index">
+            <th>{{ i }}</th>
+            <td>{{ partenaire.nomfranchise }}</td>
+            <td>{{ partenaire.sexegerant | uppercase }} {{ partenaire.nomgerant }} - {{ partenaire.mail }}</td>
+            <td>{{ partenaire.mail }}</td>
+            <td>{{ partenaire.actif }}</td>
+            <td>
+              <button class="btn btn-primary" type="button" (click)="onEditPartenaire(partenaire)">Modifier</button>
+              <button class="btn btn-danger" type="button" (click)="onDeletePartenaire(partenaire.id)">Supprimer</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

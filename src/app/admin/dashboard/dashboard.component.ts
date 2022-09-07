@@ -2,8 +2,8 @@ import { Component, Directive, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Patient } from 'src/app/interfaces/patient';
-import { PatientsService } from 'src/app/services/patients.service';
+import { Partenaire } from 'src/app/interfaces/partenaire';
+
 
 
 
@@ -14,11 +14,11 @@ import { PatientsService } from 'src/app/services/patients.service';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  patientForm!: FormGroup;
+  partenaireForm!: FormGroup;
 
-  patientList: Patient[] = [];
+  partenaireList: Partenaire[] = [];
 
-  currentPatient: any;
+  currentPartenaire: any;
 
   subscription! : Subscription;
 
@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private patientsService: PatientsService
+
   ) {
 
   }
@@ -92,11 +92,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     })
   }
 */
-  onEditPatient(patient: Patient, index: number): void{
+  onEditPartenaire(partenaire: Partenaire, index: number): void{
   //  this.patientForm.setValue({...patient, index});
   }
 
-  onSubmitPatientForm(): void{
+  onSubmitPartenaireForm(): void{
 /*    const patientIndex = this.patientForm.value.index;
     let patient = this.patientForm.value;
     if(patientIndex == null || patientIndex == undefined){
@@ -111,7 +111,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.patientForm.reset();*/
   }
 
-  onDeletePatient(index: number): void{
+  onDeletePartenaire(index: number): void{
     //this.patientList = this.patientsService.deletePatient(index);
   }
 

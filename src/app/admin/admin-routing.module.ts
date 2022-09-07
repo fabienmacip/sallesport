@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RecetteComponent } from './recette/recette.component';
-import { PatientComponent } from './patient/patient.component';
+import { PartenaireComponent } from './partenaire/partenaire.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'patients', component: PatientComponent },
+  { path: 'partenaires', component: PartenaireComponent },
   { path: 'recettes', component: RecetteComponent },
 /*   { path: 'dashboard/:id', component: DashboardComponent }, */
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
