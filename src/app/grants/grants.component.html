@@ -1,0 +1,51 @@
+<div class="container py-5">
+  <div class="row">
+    <div class="col-12 col-lg-8 mx-auto">
+      <h2 class="display-5 text-dark">Droits</h2>
+      <hr class="bg-dark mb-5">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Droit</th>
+            <th scope="col">OUI / NON</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="currentGrant">
+          <tr [ngClass]="currentGrant.drinksell == 0 ? 'grantoff' : 'granton'">
+            <td>
+              Voir les membres
+            </td>
+            <td>
+              <button class="btn btn-primary" type="button" (click)="onToggleGrants('drinksell', currentGrant.membersread)"
+                [ngClass]="currentGrant.membersread == 0 ? 'btn-danger' : 'btn-success'"
+              >Toggle</button>
+            </td>
+          </tr>
+          <tr [ngClass]="currentGrant.drinksell == 0 ? 'grantoff' : 'granton'">
+            <td>
+              Vente de boissons
+            </td>
+            <td>
+              <button class="btn btn-primary" type="button" (click)="onToggleGrants('drinksell', currentGrant.drinksell)"
+                [ngClass]="currentGrant.drinksell == 0 ? 'btn-danger' : 'btn-success'"
+              >Toggle</button>
+            </td>
+          </tr>
+          <tr [ngClass]="currentGrant.drinksell == 0 ? 'grantoff' : 'granton'">
+            <td>
+              Vente de nourriture
+            </td>
+            <td>
+              <button class="btn btn-primary" type="button" (click)="onToggleGrants('foodsell', currentGrant.foodsell)"
+                [ngClass]="currentGrant.foodsell == 0 ? 'btn-danger' : 'btn-success'"
+              >Toggle</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+

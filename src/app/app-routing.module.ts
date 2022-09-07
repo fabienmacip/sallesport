@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ContactComponent } from './contact/contact.component';
 import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './home/home.component';
+import { GrantsComponent } from './grants/grants.component';
 import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component';
 import { PolitiqueConfidentialiteComponent } from './politique-confidentialite/politique-confidentialite.component';
 //import { RecettesComponent } from './recettes/recettes.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
   { path: 'account', canActivate: [AuthGuard], loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
   { path: 'recettes', loadChildren: () => import('./recettes/recettes.module').then(m => m.RecettesModule) },
+  { path: 'grants', component: GrantsComponent},
   { path: 'contact', component: ContactComponent},
   { path: 'mentions-legales', component: MentionsLegalesComponent},
   { path: 'politique-confidentialite', component: PolitiqueConfidentialiteComponent},

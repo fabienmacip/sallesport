@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentUserSubscription!: Subscription;
   currentUser!: User;
 
-  title = 'SCD';
+  title = 'FITME';
 
   constructor(
     private authService: AuthService,
