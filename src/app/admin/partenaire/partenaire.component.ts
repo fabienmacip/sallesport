@@ -47,7 +47,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initPartenaireForm();
 
-    this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
+    this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
       this.partenaires = partenaires;
       console.log(this.partenaires);
       console.log(this.partenaires[0].nomgerant);
@@ -59,14 +59,14 @@ export class PartenaireComponent implements OnInit, OnDestroy {
   initPartenaireForm(): void{
     this.partenaireForm = this.formBuilder.group({
       id: [0],
-      nomfranchise: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],
+      nomfranchise: ['TEST', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],
       sexegerant: ['M', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
-      nomgerant: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],
-      mail: ['', [Validators.email, Validators.required, Validators.maxLength(45)]],
-      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(45)]],
-      actif: [false],
-      grantsid: [''],
-      passwordConfirm: ['', [Validators.required]]
+      nomgerant: ['Durand', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],
+      mail: ['dudu@gmail.fr', [Validators.email, Validators.required, Validators.maxLength(45)]],
+      password: ['qsdfqsdf', [Validators.required, Validators.minLength(8), Validators.maxLength(45)]],
+      actif: [true],
+      grants: ['1'],
+      passwordConfirm: ['qsdfqsdf', [Validators.required]]
     })
   }
 
@@ -100,7 +100,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
       password: partenaire.password,
       passwordConfirm: partenaire.password,
       actif: partenaire.actif == 0 ? false : true,
-      grantsid: partenaire.grantsid ?? 0,
+      grants: partenaire.grants ?? 0,
 
     });
 
@@ -114,34 +114,41 @@ export class PartenaireComponent implements OnInit, OnDestroy {
     if(!partenaireId || partenaireId && partenaireId == 0){
 
       // CREATE ligne PARTENAIRE
-      delete partenaire.id;
-      //this.apiService.createTuple(partenaire).catch(console.error);
+      partenaire.id = "";
+      delete partenaire.passwordConfirm;
+      //this.router.navigate(['/admin','dashboard']);
 
-      // CREATE ligne AUTHENTICATION
-      /* this.authService.signupUser(this.partenaireForm.value.email, this.partenaireForm.value.password)
-      .then(user => {
-        //this.router.navigate(['/admin','dashboard']);
-      }).catch(console.error); */
 
-      this.apiService.createPartenaire(partenaire).subscribe((part: Partenaire)=>{
-        console.log("Partenaire crée, ", part);
+
+      this.apiService.createPartenaire(partenaire).subscribe({
+        next: data => {
+          //this.postId = data.id;
+          console.log("OK");
+          console.log(data);
+        },
+        error: error => {
+          //this.errorMessage = error.message;
+          console.error('There was an error!', error);
+        }
       });
 
     } else {
 
+      delete partenaire.passwordConfirm;
+
+
       // UPDATE
       //delete partenaire.id;
-      //this.partenairesService.editTuple(partenaire, partenaireId);
-
-/*       this.apiService.updatePartenaire(partenaireId, partenaire).subscribe((partenaires: Partenaire[])=>{
-        this.partenaires = partenaires;
-        console.log(this.partenaires);
-        console.log(this.partenaires[0].nomgerant);
-      })
- */
-
-      this.apiService.updatePartenaire(partenaireId, partenaire).subscribe((part: Partenaire)=>{
-        console.log("Partenaire mis à jour", part);
+      this.apiService.updatePartenaire(partenaireId, partenaire).subscribe({
+        next: data => {
+          //this.postId = data.id;
+          console.log("OK");
+          console.log(data);
+        },
+        error: error => {
+          //this.errorMessage = error.message;
+          console.error('There was an error!', error);
+        }
       });
 
     }
@@ -152,16 +159,25 @@ export class PartenaireComponent implements OnInit, OnDestroy {
   }
 
   onDeletePartenaire(partenaireId?: number): void{
-    if(partenaireId && partenaireId != 0){
-      //this.partenairesService.deleteTuple(partenaireId).catch(console.error);
-    } else {
-      console.error('Un id doit être fourni pour pouvoir supprimer ce partenaire.');
+
+    if(confirm("SUPPRIMER ?")){
+      if(partenaireId && partenaireId != 0){
+        this.apiService.deletePartenaire(partenaireId).subscribe((part: Partenaire)=>{
+          console.log("Partenaire deleted, ", part);
+        });
+      } else {
+        console.error('Un id doit être fourni pour pouvoir supprimer ce partenaire.');
+      }
+
     }
+
 
   }
 
   ngOnDestroy(): void {
-      //this.subscription.unsubscribe();
+    if (this.subscription) {
+           this.subscription.unsubscribe();
+         }
   }
 
 }

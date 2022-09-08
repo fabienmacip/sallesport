@@ -6,5 +6,5 @@ export interface Partenaire {
   mail?: string;
   password?: string;
   actif?: number;
-  grantsid?: number;
+  grants?: number;
 }
