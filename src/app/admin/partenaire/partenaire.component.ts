@@ -1,6 +1,6 @@
 import { Component, Directive, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { Subscription } from 'rxjs';
 import { Partenaire } from 'src/app/interfaces/partenaire';
@@ -41,7 +41,8 @@ export class PartenaireComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private apiService: ApiService,
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -49,8 +50,6 @@ export class PartenaireComponent implements OnInit, OnDestroy {
 
     this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
       this.partenaires = partenaires;
-      console.log(this.partenaires);
-      console.log(this.partenaires[0].nomgerant);
     })
 
   }
@@ -123,8 +122,12 @@ export class PartenaireComponent implements OnInit, OnDestroy {
       this.apiService.createPartenaire(partenaire).subscribe({
         next: data => {
           //this.postId = data.id;
-          console.log("OK");
           console.log(data);
+          //this.partenaires.push(partenaire);
+          this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
+            this.partenaires = partenaires;
+          })
+
         },
         error: error => {
           //this.errorMessage = error.message;
@@ -142,8 +145,8 @@ export class PartenaireComponent implements OnInit, OnDestroy {
       this.apiService.updatePartenaire(partenaireId, partenaire).subscribe({
         next: data => {
           //this.postId = data.id;
-          console.log("OK");
           console.log(data);
+
         },
         error: error => {
           //this.errorMessage = error.message;
@@ -156,6 +159,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
     this.partenaireForm.reset();
     this.titrePage = 'Enregistrer un nouveau partenaire';
 
+
   }
 
   onDeletePartenaire(partenaireId?: number): void{
@@ -164,6 +168,10 @@ export class PartenaireComponent implements OnInit, OnDestroy {
       if(partenaireId && partenaireId != 0){
         this.apiService.deletePartenaire(partenaireId).subscribe((part: Partenaire)=>{
           console.log("Partenaire deleted, ", part);
+          this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
+            this.partenaires = partenaires;
+          })
+          //this.router.navigate(['partenaires']);
         });
       } else {
         console.error('Un id doit être fourni pour pouvoir supprimer ce partenaire.');
