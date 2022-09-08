@@ -64,7 +64,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
       nomgerant: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],
       mail: ['', [Validators.email, Validators.required, Validators.maxLength(45)]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(45)]],
-      actif: [''],
+      actif: [false],
       grantsid: [''],
       passwordConfirm: ['', [Validators.required]]
     })
@@ -99,7 +99,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
       mail: partenaire.mail,
       password: partenaire.password,
       passwordConfirm: partenaire.password,
-      actif: partenaire.actif ?? false,
+      actif: partenaire.actif == 0 ? false : true,
       grantsid: partenaire.grantsid ?? 0,
 
     });
@@ -107,23 +107,43 @@ export class PartenaireComponent implements OnInit, OnDestroy {
   }
 
   onSubmitPartenaireForm(): void{
+
     const partenaireId = this.partenaireForm.value.id;
+
     let partenaire = this.partenaireForm.value;
-    if(!partenaireId || partenaireId && partenaireId === ''){
+    if(!partenaireId || partenaireId && partenaireId == 0){
+
       // CREATE ligne PARTENAIRE
       delete partenaire.id;
       //this.apiService.createTuple(partenaire).catch(console.error);
 
       // CREATE ligne AUTHENTICATION
-      this.authService.signupUser(this.partenaireForm.value.email, this.partenaireForm.value.password)
+      /* this.authService.signupUser(this.partenaireForm.value.email, this.partenaireForm.value.password)
       .then(user => {
         //this.router.navigate(['/admin','dashboard']);
-      }).catch(console.error);
+      }).catch(console.error); */
+
+      this.apiService.createPartenaire(partenaire).subscribe((part: Partenaire)=>{
+        console.log("Partenaire crée, ", part);
+      });
 
     } else {
+
       // UPDATE
-      delete partenaire.id;
+      //delete partenaire.id;
       //this.partenairesService.editTuple(partenaire, partenaireId);
+
+/*       this.apiService.updatePartenaire(partenaireId, partenaire).subscribe((partenaires: Partenaire[])=>{
+        this.partenaires = partenaires;
+        console.log(this.partenaires);
+        console.log(this.partenaires[0].nomgerant);
+      })
+ */
+
+      this.apiService.updatePartenaire(partenaireId, partenaire).subscribe((part: Partenaire)=>{
+        console.log("Partenaire mis à jour", part);
+      });
+
     }
 
     this.partenaireForm.reset();
@@ -141,7 +161,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.subscription.unsubscribe();
+      //this.subscription.unsubscribe();
   }
 
 }
