@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { Grants } from '../../interfaces/grants';
 import { Partenaire } from 'src/app/interfaces/partenaire';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-grants',
@@ -15,6 +16,7 @@ export class GrantsComponent implements OnInit {
   grants?: Grants[];
   currentGrant?: Grants;
   currentGrantArray?: any;
+  subscription! : Subscription;
   selectedGrants: Grants = {
     id: 0,
     membersread: 0,
@@ -111,23 +113,32 @@ export class GrantsComponent implements OnInit {
       this.currentGrant = this.grants[0];
 
       this.currentGrantArray = Object.entries(this.currentGrant);
-      //console.log(this.currentGrantArray);
       this.currentGrantArray = this.currentGrantArray.filter(function (valeur: any) {
         return valeur[0] !== 'id';
       });
       this.currentGrantArray = this.currentGrantArray.map((e: any) =>{
         e.push(this.fullText(e[0]));
-        console.log(e);
         return e;
       });
-      console.log(this.currentGrantArray);
     });
-
   }
 
-  onToggleGrants(column: string, active: number = 0){
+  onToggleGrants(id: number, column: string, active: number = 0){
 
-    return console.log("TOGGLE Grant column "+column+"("+active+")");
+    active = active == 0 ? 1 : 0;
+    this.apiService.updateOneGrant(id , column, active).subscribe({
+      next: data => {
+            this.ngOnInit();
+
+      },
+      error: error => {
+        console.error('There was an error!', error);
+      }
+    });
+
+
+    // Appel API updateOne
+    // + refresh
   }
 
 }

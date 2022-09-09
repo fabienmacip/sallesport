@@ -7,10 +7,10 @@
         <thead>
           <tr>
             <th scope="col">Droit</th>
-            <th scope="col">OUI / NON</th>
+            <th scope="col">ON/OFF</th>
           </tr>
         </thead>
-        <tbody *ngIf="currentGrantArray">
+        <tbody *ngIf="currentGrantArray && currentGrant && currentGrant.id">
           <tr *ngFor="let onegrant of currentGrantArray ; let i = index">
             <td>
               {{ onegrant[2] }}
@@ -18,7 +18,7 @@
             <td>
                 <div class="slideButton">
                   <input type="checkbox" value="d" id="slide{{i}}" name="check" [checked]="onegrant[1] == 1"
-                  (click)="onToggleGrants(onegrant[0], onegrant[1])"/>
+                  (click)="onToggleGrants(currentGrant.id, onegrant[0], onegrant[1])"/>
                   <label for="slide{{i}}"></label>
                 </div>
             </td>

@@ -156,6 +156,10 @@ export class PartenaireComponent implements OnInit, OnDestroy {
           //this.postId = data.id;
           //console.log(data);
           //this.partenaires.push(partenaire);
+
+
+
+          // Rechargement des données
           this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
             this.partenaires = partenaires;
           })

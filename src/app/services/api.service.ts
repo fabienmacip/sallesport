@@ -98,6 +98,17 @@ export class ApiService {
     return this.httpClient.post<Grants>(`${this.PHP_API_SERVER}grants.php`, grants);
   }
 
+  updateOneGrant(id: number, grant: string, actif: number): Observable<Grants>{
+    let headers = new HttpHeaders();
+    this.createAuthorizationHeader(headers);
+    const datas = {
+      id: id,
+      grant: grant,
+      actif: actif,
+    };
+    return this.httpClient.put<any>(`${this.PHP_API_SERVER}grants.php?id=${id}`, datas, { headers : headers, responseType: "json" });
+  }
+
   updateGrants(id: number, grants: Grants): Observable<Grants>{
     return this.httpClient.put<Grants>(`${this.PHP_API_SERVER}grants.php?id=${id}`, grants);
   }

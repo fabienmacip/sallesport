@@ -11,6 +11,7 @@
 /* .slideButton */
 *{
   --activeColor: green;
+  --inactiveColor: red;
 }
 
 .slideButton {
@@ -24,7 +25,7 @@
 }
 .slideButton::after {
     content: 'OFF';
-    color: #000;
+    color: var(--inactiveColor);
     position: absolute;
     right: 10px;
     z-index: 0;
