@@ -146,7 +146,9 @@ export class PartenaireComponent implements OnInit, OnDestroy {
         next: data => {
           //this.postId = data.id;
           console.log(data);
-
+          this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
+            this.partenaires = partenaires;
+          });
         },
         error: error => {
           //this.errorMessage = error.message;
@@ -170,7 +172,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
           console.log("Partenaire deleted, ", part);
           this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
             this.partenaires = partenaires;
-          })
+          });
           //this.router.navigate(['partenaires']);
         });
       } else {
