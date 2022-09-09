@@ -10,35 +10,17 @@
             <th scope="col">OUI / NON</th>
           </tr>
         </thead>
-        <tbody *ngIf="currentGrant">
-          <tr [ngClass]="currentGrant.drinksell == 0 ? 'grantoff' : 'granton'">
+        <tbody *ngIf="currentGrantArray">
+          <tr *ngFor="let onegrant of currentGrantArray ; let i = index">
             <td>
-              Voir les membres
+              {{ onegrant[2] }}
             </td>
             <td>
-              <button class="btn btn-primary" type="button" (click)="onToggleGrants('drinksell', currentGrant.membersread)"
-                [ngClass]="currentGrant.membersread == 0 ? 'btn-danger' : 'btn-success'"
-              >Toggle</button>
-            </td>
-          </tr>
-          <tr [ngClass]="currentGrant.drinksell == 0 ? 'grantoff' : 'granton'">
-            <td>
-              Vente de boissons
-            </td>
-            <td>
-              <button class="btn btn-primary" type="button" (click)="onToggleGrants('drinksell', currentGrant.drinksell)"
-                [ngClass]="currentGrant.drinksell == 0 ? 'btn-danger' : 'btn-success'"
-              >Toggle</button>
-            </td>
-          </tr>
-          <tr [ngClass]="currentGrant.drinksell == 0 ? 'grantoff' : 'granton'">
-            <td>
-              Vente de nourriture
-            </td>
-            <td>
-              <button class="btn btn-primary" type="button" (click)="onToggleGrants('foodsell', currentGrant.foodsell)"
-                [ngClass]="currentGrant.foodsell == 0 ? 'btn-danger' : 'btn-success'"
-              >Toggle</button>
+                <div class="slideButton">
+                  <input type="checkbox" value="d" id="slide{{i}}" name="check" [checked]="onegrant[1] == 1"
+                  (click)="onToggleGrants(onegrant[0], onegrant[1])"/>
+                  <label for="slide{{i}}"></label>
+                </div>
             </td>
           </tr>
         </tbody>

@@ -1,7 +1,7 @@
 <h1>PARTENAIRES</h1>
 
 <div class="container py-5">
-  <div class="row mb-5">
+  <div class="row mb-5" *ngIf="false">
     <div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto">
       <div class="bg-white shadow rounded p-4">
         <h2 class="display-5 text-dark">
@@ -93,13 +93,7 @@
         </div>
         <div class="card" *ngIf="grantsFormToggle && grantsFormToggle == partenaire.id">
           <div class="card-body">
-            <h6 class="card-title">
-              Droits
-            </h6>
-            <p class="card-text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium rem necessitatibus voluptate cum, provident magni fugiat quos recusandae. Esse fuga ea quo sed dolores ratione nemo reprehenderit tempore ex aperiam.
-            </p>
-
+            <app-grants [partenaire]="partenaire"></app-grants>
           </div>
         </div>
       </div>
