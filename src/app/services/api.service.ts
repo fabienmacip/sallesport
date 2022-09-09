@@ -55,8 +55,22 @@ export class ApiService {
   updatePartenaire(id: number, partenaire: Partenaire): Observable<Partenaire>{
     let headers = new HttpHeaders();
     this.createAuthorizationHeader(headers);
+
     return this.httpClient.put<Partenaire>(`${this.PHP_API_SERVER}partenaire.php/${id}`, partenaire, { headers : headers, responseType: "json" });
   }
+
+  updatePartenaireActif(id: string, actif: number): Observable<Partenaire>{
+    let headers = new HttpHeaders();
+    this.createAuthorizationHeader(headers);
+    const datas = {
+      id: id,
+      actif: actif,
+      onlyone: true
+    };
+
+    return this.httpClient.put<any>(`${this.PHP_API_SERVER}partenaire.php/${id}`, datas, { headers : headers, responseType: "json" });
+  }
+
 
 /*    updatePartenaire(partenaire: Partenaire): Observable<Partenaire>{
     return this.httpClient.put<Partenaire>(`${this.PHP_API_SERVER}partenaire.php`, partenaire);

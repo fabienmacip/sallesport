@@ -90,6 +90,8 @@ export class PartenaireComponent implements OnInit, OnDestroy {
   onEditPartenaire(partenaire: Partenaire): void{
     this.titrePage = 'Modifier un partenaire';
 
+
+
     this.partenaireForm.setValue({
       id: partenaire.id ?? '',
       nomfranchise : partenaire.nomfranchise ?? '',
@@ -102,6 +104,36 @@ export class PartenaireComponent implements OnInit, OnDestroy {
       grants: partenaire.grants ?? 0,
 
     });
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
+
+  onTogglePartenaireActif(id: string, actif: number): void{
+
+    actif = actif == 1 ? 0 : 1;
+
+    this.partenaireForm.reset();
+
+    this.apiService.updatePartenaireActif(id, actif).subscribe({
+      next: data => {
+        //this.postId = data.id;
+        //console.log(data);
+        //this.partenaires.push(partenaire);
+        this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
+          this.partenaires = partenaires;
+        })
+
+      },
+      error: error => {
+        //this.errorMessage = error.message;
+        console.error('There was an error!', error);
+      }
+    });
+
 
   }
 
@@ -122,7 +154,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
       this.apiService.createPartenaire(partenaire).subscribe({
         next: data => {
           //this.postId = data.id;
-          console.log(data);
+          //console.log(data);
           //this.partenaires.push(partenaire);
           this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
             this.partenaires = partenaires;
@@ -145,7 +177,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
       this.apiService.updatePartenaire(partenaireId, partenaire).subscribe({
         next: data => {
           //this.postId = data.id;
-          console.log(data);
+          //console.log(data);
           this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
             this.partenaires = partenaires;
           });
@@ -169,7 +201,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
     if(confirm("SUPPRIMER ?")){
       if(partenaireId && partenaireId != 0){
         this.apiService.deletePartenaire(partenaireId).subscribe((part: Partenaire)=>{
-          console.log("Partenaire deleted, ", part);
+          //console.log("Partenaire deleted, ", part);
           this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
             this.partenaires = partenaires;
           });

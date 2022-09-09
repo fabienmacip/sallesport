@@ -61,37 +61,35 @@
   </div>
 
 
+<div class="container py-5">
+  <h1 class="display-5 mb-5">Toutes les partenaires</h1>
   <div class="row">
-    <div class="col-12 col-lg-8 mx-auto">
-      <h2 class="display-5 text-dark">Partenaires enregistrés</h2>
-      <hr class="bg-dark mb-5">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Franchise</th>
-            <th scope="col">Gérant</th>
-            <th scope="col">Email</th>
-            <th scope="col">Actif ?</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let partenaire of partenaires; let i = index">
-            <th>{{ i }}</th>
-            <td>{{ partenaire.nomfranchise }}</td>
-            <td>{{ partenaire.sexegerant | uppercase }} {{ partenaire.nomgerant }} - {{ partenaire.mail }}</td>
-            <td>{{ partenaire.mail }}</td>
-            <td>{{ partenaire.actif }}</td>
-            <td>
-              <button class="btn btn-primary" type="button" (click)="onEditPartenaire(partenaire)">Modifier</button>
-              <button class="btn btn-danger" type="button" (click)="onDeletePartenaire(partenaire.id)">Supprimer</button>
-
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="col-12 col-md-6 col-lg-4 col-xxl-3 py-2" *ngFor="let partenaire of partenaires; let i = index">
+      <div class="card">
+        <!-- <img [src]="recette.photo" alt="Photo de la recette" class="card-img-top"> -->
+        <!-- <img [src]="" alt="Photo du partenaire" class="card-img-top"> -->
+        <div class="card-body">
+          <h5 class="card-title">{{ partenaire.nomfranchise }}</h5>
+          <p class="card-text">
+            N°{{ i }} - #{{ partenaire.id }}<br/>
+            {{ partenaire.sexegerant?.toUpperCase() === 'F' ? 'Mme' : 'M.' }} {{ partenaire.nomgerant }}<br/>
+            {{ partenaire.mail }}
+          </p>
+          <hr/>
+          <p class="card-text">
+            <button class="btn btn-primary" type="button" (click)="onEditPartenaire(partenaire)">Modifier</button>
+            <button class="btn btn-danger" type="button" (click)="onDeletePartenaire(partenaire.id)">Supprimer</button>
+          </p>
+          <hr>
+          <button class="btn btn-success" type="button"
+              [ngClass]="partenaire.actif == 1 ? 'btn-success' : 'btn-danger'"
+              (click)="onTogglePartenaireActif(partenaire.id!.toString(), partenaire.actif!)">
+              {{ partenaire.actif == 1 ? 'Désactiver' : 'Activer'}}
+            </button>
+        </div>
+      </div>
     </div>
   </div>
+</div>
 
 </div>
