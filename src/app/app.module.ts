@@ -31,7 +31,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 import { HttpClientModule } from '@angular/common/http';
-import { GrantsComponent } from './grants/grants.component';
+import { GrantsComponent } from './admin/grants/grants.component';
 
 /* import { StepsPipe } from './pipes/steps.pipe'; */
 /* import { SafeUrlPipe } from './pipes/safe-url.pipe'; */

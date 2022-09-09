@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../services/api.service';
-import { Grants } from '../interfaces/grants';
+import { ApiService } from '../../services/api.service';
+import { Grants } from '../../interfaces/grants';
 
 
 @Component({

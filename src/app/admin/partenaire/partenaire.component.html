@@ -68,7 +68,7 @@
       <div class="card">
         <!-- <img [src]="recette.photo" alt="Photo de la recette" class="card-img-top"> -->
         <!-- <img [src]="" alt="Photo du partenaire" class="card-img-top"> -->
-        <div class="card-body">
+        <div class="card-body" [ngClass]="partenaire.actif == 1 ? 'partenaire-actif' : 'partenaire-inactif'">
           <h5 class="card-title">{{ partenaire.nomfranchise }}</h5>
           <p class="card-text">
             N°{{ i }} - #{{ partenaire.id }}<br/>
@@ -85,7 +85,22 @@
               [ngClass]="partenaire.actif == 1 ? 'btn-success' : 'btn-danger'"
               (click)="onTogglePartenaireActif(partenaire.id!.toString(), partenaire.actif!)">
               {{ partenaire.actif == 1 ? 'Désactiver' : 'Activer'}}
-            </button>
+          </button>
+          <button class="btn btn-primary" type="button"
+            (click)="onToggleGrantsForm(partenaire.id)">
+            {{ grantsFormToggle == partenaire.id ? "-" : "+" }}
+          </button>
+        </div>
+        <div class="card" *ngIf="grantsFormToggle && grantsFormToggle == partenaire.id">
+          <div class="card-body">
+            <h6 class="card-title">
+              Droits
+            </h6>
+            <p class="card-text">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium rem necessitatibus voluptate cum, provident magni fugiat quos recusandae. Esse fuga ea quo sed dolores ratione nemo reprehenderit tempore ex aperiam.
+            </p>
+
+          </div>
         </div>
       </div>
     </div>

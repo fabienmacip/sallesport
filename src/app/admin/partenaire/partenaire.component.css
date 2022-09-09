@@ -6,3 +6,11 @@ button{
   margin-left: 1rem;
   margin-right: 1rem;
 }
+
+.partenaire-actif{
+  background-color: lightgreen;
+}
+
+.partenaire-inactif{
+  background-color: lightcoral;
+}

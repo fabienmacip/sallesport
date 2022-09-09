@@ -25,6 +25,8 @@ export class PartenaireComponent implements OnInit, OnDestroy {
 
   titrePage: string = 'Enregistrer un nouveau partenaire';
 
+  grantsFormToggle: number = 0;
+
   lesChecboxesFonctionnent = false; // Utilisé pour savoir si on affiche les checkboxes comme indiqué ici :
   // https://remotestack.io/angular-checkboxes-tutorial-example/
 
@@ -114,26 +116,24 @@ export class PartenaireComponent implements OnInit, OnDestroy {
 
   onTogglePartenaireActif(id: string, actif: number): void{
 
-    actif = actif == 1 ? 0 : 1;
+    const confirmMsg = actif == 1 ? "Confirmer la désactivation ?" : "Confirmer l'activation ?";
 
-    this.partenaireForm.reset();
+    if(confirm(confirmMsg)){
+      actif = actif == 1 ? 0 : 1;
+      this.partenaireForm.reset();
+      this.apiService.updatePartenaireActif(id, actif).subscribe({
+        next: data => {
+          this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
+            this.partenaires = partenaires;
+          })
 
-    this.apiService.updatePartenaireActif(id, actif).subscribe({
-      next: data => {
-        //this.postId = data.id;
-        //console.log(data);
-        //this.partenaires.push(partenaire);
-        this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
-          this.partenaires = partenaires;
-        })
-
-      },
-      error: error => {
-        //this.errorMessage = error.message;
-        console.error('There was an error!', error);
-      }
-    });
-
+        },
+        error: error => {
+          //this.errorMessage = error.message;
+          console.error('There was an error!', error);
+        }
+      });
+    }
 
   }
 
@@ -215,6 +215,17 @@ export class PartenaireComponent implements OnInit, OnDestroy {
 
 
   }
+
+  onToggleGrantsForm(partenaireId: number = 0){
+
+    if(this.grantsFormToggle == partenaireId){
+      this.grantsFormToggle = 0;
+    } else {
+      this.grantsFormToggle = partenaireId;
+    }
+
+  }
+
 
   ngOnDestroy(): void {
     if (this.subscription) {
