@@ -90,6 +90,9 @@ export class PartenaireComponent implements OnInit, OnDestroy {
 
 
   onEditPartenaire(partenaire: Partenaire): void{
+
+    this.grantsFormToggle = 0;
+
     this.titrePage = 'Modifier un partenaire';
 
 
@@ -201,6 +204,8 @@ export class PartenaireComponent implements OnInit, OnDestroy {
   }
 
   onDeletePartenaire(partenaireId?: number): void{
+
+    this.grantsFormToggle = 0;
 
     if(confirm("SUPPRIMER ?")){
       if(partenaireId && partenaireId != 0){

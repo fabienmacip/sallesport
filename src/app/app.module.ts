@@ -8,7 +8,7 @@ import { HeaderComponent } from './header/header.component';
 /* import { RecetteListComponent } from './recette-list/recette-list.component'; */
 /* import { RegimeListComponent } from './regime-list/regime-list.component'; */
 /* import { AllergeneListComponent } from './allergene-list/allergene-list.component'; */
-import { RecetteComponent } from './admin/recette/recette.component';
+import { StructureComponent } from './admin/structure/structure.component';
 import { RegimeComponent } from './admin/regime/regime.component';
 import { AllergeneComponent } from './admin/allergene/allergene.component';
 import { PartenaireComponent } from './admin/partenaire/partenaire.component';
@@ -49,7 +49,7 @@ import { GrantsComponent } from './admin/grants/grants.component';
     RegimeComponent,
     AllergeneComponent,
     PartenaireComponent,
-    RecettesComponent,
+    StructureComponent,
     ContactComponent,
     MentionsLegalesComponent,
     PolitiqueConfidentialiteComponent,

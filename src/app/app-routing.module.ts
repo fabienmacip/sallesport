@@ -8,6 +8,7 @@ import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.co
 import { PolitiqueConfidentialiteComponent } from './politique-confidentialite/politique-confidentialite.component';
 import { PartenaireComponent } from './admin/partenaire/partenaire.component';
 import { GrantsComponent } from './admin/grants/grants.component';
+import { StructureComponent } from './admin/structure/structure.component';
 //import { RecettesComponent } from './recettes/recettes.component';
 
 const routes: Routes = [
@@ -15,8 +16,9 @@ const routes: Routes = [
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
   { path: 'account', canActivate: [AuthGuard], loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
   { path: 'recettes', loadChildren: () => import('./recettes/recettes.module').then(m => m.RecettesModule) },
-  { path: 'grants', component: GrantsComponent},
   { path: 'partenaires', component: PartenaireComponent},
+  { path: 'structures', component: StructureComponent},
+  { path: 'structures/:partenaireId/:partenaireNomFranchise', component: StructureComponent},
   { path: 'contact', component: ContactComponent},
   { path: 'mentions-legales', component: MentionsLegalesComponent},
   { path: 'politique-confidentialite', component: PolitiqueConfidentialiteComponent},

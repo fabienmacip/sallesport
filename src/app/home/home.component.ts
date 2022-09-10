@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from 'firebase/auth';
 import { ApiService } from '../services/api.service';
-import { Recette } from '../interfaces/recette';
+import { Structure } from '../interfaces/structure';
 import { RecettesService } from '../services/recettes.service';
 import { AuthService } from '../services/auth.service';
 import { Partenaire } from '../interfaces/partenaire';
@@ -16,7 +16,7 @@ import { Partenaire } from '../interfaces/partenaire';
 export class HomeComponent implements OnInit, OnDestroy {
 
   recettesSubscription!: Subscription;
-  recettes: Recette[] = [];
+  //recettes: Recette[] = [];
   currentUserSubscription!: Subscription;
   currentUser!: User;
   currentPartenaireEmail!: string;
@@ -55,12 +55,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   initRecettes(connecte: boolean = false): void {
     //let isVisiteur = true;
-    this.recettesSubscription = this.recettesService.recettesSubject.subscribe({
-      next: recettes => {
-        this.recettes = recettes.filter(el => el.partenairesOnlyCheck == false).concat(recettes.filter(el => el.partenairesOnlyCheck == true));
-      },
-      error: console.error
-    });
+    //this.recettesSubscription = this.recettesService.recettesSubject.subscribe({
+    //  next: recettes => {
+        //this.recettes = recettes.filter(el => el.partenairesOnlyCheck == false).concat(recettes.filter(el => el.partenairesOnlyCheck == true));
+    //  },
+    //  error: console.error
+    //});
 
     if(connecte){
       /* this.recettesService.getRecettesPatient(

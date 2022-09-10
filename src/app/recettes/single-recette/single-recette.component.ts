@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { User } from 'firebase/auth';
 import { Subscription } from 'rxjs';
 import { Commentaire } from 'src/app/interfaces/commentaire';
-import { Recette } from 'src/app/interfaces/recette';
+import { Structure } from 'src/app/interfaces/structure';
 import { AuthService } from 'src/app/services/auth.service';
 import { CommentairesService } from 'src/app/services/commentaires.service';
 import { RecettesService } from 'src/app/services/recettes.service';
@@ -16,7 +16,7 @@ import { RecettesService } from 'src/app/services/recettes.service';
 })
 export class SingleRecetteComponent implements OnInit, OnDestroy {
 
-  currentRecette!: Recette;
+  //currentRecette!: Recette;
 
   commentaireForm! : FormGroup;
   commentaires: Commentaire[] = [];
@@ -36,11 +36,11 @@ export class SingleRecetteComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const recetteId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.recettesService.getRecetteById(<string>recetteId)
-    .then(recette => {
-      this.currentRecette = {id: <string>recetteId, ...recette };
-    })
-    .catch(console.error);
+    //this.recettesService.getRecetteById(<string>recetteId)
+    //.then(recette => {
+    //  this.currentRecette = {id: <string>recetteId, ...recette };
+    //})
+    //.catch(console.error);
 
     this.subscription = this.commentairesService.commentairesSubject.subscribe({
       next: (commentaires: Commentaire[]) => {

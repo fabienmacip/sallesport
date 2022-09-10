@@ -3,7 +3,7 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { PhoneMultiFactorGenerator } from 'firebase/auth';
 import { BehaviorSubject } from 'rxjs';
-import { Recette } from '../interfaces/recette';
+import { Structure } from '../interfaces/structure';
 
 @Injectable({
   providedIn: 'root'
@@ -16,18 +16,18 @@ export class RecettesService {
     private storage: AngularFireStorage
   ) {}
 
-  private recettes: Recette[] = [];
+//  private recettes: Recette[] = [];
 
-  recettesSubject: BehaviorSubject<Recette[]> = new BehaviorSubject(<Recette[]>[]);
+//  recettesSubject: BehaviorSubject<Recette[]> = new BehaviorSubject(<Recette[]>[]);
 
   getRecettes(): void{
     this.db.list('recettes').query.limitToLast(20).once('value', snapshot => {
       const recettesSnapshotValue = snapshot.val();
       if(recettesSnapshotValue){
         const recettes = Object.keys(recettesSnapshotValue).map(id => ({id, ...recettesSnapshotValue[id]}));
-        this.recettes = recettes;
+  //      this.recettes = recettes;
       }
-      this.dispatchRecettes();
+      //this.dispatchRecettes();
     })
   }
 
@@ -50,13 +50,13 @@ export class RecettesService {
                                         e.dietProteine && dietProteine ||
                                         e.dietVegan && dietVegan ||
                                         e.dietVegetarien && dietVegetarien);
-        this.recettes = recettes;
+    //    this.recettes = recettes;
       }
-      this.dispatchRecettes();
+      //this.dispatchRecettes();
     })
   }
 
-  getRecetteById(recetteId: string): Promise<Recette> {
+  /* getRecetteById(recetteId: string): Promise<Recette> {
     return new Promise((resolve, reject) => {
       this.db.database.ref(`recettes/${recetteId}`).once('value', (snapshot, err) => {
         if(err) {
@@ -65,11 +65,11 @@ export class RecettesService {
         resolve(snapshot.val());
       });
     });
-  }
+  } */
 
-  dispatchRecettes() {
+  /* dispatchRecettes() {
     this.recettesSubject.next(this.recettes);
-  }
+  } */
 
 /*// VERSION sans upload de photo
   createRecette(recette: Recette): Promise<Recette>{
@@ -84,7 +84,7 @@ export class RecettesService {
     });
   } */
 
-  async createRecette(recette: Recette, recettePhoto?: any): Promise<Recette>{
+  /* async createRecette(recette: Recette, recettePhoto?: any): Promise<Recette>{
     try {
        const photoUrl = recettePhoto ? await this.uploadPhoto(recettePhoto) : '';
        const response = this.db.list('recettes').push({...recette, photo: photoUrl});
@@ -96,8 +96,8 @@ export class RecettesService {
       throw error;
     }
   }
-
-  async editRecette(recette: Recette, recetteId: string, newRecettePhoto?: any): Promise<Recette>{
+ */
+/*   async editRecette(recette: Recette, recetteId: string, newRecettePhoto?: any): Promise<Recette>{
     try {
       if(newRecettePhoto && recette.photo && recette.photo !== ''){
         await this.removePhoto(recette.photo);
@@ -115,8 +115,8 @@ export class RecettesService {
       throw error;
     }
   }
-
-  async deleteRecette(recetteId: string): Promise<Recette>{
+ */
+/*   async deleteRecette(recetteId: string): Promise<Recette>{
     try {
       const recetteToDeleteIndex = this.recettes.findIndex(el => el.id === recetteId);
       const recetteToDelete = this.recettes[recetteToDeleteIndex];
@@ -131,7 +131,7 @@ export class RecettesService {
       throw error;
     }
   }
-
+ */
   private uploadPhoto(photo: any): Promise<string>{
     return new Promise((resolve, reject) => {
       const upload = this.storage.upload('recettes/' + Date.now().toString() + '-' + photo.name, photo);

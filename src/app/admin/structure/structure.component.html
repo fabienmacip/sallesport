@@ -1,0 +1,115 @@
+<h1>STRUCTURES</h1>
+<a class="nav-link" [routerLink]="['../../../partenaires']" routerLinkActive="active-link">&NestedLessLess; Partenaires</a><br/>
+<div class="container py-5">
+  <div class="row mb-5">
+    <div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto">
+      <div class="bg-white shadow rounded p-4">
+        <h2 class="display-5 text-dark">
+          {{ titrePage }}
+        </h2>
+        <hr class="bg-dark mb-5">
+        <form [formGroup]="structureForm" (ngSubmit)="onSubmitStructureForm()">
+          <input type="text" formControlName="id" hidden>
+          <div class="form-group mb-3">
+            <label for="adr1">adr1</label>
+            <input type="text" id="adr1" class="form-control" formControlName="adr1">
+          </div>
+          <div class="form-group mb-3">
+            <label for="adr2">adr2</label>
+            <input type="text" id="adr2" class="form-control" formControlName="adr2">
+          </div>
+          <div class="form-group mb-3">
+            <label for="cp">cp</label>
+            <input type="text" id="cp" class="form-control" formControlName="cp" >
+          </div>
+          <div class="form-group mb-3">
+            <label for="ville">ville</label>
+            <input type="text" id="ville" class="form-control" formControlName="ville" appUppercaseInput >
+          </div>
+          <div class="form-group mb-3">
+            <label for="sexegerant">Sexe Gérant</label>
+            <input type="text" id="sexegerant" class="form-control" formControlName="sexegerant">
+          </div>
+          <div class="form-group mb-3">
+            <label for="nomgerant">Gérant</label>
+            <input type="text" id="nomgerant" class="form-control" formControlName="nomgerant">
+          </div>
+          <div class="form-group mb-3">
+            <label for="mail">Mail</label>
+            <input type="mail" id="mail" class="form-control" formControlName="mail">
+          </div>
+          <div class="form-group mb-3" *ngIf="!structureForm.value.id">
+            <label for="password">Mot de passe</label>
+            <input type="password" class="form-control" placeholder="Minimum 8 caractères" id="password" formControlName="password"
+            [ngClass]="structureForm.value.id ? 'noUpdate' : ''">
+          </div>
+          <div class="form-group mb-3" *ngIf="!structureForm.value.id">
+            <label for="passwordConfirm">Confirmez le mot de passe</label>
+            <input type="password" class="form-control" placeholder="Minimum 8 caractères" id="passwordConfirm" formControlName="passwordConfirm"
+            [ngClass]="structureForm.value.id ? 'noUpdate' : ''">
+          </div>
+          <div class="form-group mb-3">
+            <b>Actif</b>
+              <div class="form-check">
+                <div>
+                  <input type="checkbox" class="form-check-input" id="actif" formControlName="actif">
+                  <label for="actif" class="form-check-label">Actif</label>
+                  <input type="number" class="form-control" id="grants" formControlName="grants" hidden>
+                  <input type="number" class="form-control" id="partenaire" formControlName="partenaire" hidden>
+                </div>
+              </div>
+          </div>
+          <div class="d-flex">
+            <button class="btn btn-success mx-auto" [disabled]="structureForm.invalid || structureForm.value.password !== structureForm.value.passwordConfirm">Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container py-5">
+    <h2 class="display-5 mb-5">{{ sousTitrePage }}</h2>
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-4 col-xxl-3 py-2" *ngFor="let structure of structures; let i = index">
+        <div class="card">
+          <!-- <img [src]="recette.photo" alt="Photo de la recette" class="card-img-top"> -->
+          <!-- <img [src]="" alt="Photo du partenaire" class="card-img-top"> -->
+          <div class="card-body" [ngClass]="structure.actif == 1 ? 'structure-actif' : 'structure-inactif'">
+            <h5 class="card-title">{{ structure.id }}</h5>
+            <p class="card-text">
+              Adresse<br/>
+              {{ structure.adr1 }}<br/>
+              {{ structure.adr2 }}<br/>
+              {{ structure.cp }} {{ structure.ville | uppercase}}<br/>
+              <br/>
+              {{ structure.sexegerant?.toUpperCase() === 'F' ? 'Mme' : 'M.' }} {{ structure.nomgerant }}<br/>
+              {{ structure.mail }}
+            </p>
+            <hr/>
+            <p class="card-text">
+              <button class="btn btn-primary" type="button" (click)="onEditStructure(structure)">Modifier</button>
+              <button class="btn btn-danger" type="button" (click)="onDeleteStructure(structure.id)">Supprimer</button>
+            </p>
+            <hr>
+            <button class="btn btn-success" type="button"
+                [ngClass]="structure.actif == 1 ? 'btn-success' : 'btn-danger'"
+                (click)="onToggleStructureActif(structure.id!.toString(), structure.actif!)">
+                {{ structure.actif == 1 ? 'Désactiver' : 'Activer'}}
+            </button>
+            <button class="btn btn-primary" type="button"
+              (click)="onToggleGrantsForm(structure.id)">
+              {{ grantsFormToggle == structure.id ? "-" : "+" }}
+            </button>
+          </div>
+          <div class="card" *ngIf="grantsFormToggle && grantsFormToggle == structure.id">
+            <div class="card-body">
+              <app-grants [partenaire]="structure"></app-grants>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>

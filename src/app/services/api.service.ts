@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Partenaire } from '../interfaces/partenaire';
+import { Structure } from '../interfaces/structure';
 import { Grants } from '../grants';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
@@ -80,6 +81,52 @@ export class ApiService {
   deletePartenaire(id: number){
     return this.httpClient.delete<Partenaire>(`${this.PHP_API_SERVER}partenaire.php?id=${id}`);
   }
+
+
+
+// * * * * *  STRUCTURES  * * * * *
+
+readStructureAll(): Observable<Structure[]>{
+  return this.httpClient.get<Structure[]>(`${this.PHP_API_SERVER}structure.php`);
+}
+
+readStructure(id: number): Observable<Structure[]>{
+  return this.httpClient.get<Grants[]>(`${this.PHP_API_SERVER}structure.php?id=${id}`);
+}
+
+readStructuresOfPartenaire(id: number): Observable<Structure[]>{
+  return this.httpClient.get<Grants[]>(`${this.PHP_API_SERVER}structure.php?partenaireId=${id}`);
+}
+
+createStructure(structure: Structure): Observable<Structure>{
+  let headers = new HttpHeaders();
+  this.createAuthorizationHeader(headers);
+  return this.httpClient.post<Structure>(`${this.PHP_API_SERVER}structure.php`, structure, { headers : headers, responseType: "json" });
+}
+
+updateStructure(id: number, structure: Structure): Observable<Structure>{
+  let headers = new HttpHeaders();
+  this.createAuthorizationHeader(headers);
+
+  return this.httpClient.put<Structure>(`${this.PHP_API_SERVER}structure.php/${id}`, structure, { headers : headers, responseType: "json" });
+}
+
+updateStructureActif(id: string, actif: number): Observable<Structure>{
+  let headers = new HttpHeaders();
+  this.createAuthorizationHeader(headers);
+  const datas = {
+    id: id,
+    actif: actif,
+    onlyone: true
+  };
+
+  return this.httpClient.put<any>(`${this.PHP_API_SERVER}structure.php/${id}`, datas, { headers : headers, responseType: "json" });
+}
+
+deleteStructure(id: number){
+  return this.httpClient.delete<Structure>(`${this.PHP_API_SERVER}structure.php?id=${id}`);
+}
+
 
 
 

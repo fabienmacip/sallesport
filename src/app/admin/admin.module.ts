@@ -5,14 +5,14 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '../directives/directives.module';
 import { PipesModule } from '../pipes/pipes.module';
-import { RecetteComponent } from './recette/recette.component';
+//import { StructureComponent } from './structure/structure.component';
 
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    RecetteComponent
+    //StructureComponent
   ],
   imports: [
     CommonModule,
