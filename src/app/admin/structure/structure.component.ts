@@ -76,7 +76,7 @@ export class StructureComponent implements OnInit, OnDestroy {
       password: ['mlkjmlkj', [Validators.required, Validators.minLength(8), Validators.maxLength(45)]],
       actif: [true],
       grants: ['1'],
-      partenaire: ['1'],
+      partenaire: [this.partenaireId ?? 0],
       passwordConfirm: ['mlkjmlkj', [Validators.required]]
     })
   }
@@ -138,39 +138,37 @@ export class StructureComponent implements OnInit, OnDestroy {
     const structureId = this.structureForm.value.id;
 
     let structure = this.structureForm.value;
+
     if(!structureId || structureId && structureId == 0){
 
-      // CREATE ligne PARTENAIRE
+      // CREATE ligne STRUCTURE
       structure.id = "";
       delete structure.passwordConfirm;
-      //this.router.navigate(['/admin','dashboard']);
-
-
 
       this.apiService.createStructure(structure).subscribe({
         next: data => {
-          //this.postId = data.id;
-          //console.log(data);
-          //this.structures.push(structure);
 
+          this.subscription = this.apiService.readStructuresOfPartenaire(this.partenaireId).subscribe((structures: Structure[])=>{
+            this.structures = structures;
+            this.sousTitrePage = "Structure(s) du partenaire " + this.partenaireNomFranchise;
+          })
 
 
           // Rechargement des données
-          this.subscription = this.apiService.readStructureAll().subscribe((structures: Structure[])=>{
+          /* this.subscription = this.apiService.readStructureAll().subscribe((structures: Structure[])=>{
             this.structures = structures;
-          })
+          }) */
 
         },
         error: error => {
-          //this.errorMessage = error.message;
           console.error('There was an error!', error);
         }
       });
 
     } else {
-
+      console.log("ELSE");
+      debugger;
       delete structure.passwordConfirm;
-
 
       // UPDATE
       //delete structure.id;
@@ -191,6 +189,7 @@ export class StructureComponent implements OnInit, OnDestroy {
     }
 
     this.structureForm.reset();
+    this.structureForm.controls['partenaire'].setValue(this.partenaireId);
     this.titrePage = 'Enregistrer une nouvelle structure';
 
 
