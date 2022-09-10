@@ -7,6 +7,13 @@
   --white : #F3F3F7;
   --grey: #BDB9B3;
   --black: #0C0920;
+
+/* Ajouté manuellement, pas via BootStrap */
+    --activeColor: green;
+    --inactiveColor: red;
+    --bgActive: lightgreen;
+    --bgInactive: lightcoral;
+
 }
 
 
@@ -14,3 +21,8 @@
   background-color: lightblue;
 }
 
+.fieldAlert{
+  font-size: 0.8rem;
+  color: red;
+  font-style: italic;
+}

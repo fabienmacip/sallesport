@@ -9,10 +9,6 @@
 
 
 /* .slideButton */
-*{
-  --activeColor: green;
-  --inactiveColor: red;
-}
 
 .slideButton {
   width: 80px;

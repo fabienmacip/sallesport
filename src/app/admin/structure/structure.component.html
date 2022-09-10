@@ -12,19 +12,20 @@
         <form [formGroup]="structureForm" (ngSubmit)="onSubmitStructureForm()">
           <input type="text" formControlName="id" hidden>
           <div class="form-group mb-3">
-            <label for="adr1">adr1</label>
+            <label for="adr1">Adresse (n° et voie)</label>
             <input type="text" id="adr1" class="form-control" formControlName="adr1">
           </div>
           <div class="form-group mb-3">
-            <label for="adr2">adr2</label>
+            <label for="adr2">Adresse (suite) <em>(non-obligatoire)</em></label>
             <input type="text" id="adr2" class="form-control" formControlName="adr2">
           </div>
           <div class="form-group mb-3">
-            <label for="cp">cp</label>
-            <input type="text" id="cp" class="form-control" formControlName="cp" >
+            <label for="cp">Code Postal</label>
+            <span *ngIf="structureForm.controls['cp'].invalid" class="fieldAlert"> 5 chiffres</span>
+            <input type="text" id="cp" class="form-control" formControlName="cp" maxlength="5">
           </div>
           <div class="form-group mb-3">
-            <label for="ville">ville</label>
+            <label for="ville">Ville</label>
             <input type="text" id="ville" class="form-control" formControlName="ville" appUppercaseInput >
           </div>
           <div class="form-group mb-3">
@@ -37,7 +38,8 @@
           </div>
           <div class="form-group mb-3">
             <label for="mail">Mail</label>
-            <input type="mail" id="mail" class="form-control" formControlName="mail">
+            <span *ngIf="structureForm.controls['mail'].invalid" class="fieldAlert"> adresse mail valide svp - exemple : jean@gmail.com</span>
+            <input type="email" id="mail" class="form-control" formControlName="mail">
           </div>
           <div class="form-group mb-3" *ngIf="!structureForm.value.id">
             <label for="password">Mot de passe</label>

@@ -8,9 +8,9 @@ button{
 }
 
 .partenaire-actif{
-  background-color: lightgreen;
+  background-color: var(--bgActive);
 }
 
 .partenaire-inactif{
-  background-color: lightcoral;
+  background-color: var(--bgInactive);
 }

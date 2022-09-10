@@ -67,25 +67,26 @@ export class StructureComponent implements OnInit, OnDestroy {
     this.structureForm = this.formBuilder.group({
       id: [0],
       adr1: ['2ème étage', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],
-      adr2: ['3, rue des prés', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],
-      cp: ['75003', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
+      adr2: ['3, rue des prés', [Validators.minLength(2), Validators.maxLength(45)]],
+      cp: ['75003', [Validators.required, Validators.minLength(5), Validators.maxLength(5), Validators.pattern('[0-9]{5}')]],
       ville: ['PARIS', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],
       sexegerant: ['F', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
       nomgerant: ['Gineste', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],
-      mail: ['gigi@yahoo.fr', [Validators.email, Validators.required, Validators.maxLength(45)]],
+      mail: ['gigi@yahoo.fr', [Validators.required, Validators.email, Validators.maxLength(45)]],
       password: ['mlkjmlkj', [Validators.required, Validators.minLength(8), Validators.maxLength(45)]],
       actif: [true],
       grants: ['1'],
-      partenaire: [this.partenaireId ?? 0],
+      partenaire: [this.partenaireId ?? 0, [Validators.required, Validators.min(1)]],
       passwordConfirm: ['mlkjmlkj', [Validators.required]]
     })
   }
 
 
   onEditStructure(structure: Structure): void{
+
+    this.grantsFormToggle = 0;
+
     this.titrePage = 'Modifier une structure';
-
-
 
     this.structureForm.setValue({
       id: structure.id ?? '',
@@ -100,7 +101,7 @@ export class StructureComponent implements OnInit, OnDestroy {
       passwordConfirm: structure.password,
       actif: structure.actif == 0 ? false : true,
       grants: structure.grants ?? 0,
-      partenaire: structure.partenaire ?? 0
+      partenaire: structure.partenaire ?? null
     });
 
     window.scrollTo({
@@ -116,12 +117,16 @@ export class StructureComponent implements OnInit, OnDestroy {
 
     if(confirm(confirmMsg)){
       actif = actif == 1 ? 0 : 1;
+
       this.structureForm.reset();
+      this.structureForm.controls['partenaire'].setValue(this.partenaireId);
+
       this.apiService.updateStructureActif(id, actif).subscribe({
         next: data => {
-          this.subscription = this.apiService.readStructureAll().subscribe((structures: Structure[])=>{
+          this.subscription = this.apiService.readStructuresOfPartenaire(this.partenaireId).subscribe((structures: Structure[])=>{
             this.structures = structures;
-          })
+            this.sousTitrePage = "Structure(s) du partenaire " + this.partenaireNomFranchise;
+          });
 
         },
         error: error => {
@@ -151,7 +156,7 @@ export class StructureComponent implements OnInit, OnDestroy {
           this.subscription = this.apiService.readStructuresOfPartenaire(this.partenaireId).subscribe((structures: Structure[])=>{
             this.structures = structures;
             this.sousTitrePage = "Structure(s) du partenaire " + this.partenaireNomFranchise;
-          })
+          });
 
 
           // Rechargement des données
@@ -166,8 +171,7 @@ export class StructureComponent implements OnInit, OnDestroy {
       });
 
     } else {
-      console.log("ELSE");
-      debugger;
+
       delete structure.passwordConfirm;
 
       // UPDATE
@@ -176,8 +180,13 @@ export class StructureComponent implements OnInit, OnDestroy {
         next: data => {
           //this.postId = data.id;
           //console.log(data);
-          this.subscription = this.apiService.readStructureAll().subscribe((structures: Structure[])=>{
+/*           this.subscription = this.apiService.readStructureAll().subscribe((structures: Structure[])=>{
             this.structures = structures;
+          });
+ */
+          this.subscription = this.apiService.readStructuresOfPartenaire(this.partenaireId).subscribe((structures: Structure[])=>{
+            this.structures = structures;
+            this.sousTitrePage = "Structure(s) du partenaire " + this.partenaireNomFranchise;
           });
         },
         error: error => {
@@ -197,14 +206,15 @@ export class StructureComponent implements OnInit, OnDestroy {
 
   onDeleteStructure(structureId?: number): void{
 
+    this.grantsFormToggle = 0;
+
     if(confirm("SUPPRIMER ?")){
       if(structureId && structureId != 0){
         this.apiService.deleteStructure(structureId).subscribe((part: Structure)=>{
-          //console.log("Structure deleted, ", part);
-          this.subscription = this.apiService.readStructureAll().subscribe((structures: Structure[])=>{
+          this.subscription = this.apiService.readStructuresOfPartenaire(this.partenaireId).subscribe((structures: Structure[])=>{
             this.structures = structures;
+            this.sousTitrePage = "Structure(s) du partenaire " + this.partenaireNomFranchise;
           });
-          //this.router.navigate(['structures']);
         });
       } else {
         console.error('Un id doit être fourni pour pouvoir supprimer cette structure.');

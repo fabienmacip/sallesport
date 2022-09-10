@@ -1,0 +1,16 @@
+.no-update{
+  background-color: lightgray;
+}
+
+button{
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.structure-actif{
+  background-color: var(--bgActive);
+}
+
+.structure-inactif{
+  background-color: var(--bgInactive);
+}
