@@ -18,6 +18,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
   partenaireForm!: FormGroup;
 
   partenaires: Partenaire[] = [];
+  partenairesToDisplay: Partenaire[] = [];
 
   currentPartenaire: any;
 
@@ -52,6 +53,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
 
     this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
       this.partenaires = partenaires;
+      this.partenairesToDisplay = partenaires;
     })
 
   }
@@ -128,6 +130,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
         next: data => {
           this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
             this.partenaires = partenaires;
+            this.partenairesToDisplay = partenaires;
           })
 
         },
@@ -165,6 +168,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
           // Rechargement des données
           this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
             this.partenaires = partenaires;
+            this.partenairesToDisplay = partenaires;
           })
 
         },
@@ -187,6 +191,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
           //console.log(data);
           this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
             this.partenaires = partenaires;
+            this.partenairesToDisplay = partenaires;
           });
         },
         error: error => {
@@ -213,6 +218,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
           //console.log("Partenaire deleted, ", part);
           this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
             this.partenaires = partenaires;
+            this.partenairesToDisplay = partenaires;
           });
           //this.router.navigate(['partenaires']);
         });
@@ -234,6 +240,24 @@ export class PartenaireComponent implements OnInit, OnDestroy {
     }
 
   }
+
+  onChangeSeekPartenaire(event : any): void{
+    if(event.target.value.length >= 2){
+      let wordToFind = event.target.value.toLowerCase();
+      this.partenairesToDisplay = this.partenaires;
+      if(this.partenairesToDisplay.length > 0){
+        this.partenairesToDisplay = this.partenairesToDisplay.filter((line) => {
+          console.log(line.mail!.search(wordToFind));
+          return (line.mail!.toLowerCase().search(wordToFind) >= 0 ||
+                  line.nomfranchise!.toLowerCase().search(wordToFind) >= 0 ||
+                  line.nomgerant!.toLowerCase().search(wordToFind) >= 0);
+        });
+      }
+    } else {
+      this.partenairesToDisplay = this.partenaires;
+    }
+  }
+
 
 
   ngOnDestroy(): void {

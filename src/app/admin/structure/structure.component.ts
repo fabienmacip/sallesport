@@ -257,7 +257,6 @@ export class StructureComponent implements OnInit, OnDestroy {
     } else {
       this.structuresToDisplay = this.structures;
     }
-
   }
 
   ngOnDestroy(): void {
