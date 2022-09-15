@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { Subscription } from 'rxjs';
 import { Structure } from 'src/app/interfaces/structure';
+import { Mail } from 'src/app/interfaces/mail';
 import { AuthService } from 'src/app/services/auth.service';
 
 
@@ -142,6 +143,10 @@ export class StructureComponent implements OnInit, OnDestroy {
 
   }
 
+  sexeGerant(e: string) {
+    return e.toLowerCase() == 'f' ? 'Mme' : 'M.';
+  }
+
   onSubmitStructureForm(): void{
 
     const structureId = this.structureForm.value.id;
@@ -163,6 +168,26 @@ export class StructureComponent implements OnInit, OnDestroy {
             this.sousTitrePage = "Structure(s) du partenaire " + this.partenaireNomFranchise;
           });
 
+          let qui = "la structure gérée par " + this.sexeGerant(structure.sexegerant!) + " " +
+                    structure.nomgerant + " située à l'adresse suivante\n" +
+                    structure.adr1 + " " + structure.adr2 + " à " + structure.ville;
+
+          let mail: Mail = {
+            id: 0,
+            titre: "Structure créée, à activer.",
+            corps: "Cher partenaire, nous vous informons que " + qui + " a été créée. Pour l'activer, merci de cliquer sur le bouton ci-dessous.",
+            lien: "cliquer ici pour activer",
+            lu: 0,
+            partenaire: structure.partenaire
+          }
+
+          this.apiService.createMail(mail).subscribe({
+            next: data2 => {
+            },
+            error: error2 => {
+              console.log('Erreur lors de création de mail', error2);
+            }
+          });
 
           // Rechargement des données
           /* this.subscription = this.apiService.readStructureAll().subscribe((structures: Structure[])=>{

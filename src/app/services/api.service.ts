@@ -168,7 +168,7 @@ deleteStructure(id: number){
   // * * * * *  MAILS  * * * * *
 
   readMailsFromPartenaire(id = 0): Observable<Mail[]>{
-    return this.httpClient.get<Mail[]>(`${this.PHP_API_SERVER}mail.php?idpartenaire=${id}`);
+    return this.httpClient.get<Mail[]>(`${this.PHP_API_SERVER}mail.php?partenaireId=${id}`);
   }
 
   readMail(id: number): Observable<Mail[]>{

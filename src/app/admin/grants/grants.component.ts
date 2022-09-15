@@ -157,8 +157,13 @@ export class GrantsComponent implements OnInit {
               lu: 0,
               partenaire: this.partenaireId
             }
-            console.log(mail);
-            //this.apiService.createMail(mail);
+            this.apiService.createMail(mail).subscribe({
+              next: data2 => {
+              },
+              error: error2 => {
+                console.log('Erreur lors de création de mail', error2);
+              }
+            });
 
       },
       error: error => {
