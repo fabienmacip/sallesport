@@ -215,6 +215,10 @@ deleteStructure(id: number){
       localStorage.setItem('token', token);
     }
 
+    setRole(role: string) {
+      localStorage.setItem('role', role);
+    }
+
     getToken() {
       return localStorage.getItem('token');
     }

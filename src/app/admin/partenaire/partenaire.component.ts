@@ -102,7 +102,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
     this.grantsFormToggle = 0;
 
     this.titrePage = 'Modifier un partenaire';
-
+    this.displayCreatePartenaireForm = true;
 
 
     this.partenaireForm.setValue({

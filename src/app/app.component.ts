@@ -36,6 +36,8 @@ export class AppComponent {
   private logout()
   {
     this.authService.deleteToken();
+    this.loginbtn = true;
+    this.logoutbtn = false;
     window.location.href = window.location.href;
   }
 }

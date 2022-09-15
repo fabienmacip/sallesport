@@ -50,6 +50,10 @@ export class AuthService {
     localStorage.removeItem('token');
   }
 
+  deleteRole() {
+    localStorage.removeItem('role');
+  }
+
   isLoggedIn() {
     const usertoken = this.getToken();
     if (usertoken != null) {
@@ -68,7 +72,11 @@ export class AuthService {
           if(typeof(data) == 'object' && Object.keys(data).length > 0){
               let result2 = Object.values(data);
               this.logged = true;
-              this.apiService.setToken(result2[0].name);
+
+              let name = result2[0].name ?? result2[0].nomfranchise;
+              let role = result2[0].name ? 'admin' : 'partenaire';
+              this.apiService.setToken(name);
+              this.apiService.setRole(role);
               this.getLoggedInName.emit(true);
               this.router.navigate(['home']);
           }
@@ -106,6 +114,7 @@ export class AuthService {
   signoutUser(): Promise<void> {
     {
       this.deleteToken();
+      this.deleteRole();
       this.router.navigate(['home']);
     }
     return new Promise((resolve, reject) => {

@@ -38,10 +38,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onSignOut(): void {
+    this.loginbtn = true;
+    this.logoutbtn = false;
     this.authService.signoutUser()
     .then(() => {
       this.router.navigate(['/home']);
     }).catch(console.error);
+  }
+
+  loggedInToken() {
+    return (localStorage.getItem('token') != null);
   }
 
   ngOnDestroy(): void {

@@ -96,6 +96,7 @@ export class StructureComponent implements OnInit, OnDestroy {
     this.grantsFormToggle = 0;
 
     this.titrePage = 'Modifier une structure';
+    this.displayCreateStructureForm = true;
 
     this.structureForm.setValue({
       id: structure.id ?? '',
