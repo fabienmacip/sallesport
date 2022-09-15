@@ -64,15 +64,12 @@ export class EditProfileComponent implements OnInit, OnChanges {
   onSubmitEmailForm(): void {
 
     this.authService.signinUser(<string>this.currentUser.email, this.emailForm.value.password)
-    .then(() => {
-
       this.currentUser.updateEmail(this.emailForm.value.email)
       .then(() => {
         this.modalService.dismissAll();
         this.emailForm.reset();
       }).catch(console.error);
 
-    }).catch(console.error);
 
   }
 

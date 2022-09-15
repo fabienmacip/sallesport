@@ -9,7 +9,7 @@
           <div class="input-group-text">
             <img src="../assets/search.svg"/>
           </div>
-          <input type="text" id="seekstructure" name="seekstructure" maxlength="40" class="form-control" (keyup)="onChangeSeekStructure($event)">
+          <input type="text" id="seekstructure" name="seekstructure" maxlength="40" class="form-control" placeholder="minimum 2 caractères" (keyup)="onChangeSeekStructure($event)">
           <!-- <button type="submit" class="btn btn-primary">GO !</button> -->
         </div>
     </div>
@@ -17,9 +17,15 @@
 </div>
 
 <div class="container py-5">
-  <div class="row mb-5">
+  <div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto d-flex justify-content-end" *ngIf="displayCreateStructureForm == false">
+    Ajouter une structure <img src="../assets/plus-circle.svg" class="mx-3" width="30" (click)="toggleDisplayCreateStructureForm()">
+  </div>
+  <div class="row mb-5" *ngIf="displayCreateStructureForm == true">
     <div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto">
       <div class="bg-white shadow rounded p-4">
+        <div class="d-flex justify-content-end">
+          <img src="../assets/dash-circle.svg" class="" width="30" (click)="toggleDisplayCreateStructureForm()">
+        </div>
         <h2 class="display-5 text-dark">
           {{ titrePage }}
         </h2>

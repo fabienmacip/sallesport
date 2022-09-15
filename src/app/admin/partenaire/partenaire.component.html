@@ -7,7 +7,7 @@
           <div class="input-group-text">
             <img src="../assets/search.svg"/>
           </div>
-          <input type="text" id="seekpartenaire" name="seekpartenaire" maxlength="40" class="form-control" (keyup)="onChangeSeekPartenaire($event)">
+          <input type="text" id="seekpartenaire" name="seekpartenaire" maxlength="40" class="form-control" placeholder="minimum 2 caractères" (keyup)="onChangeSeekPartenaire($event)">
           <!-- <button type="submit" class="btn btn-primary">GO !</button> -->
         </div>
     </div>
@@ -15,9 +15,15 @@
 </div>
 
 <div class="container py-5">
-  <div class="row mb-5">
+  <div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto d-flex justify-content-end" *ngIf="displayCreatePartenaireForm == false">
+    Ajouter un partenaire <img src="../assets/plus-circle.svg" class="mx-3" width="30" (click)="toggleDisplayCreatePartenaireForm()">
+  </div>
+  <div class="row mb-5" *ngIf="displayCreatePartenaireForm == true">
     <div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto">
       <div class="bg-white shadow rounded p-4">
+        <div class="d-flex justify-content-end">
+          <img src="../assets/dash-circle.svg" class="" width="30" (click)="toggleDisplayCreatePartenaireForm()">
+        </div>
         <h2 class="display-5 text-dark">
           {{ titrePage }}
         </h2>

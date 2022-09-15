@@ -22,6 +22,8 @@ export class PartenaireComponent implements OnInit, OnDestroy {
 
   currentPartenaire: any;
 
+  displayCreatePartenaireForm: boolean = false;
+
   subscription! : Subscription;
 
   titrePage: string = 'Enregistrer un nouveau partenaire';
@@ -71,6 +73,10 @@ export class PartenaireComponent implements OnInit, OnDestroy {
       grants: ['1'],
       passwordConfirm: ['qsdfqsdf', [Validators.required]]
     })
+  }
+
+  toggleDisplayCreatePartenaireForm(): void{
+    this.displayCreatePartenaireForm = !this.displayCreatePartenaireForm;
   }
 
   onCbChange(e: any): void {

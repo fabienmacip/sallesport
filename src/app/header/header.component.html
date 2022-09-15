@@ -10,22 +10,23 @@
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['home']" routerLinkActive="active-link">Accueil</a>
         </li>
-        <li class="nav-item" *ngIf="!currentUser">
+        <li class="nav-item" *ngIf="loginbtn">
           <a class="nav-link" [routerLink]="['/auth','signin']" routerLinkActive="active-link">Connexion</a>
         </li>
+
 <!--         <li class="nav-item" *ngIf="!currentUser">
           <a class="nav-link" [routerLink]="['/auth','signup']" routerLinkActive="active-link">Inscription</a>
         </li> -->
 
-        <li class="nav-item dropdown" *ngIf="currentUser">
+        <li class="nav-item dropdown" *ngIf="logoutbtn">
           <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" data-toggle="dropdown" aria-expanded="false">
             Admin
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbar-dropdown">
-            <li *ngIf="currentUser.email === 'fabien.macip@gmail.com'">
+            <li>
               <a class="dropdown-item" [routerLink]="['/admin','patients']" routerLinkActive="active-link">Patients</a>
             </li>
-            <li class="nav-item" *ngIf="currentUser.email === 'fabien.macip@gmail.com'">
+            <li class="nav-item">
               <a class="dropdown-item" [routerLink]="['/admin','recettes']" routerLinkActive="active-link">Recettes</a>
             </li>
             <li>
@@ -33,7 +34,7 @@
             </li>
             <li class="dropdown-divider"></li>
             <li>
-              <a class="dropdown-item text-danger pointer-cursor" routerLinkActive="active-link" (click)="onSignOut()">Déconnexion</a>
+              <a class="dropdown-item text-danger pointer-cursor" *ngIf="logoutbtn" routerLinkActive="active-link" (click)="onSignOut()">Déconnexion</a>
             </li>
           </ul>
         </li>

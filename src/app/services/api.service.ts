@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Admin } from '../interfaces/admin';
 import { Partenaire } from '../interfaces/partenaire';
 import { Structure } from '../interfaces/structure';
 import { Grants } from '../grants';
@@ -7,6 +8,7 @@ import { Mail } from '../interfaces/mail';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
+import { user } from '@angular/fire/auth';
 
 
 @Injectable({
@@ -15,6 +17,8 @@ import { HttpHeaders } from '@angular/common/http';
 export class ApiService {
 
   PHP_API_SERVER = "http://localhost:8080/sallesportapi/backend/api/";
+
+  @Output() getLoggedInName: EventEmitter<any> = new EventEmitter();
 
 /*    headers = {
     "Access-Control-Allow-Origin": "*",
@@ -180,6 +184,57 @@ deleteStructure(id: number){
   }
 
   updateMailLu(id: number, mail: Mail): Observable<Mail>{
-    return this.httpClient.put<Mail>(`${this.PHP_API_SERVER}mail.php?id=${id}`, mail);
+
+    let datas = JSON.stringify(mail);
+    console.log(datas);
+    debugger;
+
+    let headers = new HttpHeaders();
+    this.createAuthorizationHeader(headers);
+    return this.httpClient.put<Mail>(`${this.PHP_API_SERVER}mail.php?id=${id}`, mail, { headers : headers, responseType: "json" });
   }
+
+    // * * * * *  ADMIN  * * * * *
+
+    public userLogin(mail: string, password: string): Observable<Admin> {
+      let user = {
+        mail: mail,
+        password: password,
+      }
+      /* return this.httpClient.post<any>(this.baseUrl + '/login.php', { username, password }) */
+      return this.httpClient.post<any>(`${this.PHP_API_SERVER}login.php`, user);
+      /* .pipe(map(Admin => {
+      this.setToken(Admin[0].name);
+      this.getLoggedInName.emit(true);
+      return Admin;
+      })); */
+    }
+
+    //token
+    setToken(token: string) {
+      localStorage.setItem('token', token);
+    }
+
+    getToken() {
+      return localStorage.getItem('token');
+    }
+
+    deleteToken() {
+      localStorage.removeItem('token');
+    }
+
+    isLoggedIn() {
+      const usertoken = this.getToken();
+      if (usertoken != null) {
+        return true
+      }
+        return false;
+      }
+
+
+
+/*     readAdmin(admin: Admin): Observable<Admin[]>{
+      return this.httpClient.get<Admin[]>(`${this.PHP_API_SERVER}user.php`);
+    } */
+
 }

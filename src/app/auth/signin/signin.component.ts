@@ -34,5 +34,9 @@ export class SigninComponent implements OnInit {
     .then(() => {
       this.router.navigate(['home']);
     }).catch(console.error);
+
+
+
+
   }
 }

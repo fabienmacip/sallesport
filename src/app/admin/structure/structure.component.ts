@@ -29,6 +29,8 @@ export class StructureComponent implements OnInit, OnDestroy {
 
   subscription! : Subscription;
 
+  displayCreateStructureForm: boolean = false;
+
   titrePage: string = 'Enregistrer une nouvelle structure';
   sousTitrePage: string = 'Toutes les structures';
 
@@ -85,6 +87,9 @@ export class StructureComponent implements OnInit, OnDestroy {
     })
   }
 
+  toggleDisplayCreateStructureForm(): void{
+    this.displayCreateStructureForm = !this.displayCreateStructureForm;
+  }
 
   onEditStructure(structure: Structure): void{
 

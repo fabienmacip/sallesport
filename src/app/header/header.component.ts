@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'firebase/auth';
-import { Subscription } from 'rxjs';
+import { refFromURL } from 'firebase/database';
+import { Subscription, TimeoutError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -15,6 +16,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentUser!: User;
 
   title = 'FITME';
+
+  @Input() loginbtn: boolean = true;
+  @Input() logoutbtn: boolean = false;
+
 
   constructor(
     private authService: AuthService,
