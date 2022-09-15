@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { Grants } from '../../interfaces/grants';
+import { Mail } from 'src/app/interfaces/mail';
 import { Partenaire } from 'src/app/interfaces/partenaire';
+import { Structure } from 'src/app/interfaces/structure';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -12,6 +14,11 @@ import { Subscription } from 'rxjs';
 export class GrantsComponent implements OnInit {
 
   @Input() partenaire!: Partenaire;
+  @Input() structure!: Structure;
+
+  partenaireId: number = 0;
+  structureId: number = 0;
+
 
   grants?: Grants[];
   currentGrant?: Grants;
@@ -38,6 +45,10 @@ export class GrantsComponent implements OnInit {
   constructor(
     private apiService: ApiService
   ) { }
+
+  sexeGerant(e: string) {
+    return e.toLowerCase() == 'f' ? 'Mme' : 'M.';
+  }
 
   fullText(e: string){
     switch(e) {
@@ -106,7 +117,9 @@ export class GrantsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const grantsId = this.partenaire.grants ?? 0 ;
+    const grantsId = this.partenaire ? this.partenaire.grants ?? 0 : this.structure.grants ?? 0 ;
+    this.partenaireId = this.partenaire ? <number>this.partenaire.id : this.structure ? <number>this.structure.partenaire : 0;
+    this.structureId = this.structure ? <number>this.structure.id : 0;
 
     this.apiService.readGrants(grantsId).subscribe((grants: Grants[]) => {
       this.grants = grants;
@@ -129,6 +142,23 @@ export class GrantsComponent implements OnInit {
     this.apiService.updateOneGrant(id , column, active).subscribe({
       next: data => {
             this.ngOnInit();
+
+            let activeText = active == 0 ? "désactivé" : "activé";
+            let qui = this.structureId == 0 ? "votre compte \"partenaire\"" :
+                      "la structure gérée par " + this.sexeGerant(this.structure.sexegerant!) + " " +
+                      this.structure.nomgerant + " située à l'adresse suivante\n" +
+                      this.structure.adr1 + " " + this.structure.adr2 + " à " + this.structure.ville;
+
+            let mail: Mail = {
+              id: 0,
+              titre: "Droit activé",
+              corps: "Cher partenaire, nous vous informons que le droit \"" + this.fullText(column) + "\" a été " + activeText + " concernant " + qui,
+              lien: "",
+              lu: 0,
+              partenaire: this.partenaireId
+            }
+            console.log(mail);
+            //this.apiService.createMail(mail);
 
       },
       error: error => {

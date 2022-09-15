@@ -17,7 +17,7 @@
 </div>
 
 <div class="container py-5">
-  <div class="row mb-5" *ngIf="false">
+  <div class="row mb-5">
     <div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto">
       <div class="bg-white shadow rounded p-4">
         <h2 class="display-5 text-dark">
@@ -122,7 +122,7 @@
           </div>
           <div class="card" *ngIf="grantsFormToggle && grantsFormToggle == structure.id">
             <div class="card-body">
-              <app-grants [partenaire]="structure"></app-grants>
+              <app-grants [structure]="structure"></app-grants>
             </div>
           </div>
         </div>

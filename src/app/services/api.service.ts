@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Partenaire } from '../interfaces/partenaire';
 import { Structure } from '../interfaces/structure';
 import { Grants } from '../grants';
+import { Mail } from '../interfaces/mail';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
@@ -164,4 +165,21 @@ deleteStructure(id: number){
     return this.httpClient.delete<Grants>(`${this.PHP_API_SERVER}grants.php?id=${id}`);
   }
 
+  // * * * * *  MAILS  * * * * *
+
+  readMailsFromPartenaire(id = 0): Observable<Mail[]>{
+    return this.httpClient.get<Mail[]>(`${this.PHP_API_SERVER}mail.php?idpartenaire=${id}`);
+  }
+
+  readMail(id: number): Observable<Mail[]>{
+    return this.httpClient.get<Mail[]>(`${this.PHP_API_SERVER}mail.php?id=${id}`);
+  }
+
+  createMail(mail: Mail): Observable<Mail>{
+    return this.httpClient.post<Mail>(`${this.PHP_API_SERVER}mail.php`, mail);
+  }
+
+  updateMailLu(id: number, mail: Mail): Observable<Mail>{
+    return this.httpClient.put<Mail>(`${this.PHP_API_SERVER}mail.php?id=${id}`, mail);
+  }
 }
