@@ -22,6 +22,7 @@ export class StructureComponent implements OnInit, OnDestroy {
   structureForm!: FormGroup;
 
   structures: Structure[] = [];
+  structuresToDisplay: Structure[] = [];
 
   currentStructure: any;
 
@@ -50,11 +51,13 @@ export class StructureComponent implements OnInit, OnDestroy {
     if(this.partenaireId !== 0) {
       this.subscription = this.apiService.readStructuresOfPartenaire(this.partenaireId).subscribe((structures: Structure[])=>{
         this.structures = structures;
+        this.structuresToDisplay = structures;
         this.sousTitrePage = "Structure(s) du partenaire " + this.partenaireNomFranchise;
       })
     } else {
       this.subscription = this.apiService.readStructureAll().subscribe((structures: Structure[])=>{
         this.structures = structures;
+        this.structuresToDisplay = structures;
       })
     }
 
@@ -125,6 +128,7 @@ export class StructureComponent implements OnInit, OnDestroy {
         next: data => {
           this.subscription = this.apiService.readStructuresOfPartenaire(this.partenaireId).subscribe((structures: Structure[])=>{
             this.structures = structures;
+            this.structuresToDisplay = structures;
             this.sousTitrePage = "Structure(s) du partenaire " + this.partenaireNomFranchise;
           });
 
@@ -155,6 +159,7 @@ export class StructureComponent implements OnInit, OnDestroy {
 
           this.subscription = this.apiService.readStructuresOfPartenaire(this.partenaireId).subscribe((structures: Structure[])=>{
             this.structures = structures;
+            this.structuresToDisplay = structures;
             this.sousTitrePage = "Structure(s) du partenaire " + this.partenaireNomFranchise;
           });
 
@@ -186,6 +191,7 @@ export class StructureComponent implements OnInit, OnDestroy {
  */
           this.subscription = this.apiService.readStructuresOfPartenaire(this.partenaireId).subscribe((structures: Structure[])=>{
             this.structures = structures;
+            this.structuresToDisplay = structures;
             this.sousTitrePage = "Structure(s) du partenaire " + this.partenaireNomFranchise;
           });
         },
@@ -213,6 +219,7 @@ export class StructureComponent implements OnInit, OnDestroy {
         this.apiService.deleteStructure(structureId).subscribe((part: Structure)=>{
           this.subscription = this.apiService.readStructuresOfPartenaire(this.partenaireId).subscribe((structures: Structure[])=>{
             this.structures = structures;
+            this.structuresToDisplay = structures;
             this.sousTitrePage = "Structure(s) du partenaire " + this.partenaireNomFranchise;
           });
         });
@@ -235,6 +242,23 @@ export class StructureComponent implements OnInit, OnDestroy {
 
   }
 
+  onChangeSeekStructure(event : any): void{
+    if(event.target.value.length >= 2){
+      let wordToFind = event.target.value.toLowerCase();
+      this.structuresToDisplay = this.structures;
+      if(this.structuresToDisplay.length > 0){
+        this.structuresToDisplay = this.structuresToDisplay.filter((line) => {
+          console.log(line.mail!.search(wordToFind));
+          return (line.mail!.toLowerCase().search(wordToFind) >= 0 || line.adr1!.toLowerCase().search(wordToFind) >= 0 ||
+                  line.adr2!.toLowerCase().search(wordToFind) >= 0 || line.cp!.toLowerCase().search(wordToFind) >= 0 ||
+                  line.ville!.toLowerCase().search(wordToFind) >= 0 || line.nomgerant!.toLowerCase().search(wordToFind) >= 0);
+        });
+      }
+    } else {
+      this.structuresToDisplay = this.structures;
+    }
+
+  }
 
   ngOnDestroy(): void {
 
