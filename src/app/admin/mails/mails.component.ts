@@ -83,9 +83,26 @@ export class MailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  activeStructure(lien: string): void{
-    console.log("Activer structure : " + lien);
-  }
+  activeStructure(mailId: number, lien: string): void{
+
+      if(confirm("Confirmer l'activation de cette structure ?")){
+
+        this.apiService.turnOnStructureActifAndDeleteMailLink(lien, mailId).subscribe({
+          next: data => {
+            this.subscription = this.apiService.readMailsFromPartenaire(this.userId).subscribe((mails: Mail[])=>{
+              this.mails = mails;
+            })
+          },
+          error: error => {
+            //this.errorMessage = error.message;
+            console.error('There was an error!', error);
+          }
+        });
+      }
+
+    }
+
+
 
   ngOnDestroy(): void {
     if (this.subscription) {

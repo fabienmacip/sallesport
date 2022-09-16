@@ -132,6 +132,20 @@ updateStructureActif(id: string, actif: number): Observable<Structure>{
   return this.httpClient.put<any>(`${this.PHP_API_SERVER}structure.php/${id}`, datas, { headers : headers, responseType: "json" });
 }
 
+turnOnStructureActifAndDeleteMailLink(structureId: string, mailId: number){
+  let headers = new HttpHeaders();
+  this.createAuthorizationHeader(headers);
+  const datas = {
+    id: structureId,
+    actif: 1,
+    onlyone: true,
+    mailId: mailId
+  };
+  let id = structureId;
+
+  return this.httpClient.put<any>(`${this.PHP_API_SERVER}structure.php/${id}`, datas, { headers : headers, responseType: "json" });
+}
+
 deleteStructure(id: number){
   return this.httpClient.delete<Structure>(`${this.PHP_API_SERVER}structure.php?id=${id}`);
 }

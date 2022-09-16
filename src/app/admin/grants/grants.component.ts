@@ -165,8 +165,8 @@ export class GrantsComponent implements OnInit {
 
               let mail: Mail = {
                 id: 0,
-                titre: "Droit activé",
-                corps: "Cher partenaire, nous vous informons que le droit \"" + this.fullText(column) + "\" a été " + activeText + " concernant " + qui,
+                titre: "Droit " + activeText,
+                corps: "Cher partenaire, nous vous informons que le droit " + this.fullText(column).toUpperCase() + " a été " + activeText + " concernant " + qui,
                 lien: "",
                 lu: 0,
                 partenaire: this.partenaireId
