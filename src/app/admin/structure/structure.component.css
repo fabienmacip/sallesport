@@ -14,3 +14,9 @@ button{
 .structure-inactif{
   background-color: var(--bgInactive);
 }
+
+.locked{
+  pointer-events:none;
+  cursor: disabled;
+  color: grey;
+}

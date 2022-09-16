@@ -11,8 +11,8 @@
           </p>
         </div>
         <div class="card-body border-top" *ngIf="displayMailToggle && displayMailToggle == mail.id">
-          {{ mail.corps }}
-          <button type="button" class="btn btn-success"  (click)="activeStructure(mail.lien!)" *ngIf="mail.lien != ''">Activer la structure</button>
+          {{ mail.corps }}<br/>
+          <button type="button" class="btn btn-success my-3"  (click)="activeStructure(mail.lien!)" *ngIf="mail.lien != ''">Activer la structure</button>
         </div>
       </div>
     </div>

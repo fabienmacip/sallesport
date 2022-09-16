@@ -103,6 +103,10 @@ readStructuresOfPartenaire(id: number): Observable<Structure[]>{
   return this.httpClient.get<Grants[]>(`${this.PHP_API_SERVER}structure.php?partenaireId=${id}`);
 }
 
+readLastStructureOfPartenaire(id: number): Observable<Structure[]>{
+  return this.httpClient.get<Grants[]>(`${this.PHP_API_SERVER}structure.php?partenaireId=${id}&last=yes`);
+}
+
 createStructure(structure: Structure): Observable<Structure>{
   let headers = new HttpHeaders();
   this.createAuthorizationHeader(headers);

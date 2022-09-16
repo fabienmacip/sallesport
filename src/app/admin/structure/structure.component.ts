@@ -28,6 +28,8 @@ export class StructureComponent implements OnInit, OnDestroy {
   role: string = '';
   userId: number = 0;
 
+  caseACocherActif: number = 0;
+
   currentStructure: any;
 
   subscription! : Subscription;
@@ -100,7 +102,7 @@ export class StructureComponent implements OnInit, OnDestroy {
       nomgerant: ['Gineste', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],
       mail: ['gigi@yahoo.fr', [Validators.required, Validators.email, Validators.maxLength(45)]],
       password: ['mlkjmlkj', [Validators.required, Validators.minLength(8), Validators.maxLength(45)]],
-      actif: [true],
+      actif: [false],
       grants: ['1'],
       partenaire: [this.partenaireId ?? 0, [Validators.required, Validators.min(1)]],
       passwordConfirm: ['mlkjmlkj', [Validators.required]]
@@ -109,11 +111,16 @@ export class StructureComponent implements OnInit, OnDestroy {
 
   toggleDisplayCreateStructureForm(): void{
     this.displayCreateStructureForm = !this.displayCreateStructureForm;
+    if(!this.displayCreateStructureForm){
+      this.caseACocherActif = 0;
+      this.titrePage = 'Enregistrer une nouvelle structure';
+    }
   }
 
   onEditStructure(structure: Structure): void{
 
     this.grantsFormToggle = 0;
+    this.caseACocherActif = 1;
 
     this.titrePage = 'Modifier une structure';
     this.displayCreateStructureForm = true;
@@ -195,25 +202,30 @@ export class StructureComponent implements OnInit, OnDestroy {
           });
 
           let qui = "la structure gérée par " + this.sexeGerant(structure.sexegerant!) + " " +
-                    structure.nomgerant + " située à l'adresse suivante\n" +
-                    structure.adr1 + " " + structure.adr2 + " à " + structure.ville;
+                  structure.nomgerant + " située à l'adresse suivante<br><b>\n" +
+                  structure.adr1 + " " + structure.adr2 + " à " + structure.ville + "</b>";
 
-          let mail: Mail = {
-            id: 0,
-            titre: "Structure créée, à activer.",
-            corps: "Cher partenaire, nous vous informons que " + qui + " a été créée. Pour l'activer, merci de cliquer sur le bouton ci-dessous.",
-            lien: "cliquer ici pour activer",
-            lu: 0,
-            partenaire: structure.partenaire
-          }
 
-          this.apiService.createMail(mail).subscribe({
-            next: data2 => {
-            },
-            error: error2 => {
-              console.log('Erreur lors de création de mail', error2);
+          this.subscription = this.apiService.readLastStructureOfPartenaire(this.partenaireId).subscribe((uneStructure: Structure[])=>{
+            let dernierId = uneStructure[0].id?.toString();
+
+            let mail: Mail = {
+              id: 0,
+              titre: "Structure créée, à activer. Gérée par " + this.sexeGerant(structure.sexegerant!) + " " + structure.nomgerant,
+              corps: "Cher partenaire, nous vous informons que " + qui + " a été créée. Pour l'activer, merci de cliquer sur le bouton ci-dessous.",
+              lien: dernierId,
+              lu: 0,
+              partenaire: structure.partenaire
             }
-          });
+
+            this.apiService.createMail(mail).subscribe({
+              next: data2 => {
+              },
+              error: error2 => {
+                console.log('Erreur lors de création de mail', error2);
+              }
+            });
+          })
 
           // Rechargement des données
           /* this.subscription = this.apiService.readStructureAll().subscribe((structures: Structure[])=>{
@@ -255,6 +267,7 @@ export class StructureComponent implements OnInit, OnDestroy {
     }
 
     this.structureForm.reset();
+    this.caseACocherActif = 0;
     this.structureForm.controls['partenaire'].setValue(this.partenaireId);
     this.titrePage = 'Enregistrer une nouvelle structure';
 
