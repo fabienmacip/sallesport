@@ -9,6 +9,7 @@ import { PolitiqueConfidentialiteComponent } from './politique-confidentialite/p
 import { PartenaireComponent } from './admin/partenaire/partenaire.component';
 import { GrantsComponent } from './admin/grants/grants.component';
 import { StructureComponent } from './admin/structure/structure.component';
+import { MailsComponent } from './admin/mails/mails.component';
 //import { RecettesComponent } from './recettes/recettes.component';
 
 const routes: Routes = [
@@ -19,7 +20,9 @@ const routes: Routes = [
   { path: 'partenaires', component: PartenaireComponent},
   { path: 'structures', component: StructureComponent},
   { path: 'structures/:partenaireId/:partenaireNomFranchise', component: StructureComponent},
+  { path: 'mails', component: MailsComponent },
   { path: 'contact', component: ContactComponent},
+
   { path: 'mentions-legales', component: MentionsLegalesComponent},
   { path: 'politique-confidentialite', component: PolitiqueConfidentialiteComponent},
   { path: 'home', component: HomeComponent },

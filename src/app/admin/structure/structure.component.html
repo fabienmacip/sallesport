@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<div class="container py-5">
+<div class="container py-5" *ngIf="role == 'admin'">
   <div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto d-flex justify-content-end" *ngIf="displayCreateStructureForm == false">
     Ajouter une structure <img src="../assets/plus-circle.svg" class="mx-3 img-link" width="30" (click)="toggleDisplayCreateStructureForm()">
   </div>
@@ -90,7 +90,7 @@
       </div>
     </div>
   </div>
-
+</div>
 
   <div class="container py-5">
     <h2 class="display-5 mb-5">{{ sousTitrePage }}</h2>
@@ -111,14 +111,15 @@
               {{ structure.mail }}
             </p>
             <hr/>
-            <p class="card-text">
+            <p class="card-text" *ngIf="role == 'admin'">
               <button class="btn btn-primary" type="button" (click)="onEditStructure(structure)">Modifier</button>
               <button class="btn btn-danger" type="button" (click)="onDeleteStructure(structure.id)">Supprimer</button>
             </p>
-            <hr>
+            <hr *ngIf="role == 'admin'">
             <button class="btn btn-success" type="button"
                 [ngClass]="structure.actif == 1 ? 'btn-success' : 'btn-danger'"
-                (click)="onToggleStructureActif(structure.id!.toString(), structure.actif!)">
+                (click)="onToggleStructureActif(structure.id!.toString(), structure.actif!)"
+                *ngIf="role == 'admin'">
                 {{ structure.actif == 1 ? 'Désactiver' : 'Activer'}}
             </button>
             <button class="btn btn-primary" type="button"
@@ -136,4 +137,3 @@
     </div>
   </div>
 
-  </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from '../../services/api.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { Grants } from '../../interfaces/grants';
 import { Mail } from 'src/app/interfaces/mail';
 import { Partenaire } from 'src/app/interfaces/partenaire';
@@ -19,6 +20,8 @@ export class GrantsComponent implements OnInit {
   partenaireId: number = 0;
   structureId: number = 0;
 
+  role: string = '';
+  userId : number = 0;
 
   grants?: Grants[];
   currentGrant?: Grants;
@@ -43,7 +46,8 @@ export class GrantsComponent implements OnInit {
   }
 
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
+    private authService : AuthService
   ) { }
 
   sexeGerant(e: string) {
@@ -117,6 +121,14 @@ export class GrantsComponent implements OnInit {
 
   ngOnInit(): void {
 
+    if(this.authService.getRole() != ''){
+      this.role = <string>this.authService.getRole();
+    }
+
+    if(this.authService.getId() != ''){
+      this.userId = Number(this.authService.getId());
+    }
+
     const grantsId = this.partenaire ? this.partenaire.grants ?? 0 : this.structure.grants ?? 0 ;
     this.partenaireId = this.partenaire ? <number>this.partenaire.id : this.structure ? <number>this.structure.partenaire : 0;
     this.structureId = this.structure ? <number>this.structure.id : 0;
@@ -138,39 +150,45 @@ export class GrantsComponent implements OnInit {
 
   onToggleGrants(id: number, column: string, active: number = 0){
 
-    active = active == 0 ? 1 : 0;
-    this.apiService.updateOneGrant(id , column, active).subscribe({
-      next: data => {
-            this.ngOnInit();
+    if(this.role == 'admin'){
 
-            let activeText = active == 0 ? "désactivé" : "activé";
-            let qui = this.structureId == 0 ? "votre compte \"partenaire\"" :
-                      "la structure gérée par " + this.sexeGerant(this.structure.sexegerant!) + " " +
-                      this.structure.nomgerant + " située à l'adresse suivante\n" +
-                      this.structure.adr1 + " " + this.structure.adr2 + " à " + this.structure.ville;
+      active = active == 0 ? 1 : 0;
+      this.apiService.updateOneGrant(id , column, active).subscribe({
+        next: data => {
+              this.ngOnInit();
 
-            let mail: Mail = {
-              id: 0,
-              titre: "Droit activé",
-              corps: "Cher partenaire, nous vous informons que le droit \"" + this.fullText(column) + "\" a été " + activeText + " concernant " + qui,
-              lien: "",
-              lu: 0,
-              partenaire: this.partenaireId
-            }
-            this.apiService.createMail(mail).subscribe({
-              next: data2 => {
-              },
-              error: error2 => {
-                console.log('Erreur lors de création de mail', error2);
+              let activeText = active == 0 ? "désactivé" : "activé";
+              let qui = this.structureId == 0 ? "votre compte \"partenaire\"" :
+                        "la structure gérée par " + this.sexeGerant(this.structure.sexegerant!) + " " +
+                        this.structure.nomgerant + " située à l'adresse suivante\n" +
+                        this.structure.adr1 + " " + this.structure.adr2 + " à " + this.structure.ville;
+
+              let mail: Mail = {
+                id: 0,
+                titre: "Droit activé",
+                corps: "Cher partenaire, nous vous informons que le droit \"" + this.fullText(column) + "\" a été " + activeText + " concernant " + qui,
+                lien: "",
+                lu: 0,
+                partenaire: this.partenaireId
               }
-            });
+              this.apiService.createMail(mail).subscribe({
+                next: data2 => {
+                },
+                error: error2 => {
+                  console.log('Erreur lors de création de mail', error2);
+                }
+              });
 
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
-    });
+        },
+        error: error => {
+          console.error('There was an error!', error);
+        }
+      });
 
+    }
+    else{
+      alert('Votre action ne peut pas être prise en compte si vous n\'êtes pas un administrateur.');
+    }
 
     // Appel API updateOne
     // + refresh

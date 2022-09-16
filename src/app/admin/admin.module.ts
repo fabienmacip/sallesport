@@ -5,6 +5,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '../directives/directives.module';
 import { PipesModule } from '../pipes/pipes.module';
+import { MailsComponent } from './mails/mails.component';
 //import { StructureComponent } from './structure/structure.component';
 
 
@@ -12,6 +13,7 @@ import { PipesModule } from '../pipes/pipes.module';
 @NgModule({
   declarations: [
     DashboardComponent,
+    MailsComponent,
     //StructureComponent
   ],
   imports: [

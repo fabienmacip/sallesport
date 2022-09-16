@@ -20,6 +20,9 @@ export class PartenaireComponent implements OnInit, OnDestroy {
   partenaires: Partenaire[] = [];
   partenairesToDisplay: Partenaire[] = [];
 
+  role: string = '';
+  userId: number = 0;
+
   currentPartenaire: any;
 
   displayCreatePartenaireForm: boolean = false;
@@ -33,14 +36,14 @@ export class PartenaireComponent implements OnInit, OnDestroy {
   lesChecboxesFonctionnent = false; // Utilisé pour savoir si on affiche les checkboxes comme indiqué ici :
   // https://remotestack.io/angular-checkboxes-tutorial-example/
 
-  allergens: Array<any> = [
+/*   allergens: Array<any> = [
     { name: 'cacao', value: 'cacao' },
     { name: 'lait', value: 'lait' },
     { name: 'gluten', value: 'gluten' },
     { name: 'cacahuètes', value: 'cacahuètes' },
     { name: 'arachides', value: 'arachides' }
   ];
-
+ */
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -51,13 +54,27 @@ export class PartenaireComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.initPartenaireForm();
 
-    this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
-      this.partenaires = partenaires;
-      this.partenairesToDisplay = partenaires;
-    })
+    if(this.authService.getRole() != ''){
+      this.role = <string>this.authService.getRole();
+    }
 
+    if(this.authService.getId() != ''){
+      this.userId = Number(this.authService.getId());
+    }
+
+    if(this.role == 'admin'){
+      this.initPartenaireForm();
+      this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
+        this.partenaires = partenaires;
+        this.partenairesToDisplay = partenaires;
+      })
+    } else if(this.role == 'partenaire'){
+      this.subscription = this.apiService.readPartenaire(Number(this.userId)).subscribe((partenaires: Partenaire[])=>{
+        this.partenaires = partenaires;
+        this.partenairesToDisplay = partenaires;
+      })
+    }
   }
 
 
@@ -79,7 +96,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
     this.displayCreatePartenaireForm = !this.displayCreatePartenaireForm;
   }
 
-  onCbChange(e: any): void {
+/*   onCbChange(e: any): void {
     const allergens: FormArray = this.partenaireForm.get('allergens') as FormArray;
 
     if (e.target.checked) {
@@ -95,7 +112,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
       });
     }
   }
-
+ */
 
   onEditPartenaire(partenaire: Partenaire): void{
 

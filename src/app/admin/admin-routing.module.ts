@@ -5,12 +5,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { StructureComponent } from './structure/structure.component';
 import { PartenaireComponent } from './partenaire/partenaire.component';
 import { GrantsComponent } from './grants/grants.component';
+import { MailsComponent } from './mails/mails.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'partenaires', component: PartenaireComponent },
   { path: 'grants', component: GrantsComponent },
   { path: 'structures', component: StructureComponent },
+  { path: 'mails', component: MailsComponent },
 /*   { path: 'dashboard/:id', component: DashboardComponent }, */
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: 'dashboard' }

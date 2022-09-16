@@ -1,64 +1,14 @@
 <div class="container py-5">
   <div class="row">
     <div class="col-12 col-md-6 col-lg-4 col-xl-3 mx-auto">
-      <h2 class="display-5">A Propos</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas explicabo voluptates,
-        eveniet id sunt doloremque suscipit laudantium autem excepturi omnis rem, officiis
-        reiciendis ex maiores alias soluta debitis eum quas?</p>
+      <h2 class="display-5">Partenaires</h2>
+      Voir les partenaires
+      <a *ngIf="role == 'admin' || role == 'partenaire'" class="nav-link" [routerLink]="['../partenaires']" routerLinkActive="active-link">Partenaires</a>
     </div>
     <div class="col-12 col-md-6 col-lg-4 col-xl-3 mx-auto">
-      <h2 class="display-5">Mes services</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas explicabo voluptates,
-        eveniet id sunt doloremque suscipit laudantium autem excepturi omnis rem, officiis
-        reiciendis ex maiores alias soluta debitis eum quas?</p>
+      <h2 class="display-5">Structures</h2>
+      Voir les structures
+      <a *ngIf="role == 'admin'" class="nav-link" [routerLink]="['../structures']" routerLinkActive="active-link">Structures</a>
     </div>
   </div>
 </div>
-
-<!-- <button class="btn btn-danger" type="button" (click)="showSomething()">VOIR</button> -->
-
-<!-- <div class="container py-5">
-  <h1 class="display-5 mb-5">Toutes les recettes</h1>
-  <div class="row">
-    <div class="col-12 col-md-6 col-lg-4 col-xl-3 py-2" *ngFor="let recette of recettes">
-      <div class="card" *ngIf="currentUser || !currentUser && !recette.partenairesOnlyCheck">
-        <img [src]="recette.photo" alt="Photo de la recette" class="card-img-top">
-        <div class="card-body">
-          <h5 class="card-title">{{ recette.title }}</h5>
-          <p class="card-text">{{ recette.description }}</p>
-          <hr>
-          <h6 class="fw-normal fs-5">Régime(s) : </h6>
-          <p *ngIf="!recette.dietNormal && !recette.dietDiabete && !recette.dietPaleo &&
-                    !recette.dietProteine && !recette.dietVegan && !recette.dietVegetarien; else regimes">
-            aucun
-          </p>
-          <ng-template #regimes>
-            <p>
-              {{ recette.dietVegan ? 'Normal, ' : '' }}
-              {{ recette.dietVegan ? 'Végan, ' : '' }}
-              {{ recette.dietVegetarien ? 'Végétarien, ' : '' }}
-              {{ recette.dietPaleo ? 'Paléo, ' : '' }}
-              {{ recette.dietDiabete ? 'Diabète, ' : '' }}
-              {{ recette.dietProteine ? 'Protéiné, ' : '' }}
-            </p>
-          </ng-template>
-
-          <h6 class="fw-normal fs-5">Allergènes</h6>
-          <p *ngIf="!recette.allergenCacao && !recette.allergenCacahuete &&
-                    !recette.allergenLait && !recette.allergenGluten; else allergens" class="infos green-ng-template">aucun</p>
-          <ng-template #allergens>
-            <p class="infos red-ng-template">
-              {{ recette.allergenCacao ? 'Cacao, ' : '' }}
-              {{ recette.allergenLait ? 'Lait, ' : '' }}
-              {{ recette.allergenCacahuete ? 'Cacahuètes, ' : '' }}
-              {{ recette.allergenGluten ? 'Gluten, ' : '' }}
-            </p>
-          </ng-template>
-          <a [routerLink]="['/recettes', recette.id]" class="btn btn-primary">Voir</a>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
- -->

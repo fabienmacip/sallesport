@@ -16,9 +16,10 @@
               {{ onegrant[2] }}
             </td>
             <td>
-                <div class="slideButton">
+                <div class="slideButton" [ngClass]="role != 'admin' ? 'locked' : ''">
                   <input type="checkbox" value="d" id="slide{{i}}" name="check" [checked]="onegrant[1] == 1"
-                  (click)="onToggleGrants(currentGrant.id, onegrant[0], onegrant[1])"/>
+                  (click)="onToggleGrants(currentGrant.id, onegrant[0], onegrant[1])"
+                  [disabled]="role != 'admin'"/>
                   <label for="slide{{i}}"></label>
                 </div>
             </td>

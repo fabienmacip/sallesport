@@ -15,6 +15,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentUserSubscription!: Subscription;
   currentUser!: User;
 
+  role: string = '';
+  userId: number = 0;
+
   title = 'FITME';
 
   @Input() loginbtn: boolean = true;
@@ -27,6 +30,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+
+    if(this.authService.getRole() != ''){
+      this.role = <string>this.authService.getRole();
+    }
+
+    if(this.authService.getId() != ''){
+      this.userId = Number(this.authService.getId());
+    }
+
     this.currentUserSubscription = this.authService.currentUserSubject.subscribe({
       next: user => this.currentUser = <User>user,
       error: console.error

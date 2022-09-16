@@ -60,3 +60,8 @@
     left: 43px;
   }
 /* end .slideButton */
+
+.locked{
+  pointer-events:none;
+  cursor: disabled;
+}

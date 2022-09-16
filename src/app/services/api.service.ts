@@ -184,14 +184,11 @@ deleteStructure(id: number){
   }
 
   updateMailLu(id: number, mail: Mail): Observable<Mail>{
-
+    mail = {...mail, lu: 1};
     let datas = JSON.stringify(mail);
-    console.log(datas);
-    debugger;
-
     let headers = new HttpHeaders();
     this.createAuthorizationHeader(headers);
-    return this.httpClient.put<Mail>(`${this.PHP_API_SERVER}mail.php?id=${id}`, mail, { headers : headers, responseType: "json" });
+    return this.httpClient.put<Mail>(`${this.PHP_API_SERVER}mail.php?id=${id}`, datas, { headers : headers, responseType: "json" });
   }
 
     // * * * * *  ADMIN  * * * * *
@@ -218,6 +215,11 @@ deleteStructure(id: number){
     setRole(role: string) {
       localStorage.setItem('role', role);
     }
+
+    setId(id: string) {
+      localStorage.setItem('id', id);
+    }
+
 
     getToken() {
       return localStorage.getItem('token');

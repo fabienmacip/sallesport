@@ -24,6 +24,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   partenaires: Partenaire[] = [];
   currentPartenaire: Partenaire[] = [];
 
+  role: string = '';
+  userId: number = 0;
+
   constructor(
     private router: Router,
     private recettesService: RecettesService,
@@ -31,6 +34,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+
+    if(this.authService.getRole() != ''){
+      this.role = <string>this.authService.getRole();
+    }
+
+    if(this.authService.getId() != ''){
+      this.userId = Number(this.authService.getId());
+    }
+
+
      this.currentUserSubscription = this.authService.currentUserSubject.subscribe({
       next: user => this.currentUser = <User>user,
       error: console.error

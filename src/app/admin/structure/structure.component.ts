@@ -25,6 +25,9 @@ export class StructureComponent implements OnInit, OnDestroy {
   structures: Structure[] = [];
   structuresToDisplay: Structure[] = [];
 
+  role: string = '';
+  userId: number = 0;
+
   currentStructure: any;
 
   subscription! : Subscription;
@@ -46,26 +49,43 @@ export class StructureComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
+    if(this.authService.getRole() != ''){
+      this.role = <string>this.authService.getRole();
+    }
+
+    if(this.authService.getId() != ''){
+      this.userId = Number(this.authService.getId());
+    }
+
     this.partenaireId = Number(this.activatedRoute.snapshot.paramMap.get('partenaireId'));
     this.partenaireNomFranchise = <string>this.activatedRoute.snapshot.paramMap.get('partenaireNomFranchise');
 
-    this.initStructureForm();
+    if(this.role == 'admin'){
 
-    if(this.partenaireId !== 0) {
-      this.subscription = this.apiService.readStructuresOfPartenaire(this.partenaireId).subscribe((structures: Structure[])=>{
-        this.structures = structures;
-        this.structuresToDisplay = structures;
-        this.sousTitrePage = "Structure(s) du partenaire " + this.partenaireNomFranchise;
-      })
-    } else {
-      this.subscription = this.apiService.readStructureAll().subscribe((structures: Structure[])=>{
-        this.structures = structures;
-        this.structuresToDisplay = structures;
-      })
+      this.initStructureForm();
+
+      if(this.partenaireId !== 0) {
+        this.subscription = this.apiService.readStructuresOfPartenaire(this.partenaireId).subscribe((structures: Structure[])=>{
+          this.structures = structures;
+          this.structuresToDisplay = structures;
+          this.sousTitrePage = "Structure(s) du partenaire " + this.partenaireNomFranchise;
+        })
+      } else {
+        this.subscription = this.apiService.readStructureAll().subscribe((structures: Structure[])=>{
+          this.structures = structures;
+          this.structuresToDisplay = structures;
+        })
+      }
+    } else if(this.role == 'partenaire'){
+      if(this.partenaireId !== 0) {
+        this.subscription = this.apiService.readStructuresOfPartenaire(this.partenaireId).subscribe((structures: Structure[])=>{
+          structures = structures.filter((s) => s.actif == 1);
+          this.structures = structures;
+          this.structuresToDisplay = structures;
+          this.sousTitrePage = "Structure(s) du partenaire " + this.partenaireNomFranchise;
+        })
+      }
     }
-
-
-
   }
 
 

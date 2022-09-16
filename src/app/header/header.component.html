@@ -23,12 +23,12 @@
             Admin
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbar-dropdown">
-            <li>
+<!--             <li>
               <a class="dropdown-item" [routerLink]="['/admin','patients']" routerLinkActive="active-link">Patients</a>
             </li>
             <li class="nav-item">
               <a class="dropdown-item" [routerLink]="['/admin','recettes']" routerLinkActive="active-link">Recettes</a>
-            </li>
+            </li> -->
             <li>
               <a class="dropdown-item" [routerLink]="['/account']" routerLinkActive="active-link">Mon compte</a>
             </li>
@@ -38,13 +38,16 @@
             </li>
           </ul>
         </li>
-        <li>
+        <li *ngIf="role == 'admin' || role == 'partenaire'">
           <a class="nav-link" [routerLink]="['partenaires']" routerLinkActive="active-link">Partenaires</a>
         </li>
-        <li>
+        <li *ngIf="role == 'admin'">
           <a class="nav-link" [routerLink]="['structures']" routerLinkActive="active-link">Structures</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="role == 'partenaire'">
+          <a class="nav-link" [routerLink]="['mails']" routerLinkActive="active-link">Mails</a>
+        </li>
+<!--         <li class="nav-item">
           <a class="nav-link" [routerLink]="['contact']" routerLinkActive="active-link">Contact</a>
         </li>
         <li class="nav-item">
@@ -52,7 +55,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['politique-confidentialite']" routerLinkActive="active-link">Politique de confidentialité</a>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>

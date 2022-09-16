@@ -1,0 +1,22 @@
+<h1>MAILS</h1>
+
+<div class="container py-5">
+  <div class="row">
+    <div class="col-12 py-2" *ngFor="let mail of mails; let i = index">
+      <div class="card">
+        <div class="card-body" [ngClass]="mail.lu == 0 ? 'mail-non-lu' : ''"
+        (click)="toggleDisplayMail(mail.id, mail.lu)">
+          <p class="card-text">
+            {{ mail.titre }}<br/>
+          </p>
+        </div>
+        <div class="card-body border-top" *ngIf="displayMailToggle && displayMailToggle == mail.id">
+          {{ mail.corps }}
+          <button type="button" class="btn btn-success"  (click)="activeStructure(mail.lien!)" *ngIf="mail.lien != ''">Activer la structure</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
