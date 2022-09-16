@@ -202,7 +202,7 @@ export class StructureComponent implements OnInit, OnDestroy {
           });
 
           let qui = "la structure gérée par " + this.sexeGerant(structure.sexegerant!) + " " +
-                  structure.nomgerant + " située à l'adresse suivante<br><b>\n" +
+                  structure.nomgerant + " située à l'adresse suivante :<br><b>\n" +
                   structure.adr1 + " " + structure.adr2 + " à " + structure.ville + "</b>";
 
 

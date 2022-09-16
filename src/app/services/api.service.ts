@@ -213,8 +213,12 @@ deleteStructure(id: number){
   }
 
   updateMailLu(id: number, mail: Mail): Observable<Mail>{
-    mail = {...mail, lu: 1};
-    let datas = JSON.stringify(mail);
+    //mail = {...mail, lu: 1};
+    //let datas = JSON.stringify(mail);
+    const datas = {
+      lu: 1,
+      onlyLu: "yes"
+    };
     let headers = new HttpHeaders();
     this.createAuthorizationHeader(headers);
     return this.httpClient.put<Mail>(`${this.PHP_API_SERVER}mail.php?id=${id}`, datas, { headers : headers, responseType: "json" });

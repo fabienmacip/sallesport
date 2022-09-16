@@ -160,13 +160,13 @@ export class GrantsComponent implements OnInit {
               let activeText = active == 0 ? "désactivé" : "activé";
               let qui = this.structureId == 0 ? "votre compte \"partenaire\"" :
                         "la structure gérée par " + this.sexeGerant(this.structure.sexegerant!) + " " +
-                        this.structure.nomgerant + " située à l'adresse suivante\n" +
+                        this.structure.nomgerant + " située à l'adresse suivante :<br/>\n" +
                         this.structure.adr1 + " " + this.structure.adr2 + " à " + this.structure.ville;
 
               let mail: Mail = {
                 id: 0,
                 titre: "Droit " + activeText,
-                corps: "Cher partenaire, nous vous informons que le droit " + this.fullText(column).toUpperCase() + " a été " + activeText + " concernant " + qui,
+                corps: "Cher partenaire, nous vous informons que le droit <b>" + this.fullText(column).toUpperCase() + "</b> a été <b>" + activeText + "</b> concernant " + qui,
                 lien: "",
                 lu: 0,
                 partenaire: this.partenaireId
