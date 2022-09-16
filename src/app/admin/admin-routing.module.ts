@@ -6,13 +6,16 @@ import { StructureComponent } from './structure/structure.component';
 import { PartenaireComponent } from './partenaire/partenaire.component';
 import { GrantsComponent } from './grants/grants.component';
 import { MailsComponent } from './mails/mails.component';
+import { AccountComponent } from '../account/account.component';
+import { AccountModule } from '../account/account.module';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'partenaires', component: PartenaireComponent },
+/*   { path: 'partenaires', component: PartenaireComponent },
   { path: 'grants', component: GrantsComponent },
+  { path: 'account', component: AccountModule },
   { path: 'structures', component: StructureComponent },
-  { path: 'mails', component: MailsComponent },
+  { path: 'mails', component: MailsComponent }, */
 /*   { path: 'dashboard/:id', component: DashboardComponent }, */
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: 'dashboard' }

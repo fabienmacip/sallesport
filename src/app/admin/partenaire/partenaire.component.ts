@@ -6,8 +6,6 @@ import { Subscription } from 'rxjs';
 import { Partenaire } from 'src/app/interfaces/partenaire';
 import { AuthService } from 'src/app/services/auth.service';
 
-
-
 @Component({
   selector: 'app-partenaire',
   templateUrl: './partenaire.component.html',
@@ -50,7 +48,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -95,24 +93,6 @@ export class PartenaireComponent implements OnInit, OnDestroy {
   toggleDisplayCreatePartenaireForm(): void{
     this.displayCreatePartenaireForm = !this.displayCreatePartenaireForm;
   }
-
-/*   onCbChange(e: any): void {
-    const allergens: FormArray = this.partenaireForm.get('allergens') as FormArray;
-
-    if (e.target.checked) {
-      allergens.push(new FormControl(e.target.value));
-    } else {
-      let i: number = 0;
-      allergens.controls.forEach((item) => {
-        if (item.value == e.target.value) {
-          allergens.removeAt(i);
-          return;
-        }
-        i++;
-      });
-    }
-  }
- */
 
   onEditPartenaire(partenaire: Partenaire): void{
 

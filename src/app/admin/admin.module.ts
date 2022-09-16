@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '../directives/directives.module';
 import { PipesModule } from '../pipes/pipes.module';
 import { MailsComponent } from './mails/mails.component';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 //import { StructureComponent } from './structure/structure.component';
 
 
@@ -22,7 +23,8 @@ import { MailsComponent } from './mails/mails.component';
     FormsModule,
     ReactiveFormsModule,
     DirectivesModule,
-    PipesModule
+    PipesModule,
+    NgbModalModule
   ]
 })
 export class AdminModule {

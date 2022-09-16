@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/interfaces/user';
+import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-edit-auth-infos',
@@ -17,7 +18,8 @@ export class EditAuthInfosComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private apiService: ApiService
   ) { }
 
 
@@ -27,7 +29,7 @@ export class EditAuthInfosComponent implements OnInit {
 
   initPasswordForm(): void {
     this.passwordForm = this.formBuilder.group({
-      oldPassword: ['', [Validators.required]],
+      /* oldPassword: ['', [Validators.required]], */
       newPassword: ['', [Validators.required, Validators.minLength(8)]],
       newPasswordConfirm: ['', [Validators.required]]
     })
@@ -39,6 +41,36 @@ export class EditAuthInfosComponent implements OnInit {
 
   onSubmitPasswordForm(): void {
 
+    let id = this.authService.getId();
+    let role = this.authService.getRole();
+
+    if(role == 'partenaire'){
+      this.apiService.updatePartenairePwd(id!, this.passwordForm.value.newPassword).subscribe({
+        next: data => {
+          this.modalService.dismissAll();
+          this.passwordForm.reset();
+        },
+        error: error => {
+          console.error('Erreur lors du changement de mot de passe !', error);
+        }
+      });
+    } else if (role == 'admin') {
+      this.apiService.updateAdminPwd(id!, this.passwordForm.value.newPassword).subscribe({
+        next: data => {
+          this.modalService.dismissAll();
+          this.passwordForm.reset();
+        },
+        error: error => {
+          console.error('Erreur lors du changement de mot de passe !', error);
+        }
+      });
+    }
+
+  }
+
+
+/*   onSubmitPasswordForm(): void {
+
     this.authService.signinUser(<string>this.currentUser.email, this.passwordForm.value.oldPassword)
       this.currentUser.updatePassword(this.passwordForm.value.newPassword)
       .then(() => {
@@ -47,5 +79,5 @@ export class EditAuthInfosComponent implements OnInit {
       }).catch(console.error);
 
     }
-
+ */
 }

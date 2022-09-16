@@ -10,12 +10,15 @@ import { PartenaireComponent } from './admin/partenaire/partenaire.component';
 import { GrantsComponent } from './admin/grants/grants.component';
 import { StructureComponent } from './admin/structure/structure.component';
 import { MailsComponent } from './admin/mails/mails.component';
+import { AccountModule } from './account/account.module';
+import { AccountComponent } from './account/account.component';
 //import { RecettesComponent } from './recettes/recettes.component';
 
 const routes: Routes = [
   { path: 'admin', canActivate: [AuthGuard], loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
-  { path: 'account', canActivate: [AuthGuard], loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
+  { path: 'account', component: AccountComponent},
+  /* { path: 'account', canActivate: [AuthGuard], loadChildren: () => import('./account/account.module').then(m => m.AccountModule) }, */
   { path: 'recettes', loadChildren: () => import('./recettes/recettes.module').then(m => m.RecettesModule) },
   { path: 'partenaires', component: PartenaireComponent},
   { path: 'structures', component: StructureComponent},

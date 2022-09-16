@@ -22,10 +22,10 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   initCurrentUser(): void {
-    this.currentUserSubscription = this.authService.currentUserSubject.subscribe({
+    /* this.currentUserSubscription = this.authService.currentUserSubject.subscribe({
       next: user => this.currentUser = <User>user,
       error: console.error
-    })
+    }) */
   }
 
   ngOnDestroy(): void {

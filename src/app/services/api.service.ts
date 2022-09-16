@@ -77,6 +77,17 @@ export class ApiService {
     return this.httpClient.put<any>(`${this.PHP_API_SERVER}partenaire.php/${id}`, datas, { headers : headers, responseType: "json" });
   }
 
+  updatePartenairePwd(id: string, pwd: string): Observable<Partenaire>{
+    let headers = new HttpHeaders();
+    this.createAuthorizationHeader(headers);
+    const datas = {
+      id: id,
+      onlyone: true,
+      pwd: pwd
+    };
+    return this.httpClient.put<any>(`${this.PHP_API_SERVER}partenaire.php/${id}`, datas, { headers : headers, responseType: "json" });
+  }
+
 
 /*    updatePartenaire(partenaire: Partenaire): Observable<Partenaire>{
     return this.httpClient.put<Partenaire>(`${this.PHP_API_SERVER}partenaire.php`, partenaire);
@@ -223,6 +234,16 @@ deleteStructure(id: number){
       this.getLoggedInName.emit(true);
       return Admin;
       })); */
+    }
+
+    updateAdminPwd(id: string, pwd: string): Observable<Partenaire>{
+      let headers = new HttpHeaders();
+      this.createAuthorizationHeader(headers);
+      const datas = {
+        id: id,
+        pwd: pwd
+      };
+      return this.httpClient.put<any>(`${this.PHP_API_SERVER}user.php/${id}`, datas, { headers : headers, responseType: "json" });
     }
 
     //token
