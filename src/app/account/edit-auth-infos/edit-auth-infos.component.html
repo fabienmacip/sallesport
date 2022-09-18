@@ -25,9 +25,21 @@
         <label for="newPasswordInput">Nouveau mot de passe</label>
         <input type="password" class="form-control" id="newPasswordInput" placeholder="Votre nouveau mot de passe" formControlName="newPassword">
       </div>
+      <div class="alert alert-danger" role="alert" *ngIf="passwordForm.controls['newPassword'].errors && passwordForm.controls['newPassword'].touched">
+        <span *ngIf="passwordForm.controls['newPassword'].errors?.['required']">Merci de saisir un mot de passe</span>
+        <span *ngIf="passwordForm.controls['newPassword'].errors?.['minlength']">Minimum 8 caractères</span>
+      </div>
       <div class="form-group">
         <label for="newPasswordConfirmInput">Confirmez votre nouveau mot de passe</label>
         <input type="password" class="form-control" id="newPasswordConfirmInput" placeholder="Confirmez votre nouveau mot de passe" formControlName="newPasswordConfirm">
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="passwordForm.controls['newPasswordConfirm'].errors && passwordForm.controls['newPasswordConfirm'].touched">
+        <span *ngIf="passwordForm.controls['newPasswordConfirm'].errors?.['required']">Merci de saisir un mot de passe</span>
+        <!-- <span *ngIf="(passwordForm.value.newPasswordConfirm.length >= 8) && (passwordForm.value.newPassword !== passwordForm.value.newPasswordConfirm)">Doit être identique au nouveau mot de passe</span> -->
+        <span *ngIf="(passwordForm.controls['newPasswordConfirm'].value.length >= 8) && (passwordForm.controls['newPassword'].value !== passwordForm.controls['newPasswordConfirm'].value)">Doit être identique au nouveau mot de passe</span>
+      </div>
+      <div>
+        <img src="../assets/oeil.png" class="my-3" width="30" style="cursor: pointer" (mousedown)="typeText()" (mouseup)="typePass()" (touchstart)="typeText()" (touchend)="typePass()"/>
       </div>
     </div>
     <div class="modal-footer">

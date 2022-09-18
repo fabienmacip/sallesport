@@ -7,8 +7,7 @@ import { Structure } from 'src/app/interfaces/structure';
 import { Mail } from 'src/app/interfaces/mail';
 import { AuthService } from 'src/app/services/auth.service';
 
-
-
+declare const Swal: any;
 @Component({
   selector: 'app-structure',
   templateUrl: './structure.component.html',
@@ -278,7 +277,32 @@ export class StructureComponent implements OnInit, OnDestroy {
 
     this.grantsFormToggle = 0;
 
-    if(confirm("SUPPRIMER ?")){
+    const that = this;
+    Swal.fire({
+      title: 'Etes-vous sûr(e) de vouloir effacer cette structure ?',
+      text: "Cette opération est irréversible !",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Annuler',
+      confirmButtonText: 'Oui, effacer !'
+    }).then((result: any) => {
+      if (result.isConfirmed) {
+        if(structureId && structureId != 0){
+          this.apiService.deleteStructure(structureId).subscribe((part: Structure)=>{
+            this.subscription = this.apiService.readStructuresOfPartenaire(this.partenaireId).subscribe((structures: Structure[])=>{
+              this.structures = structures;
+              this.structuresToDisplay = structures;
+              this.sousTitrePage = "Structure(s) du partenaire " + this.partenaireNomFranchise;
+            });
+          });
+        } else {
+          console.error('Un id doit être fourni pour pouvoir supprimer cette structure.');
+        }
+      }
+    });
+/*     if(confirm("SUPPRIMER ?")){
       if(structureId && structureId != 0){
         this.apiService.deleteStructure(structureId).subscribe((part: Structure)=>{
           this.subscription = this.apiService.readStructuresOfPartenaire(this.partenaireId).subscribe((structures: Structure[])=>{
@@ -290,10 +314,8 @@ export class StructureComponent implements OnInit, OnDestroy {
       } else {
         console.error('Un id doit être fourni pour pouvoir supprimer cette structure.');
       }
-
     }
-
-
+ */
   }
 
   onToggleGrantsForm(structureId: number = 0){

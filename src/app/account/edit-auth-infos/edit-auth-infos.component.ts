@@ -35,6 +35,20 @@ export class EditAuthInfosComponent implements OnInit {
     })
   }
 
+  typeText(){
+    let mot1 = document.getElementById('newPasswordInput');
+    let mot2 = document.getElementById('newPasswordConfirmInput');
+    mot1?.setAttribute('type','text');
+    mot2?.setAttribute('type','text');
+  }
+
+  typePass(){
+    let mot1 = document.getElementById('newPasswordInput');
+    let mot2 = document.getElementById('newPasswordConfirmInput');
+    mot1?.setAttribute('type','password');
+    mot2?.setAttribute('type','password');
+  }
+
   onEditPassword(modal: any): void {
     this.modalService.open(modal, { centered: true});
   }

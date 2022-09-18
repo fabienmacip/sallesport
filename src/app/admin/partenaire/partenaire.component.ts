@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Partenaire } from 'src/app/interfaces/partenaire';
 import { AuthService } from 'src/app/services/auth.service';
 
+declare const Swal: any;
 @Component({
   selector: 'app-partenaire',
   templateUrl: './partenaire.component.html',
@@ -215,24 +216,51 @@ export class PartenaireComponent implements OnInit, OnDestroy {
 
     this.grantsFormToggle = 0;
 
-    if(confirm("SUPPRIMER ?")){
+    const that = this;
+    Swal.fire({
+      title: 'Etes-vous sûr(e) de vouloir effacer ce partenaire ?',
+      text: "Cette opération est irréversible !",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Annuler',
+      confirmButtonText: 'Oui, effacer !'
+    }).then((result: any) => {
+      if (result.isConfirmed) {
+        if(partenaireId && partenaireId != 0){
+          this.apiService.deletePartenaire(partenaireId).subscribe((part: Partenaire)=>{
+            this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
+              Swal.fire(
+                    'Effacé !',
+                    'Ce partenaire a été effacé',
+                    'success'
+                  )
+              this.partenaires = partenaires;
+              this.partenairesToDisplay = partenaires;
+            });
+          });
+        } else {
+          console.error('Un id doit être fourni pour pouvoir supprimer ce partenaire.');
+        }
+      }
+    });
+
+/*     if(confirm("SUPPRIMER ?")){
       if(partenaireId && partenaireId != 0){
         this.apiService.deletePartenaire(partenaireId).subscribe((part: Partenaire)=>{
-          //console.log("Partenaire deleted, ", part);
           this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
             this.partenaires = partenaires;
             this.partenairesToDisplay = partenaires;
           });
-          //this.router.navigate(['partenaires']);
         });
       } else {
         console.error('Un id doit être fourni pour pouvoir supprimer ce partenaire.');
       }
-
     }
+ */
 
-
-  }
+}
 
   onToggleGrantsForm(partenaireId: number = 0){
 
