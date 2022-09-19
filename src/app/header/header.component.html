@@ -39,13 +39,13 @@
           </ul>
         </li>
         <li *ngIf="role == 'admin' || role == 'partenaire'">
-          <a class="nav-link" [routerLink]="['partenaires']" routerLinkActive="active-link">Partenaires</a>
+          <a class="nav-link" [routerLink]="['admin','partenaires']" routerLinkActive="active-link">Partenaires</a>
         </li>
         <li *ngIf="role == 'admin'">
-          <a class="nav-link" [routerLink]="['structures']" routerLinkActive="active-link">Structures</a>
+          <a class="nav-link" [routerLink]="['admin','structures']" routerLinkActive="active-link">Structures</a>
         </li>
         <li *ngIf="role == 'partenaire'">
-          <a class="nav-link" [routerLink]="['mails']" routerLinkActive="active-link">Mails</a>
+          <a class="nav-link" [routerLink]="['admin','mails']" routerLinkActive="active-link">Mails</a>
         </li>
 <!--         <li class="nav-item">
           <a class="nav-link" [routerLink]="['contact']" routerLinkActive="active-link">Contact</a>
