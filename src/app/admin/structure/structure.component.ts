@@ -93,19 +93,21 @@ export class StructureComponent implements OnInit, OnDestroy {
   initStructureForm(): void{
     this.structureForm = this.formBuilder.group({
       id: [0],
-      adr1: ['2ème étage', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],
-      adr2: ['3, rue des prés', [Validators.minLength(2), Validators.maxLength(45)]],
+      adr1: ['2ème étage', [Validators.required, Validators.minLength(2), Validators.maxLength(60)]],
+      adr2: ['3, rue des prés', [Validators.minLength(2), Validators.maxLength(60)]],
       cp: ['75003', [Validators.required, Validators.minLength(5), Validators.maxLength(5), Validators.pattern('[0-9]{5}')]],
       ville: ['PARIS', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],
       sexegerant: ['F', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
       nomgerant: ['Gineste', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],
       mail: ['gigi@yahoo.fr', [Validators.required, Validators.email, Validators.maxLength(45)]],
-      password: ['mlkjmlkj', [Validators.required, Validators.minLength(8), Validators.maxLength(45)]],
+      password: ['mlkjmlkj', [Validators.required, Validators.minLength(8), Validators.maxLength(256)]],
       actif: [false],
       grants: ['1'],
-      partenaire: [this.partenaireId ?? 0, [Validators.required, Validators.min(1)]],
+      partenaire: [this.partenaireId ?? 0],
       passwordConfirm: ['mlkjmlkj', [Validators.required]]
-    })
+    });
+
+    console.log(this.structureForm);
   }
 
   toggleDisplayCreateStructureForm(): void{
@@ -145,6 +147,9 @@ export class StructureComponent implements OnInit, OnDestroy {
       left: 0,
       behavior: 'smooth'
     });
+
+console.log(this.structureForm);
+
   }
 
   onToggleStructureActif(id: string, actif: number): void{

@@ -31,37 +31,64 @@
         <form [formGroup]="partenaireForm" (ngSubmit)="onSubmitPartenaireForm()">
           <input type="text" formControlName="id" hidden>
           <div class="form-group mb-3">
-
-
-
-            <span *ngIf="partenaireForm.errors">Formulaire non valide : {{ partenaireForm.errors}}</span>
-
-
             <label for="nomfranchise">NOM FRANCHISE</label>
-            <input type="text" id="nomfranchise" class="form-control" formControlName="nomfranchise" appUppercaseInput >
+            <input type="text" id="nomfranchise" class="form-control" maxlength="45" formControlName="nomfranchise" appUppercaseInput >
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="partenaireForm.controls['nomfranchise'].errors && partenaireForm.controls['nomfranchise'].touched">
+            <span *ngIf="partenaireForm.controls['nomfranchise'].errors?.['required']">Merci de saisir un nom de franchise</span>
+            <span *ngIf="partenaireForm.controls['nomfranchise'].errors?.['minlength']">Minimum 2 caractères</span>
+            <span *ngIf="partenaireForm.controls['nomfranchise'].errors?.['maxlength']">Maximum 45 caractères</span>
           </div>
           <div class="form-group mb-3">
             <label for="sexegerant">Sexe Gérant</label>
-            <input type="text" id="sexegerant" class="form-control" formControlName="sexegerant">
+            <input type="text" id="sexegerant" class="form-control" maxlength="1" formControlName="sexegerant">
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="partenaireForm.controls['sexegerant'].errors && partenaireForm.controls['sexegerant'].touched">
+            <span *ngIf="partenaireForm.controls['sexegerant'].errors?.['required']">Merci de saisir 'f' ou 'm'</span>
+            <span *ngIf="partenaireForm.controls['sexegerant'].errors?.['minlength']">Minimum 1 caractère</span>
+            <span *ngIf="partenaireForm.controls['sexegerant'].errors?.['maxlength']">Maximum 1 caractère</span>
           </div>
           <div class="form-group mb-3">
             <label for="nomgerant">Gérant</label>
-            <input type="text" id="nomgerant" class="form-control" formControlName="nomgerant">
+            <input type="text" id="nomgerant" class="form-control" maxlenght="45" formControlName="nomgerant">
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="partenaireForm.controls['nomgerant'].errors && partenaireForm.controls['nomgerant'].touched">
+            <span *ngIf="partenaireForm.controls['nomgerant'].errors?.['required']">Merci de saisir un nom de gérant(e)</span>
+            <span *ngIf="partenaireForm.controls['nomgerant'].errors?.['minlength']">Minimum 2 caractères</span>
+            <span *ngIf="partenaireForm.controls['nomgerant'].errors?.['maxlength']">Maximum 45 caractères</span>
           </div>
           <div class="form-group mb-3">
             <label for="mail">Mail</label>
-            <input type="mail" id="mail" class="form-control" formControlName="mail">
+            <input type="mail" id="mail" class="form-control" maxlength="45" formControlName="mail">
+            <input type="hidden" class="form-control" id="password" formControlName="password" *ngIf="partenaireForm.value.id">
+            <input type="hidden" class="form-control" id="passwordConfirm" formControlName="passwordConfirm" *ngIf="partenaireForm.value.id">
           </div>
+          <div class="alert alert-danger" role="alert" *ngIf="partenaireForm.controls['mail'].errors && partenaireForm.controls['mail'].touched">
+            <span *ngIf="partenaireForm.controls['mail'].errors?.['required']">Merci de saisir une adresse mail valide</span>
+            <span *ngIf="partenaireForm.controls['mail'].errors?.['email']">Adresse mail invalide</span>
+            <span *ngIf="partenaireForm.controls['mail'].errors?.['maxlength']">Maximum 45 caractères</span>
+          </div>
+          <!--        MOT de PASSE            -->
           <div class="form-group mb-3" *ngIf="!partenaireForm.value.id">
             <label for="password">Mot de passe</label>
-            <input type="password" class="form-control" placeholder="Minimum 8 caractères" id="password" formControlName="password"
+            <input type="password" class="form-control" placeholder="Minimum 8 caractères" maxlength="45" id="password" formControlName="password"
             [ngClass]="partenaireForm.value.id ? 'noUpdate' : ''">
           </div>
+          <div class="alert alert-danger" role="alert" *ngIf="!partenaireForm.value.id && partenaireForm.controls['password'].errors && partenaireForm.controls['password'].touched">
+            <span *ngIf="partenaireForm.controls['password'].errors?.['required']">Merci de saisir un mot de passe</span>
+            <span *ngIf="partenaireForm.controls['password'].errors?.['minlength']">Minimum 8 caractères</span>
+            <span *ngIf="partenaireForm.controls['password'].errors?.['maxlength']">Maximum 45 caractères</span>
+          </div>
+          <!--        MOT de PASSE Confirm            -->
           <div class="form-group mb-3" *ngIf="!partenaireForm.value.id">
             <label for="passwordConfirm">Confirmez le mot de passe</label>
-            <input type="password" class="form-control" placeholder="Minimum 8 caractères" id="passwordConfirm" formControlName="passwordConfirm"
+            <input type="password" class="form-control" placeholder="Minimum 8 caractères" id="passwordConfirm" maxlength="45" formControlName="passwordConfirm"
             [ngClass]="partenaireForm.value.id ? 'noUpdate' : ''">
           </div>
+          <div class="alert alert-danger" role="alert" *ngIf="!partenaireForm.value.id && partenaireForm.controls['passwordConfirm'].errors && partenaireForm.controls['passwordConfirm'].touched">
+            <span *ngIf="partenaireForm.controls['passwordConfirm'].errors?.['required']">Merci de saisir un mot de passe</span>
+          </div>
+          <!--       FIN mots de PASSE                   -->
           <div class="form-group mb-3">
             <b>Actif</b>
               <div class="form-check">

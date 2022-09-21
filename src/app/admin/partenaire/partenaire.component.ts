@@ -76,7 +76,6 @@ export class PartenaireComponent implements OnInit, OnDestroy {
     }
   }
 
-
   initPartenaireForm(): void{
     this.partenaireForm = this.formBuilder.group({
       id: [0],
@@ -84,7 +83,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
       sexegerant: ['M', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
       nomgerant: ['Durand', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],
       mail: ['dudu@gmail.fr', [Validators.email, Validators.required, Validators.maxLength(45)]],
-      password: ['qsdfqsdf', [Validators.required, Validators.minLength(8), Validators.maxLength(45)]],
+      password: ['qsdfqsdf', [Validators.required, Validators.minLength(8), Validators.maxLength(256)]],
       actif: [true],
       grants: ['1'],
       passwordConfirm: ['qsdfqsdf', [Validators.required]]
@@ -93,6 +92,10 @@ export class PartenaireComponent implements OnInit, OnDestroy {
 
   toggleDisplayCreatePartenaireForm(): void{
     this.displayCreatePartenaireForm = !this.displayCreatePartenaireForm;
+    if(this.displayCreatePartenaireForm){
+      this.initPartenaireForm();
+      this.titrePage = 'Enregistrer un nouveau partenaire';
+    }
   }
 
   onEditPartenaire(partenaire: Partenaire): void{
@@ -121,7 +124,8 @@ export class PartenaireComponent implements OnInit, OnDestroy {
       left: 0,
       behavior: 'smooth'
     });
-  }
+    console.log(this.partenaireForm);
+}
 
   onTogglePartenaireActif(id: string, actif: number): void{
 

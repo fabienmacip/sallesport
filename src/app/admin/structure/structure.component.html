@@ -34,43 +34,82 @@
           <input type="text" formControlName="id" hidden>
           <div class="form-group mb-3">
             <label for="adr1">Adresse (n° et voie)</label>
-            <input type="text" id="adr1" class="form-control" formControlName="adr1">
+            <input type="text" id="adr1" class="form-control" maxlength="60" formControlName="adr1">
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="structureForm.controls['adr1'].errors && structureForm.controls['adr1'].touched">
+            <span *ngIf="structureForm.controls['adr1'].errors?.['required']">Merci de saisir une adresse</span>
+            <span *ngIf="structureForm.controls['adr1'].errors?.['minlength']">Minimum 2 caractères</span>
+            <span *ngIf="structureForm.controls['adr1'].errors?.['maxlength']">Maximum 60 caractères</span>
           </div>
           <div class="form-group mb-3">
             <label for="adr2">Adresse (suite) <em>(non-obligatoire)</em></label>
-            <input type="text" id="adr2" class="form-control" formControlName="adr2">
+            <input type="text" id="adr2" class="form-control" maxlength="60" formControlName="adr2">
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="structureForm.controls['adr2'].errors && structureForm.controls['adr2'].touched">
+            <span *ngIf="structureForm.controls['adr2'].errors?.['minlength']">Minimum 2 caractères</span>
+            <span *ngIf="structureForm.controls['adr2'].errors?.['maxlength']">Maximum 60 caractères</span>
           </div>
           <div class="form-group mb-3">
             <label for="cp">Code Postal</label>
-            <span *ngIf="structureForm.controls['cp'].invalid" class="fieldAlert"> 5 chiffres</span>
             <input type="text" id="cp" class="form-control" formControlName="cp" maxlength="5">
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="structureForm.controls['cp'].errors && structureForm.controls['cp'].touched">
+            <span *ngIf="structureForm.controls['cp'].invalid">Saisir un code postal à 5 chiffres</span>
           </div>
           <div class="form-group mb-3">
             <label for="ville">Ville</label>
-            <input type="text" id="ville" class="form-control" formControlName="ville" appUppercaseInput >
+            <input type="text" id="ville" class="form-control" maxlength="45" formControlName="ville" appUppercaseInput >
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="structureForm.controls['ville'].errors && structureForm.controls['ville'].touched">
+            <span *ngIf="structureForm.controls['ville'].errors?.['required']">Merci de saisir 'f' ou 'm'</span>
+            <span *ngIf="structureForm.controls['ville'].errors?.['minlength']">Minimum 2 caractères</span>
+            <span *ngIf="structureForm.controls['ville'].errors?.['maxlength']">Maximum 45 caractères</span>
           </div>
           <div class="form-group mb-3">
             <label for="sexegerant">Sexe Gérant</label>
-            <input type="text" id="sexegerant" class="form-control" formControlName="sexegerant">
+            <input type="text" id="sexegerant" class="form-control" maxlength="1" formControlName="sexegerant">
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="structureForm.controls['sexegerant'].errors && structureForm.controls['sexegerant'].touched">
+            <span *ngIf="structureForm.controls['sexegerant'].errors?.['required']">Merci de saisir 'f' ou 'm'</span>
+            <span *ngIf="structureForm.controls['sexegerant'].errors?.['minlength']">Minimum 1 caractère</span>
+            <span *ngIf="structureForm.controls['sexegerant'].errors?.['maxlength']">Maximum 1 caractère</span>
           </div>
           <div class="form-group mb-3">
             <label for="nomgerant">Gérant</label>
-            <input type="text" id="nomgerant" class="form-control" formControlName="nomgerant">
+            <input type="text" id="nomgerant" class="form-control" maxlength="45" formControlName="nomgerant">
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="structureForm.controls['nomgerant'].errors && structureForm.controls['nomgerant'].touched">
+            <span *ngIf="structureForm.controls['nomgerant'].errors?.['required']">Merci de saisir un nom de gérant(e)</span>
+            <span *ngIf="structureForm.controls['nomgerant'].errors?.['minlength']">Minimum 2 caractères</span>
+            <span *ngIf="structureForm.controls['nomgerant'].errors?.['maxlength']">Maximum 45 caractères</span>
           </div>
           <div class="form-group mb-3">
             <label for="mail">Mail</label>
             <span *ngIf="structureForm.controls['mail'].invalid" class="fieldAlert"> adresse mail valide svp - exemple : jean@gmail.com</span>
-            <input type="email" id="mail" class="form-control" formControlName="mail">
+            <input type="email" id="mail" class="form-control" maxlength="45" formControlName="mail">
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="structureForm.controls['mail'].errors && structureForm.controls['mail'].touched">
+            <span *ngIf="structureForm.controls['mail'].errors?.['required']">Merci de saisir une adresse mail valide</span>
+            <span *ngIf="structureForm.controls['mail'].errors?.['email']">Adresse mail invalide</span>
+            <span *ngIf="structureForm.controls['mail'].errors?.['maxlength']">Maximum 45 caractères</span>
           </div>
           <div class="form-group mb-3" *ngIf="!structureForm.value.id">
             <label for="password">Mot de passe</label>
-            <input type="password" class="form-control" placeholder="Minimum 8 caractères" id="password" formControlName="password"
+            <input type="password" class="form-control" placeholder="Minimum 8 caractères" id="password" maxlength="45" formControlName="password"
             [ngClass]="structureForm.value.id ? 'noUpdate' : ''">
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="!structureForm.value.id && structureForm.controls['password'].errors && structureForm.controls['password'].touched">
+            <span *ngIf="structureForm.controls['password'].errors?.['required']">Merci de saisir un mot de passe</span>
+            <span *ngIf="structureForm.controls['password'].errors?.['minlength']">Minimum 8 caractères</span>
+            <span *ngIf="structureForm.controls['password'].errors?.['maxlength']">Maximum 45 caractères</span>
           </div>
           <div class="form-group mb-3" *ngIf="!structureForm.value.id">
             <label for="passwordConfirm">Confirmez le mot de passe</label>
-            <input type="password" class="form-control" placeholder="Minimum 8 caractères" id="passwordConfirm" formControlName="passwordConfirm"
+            <input type="password" class="form-control" placeholder="Minimum 8 caractères" id="passwordConfirm" maxlength="45" formControlName="passwordConfirm"
             [ngClass]="structureForm.value.id ? 'noUpdate' : ''">
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="!structureForm.value.id && structureForm.controls['passwordConfirm'].errors && structureForm.controls['passwordConfirm'].touched">
+            <span *ngIf="structureForm.controls['passwordConfirm'].errors?.['required']">Merci de saisir un mot de passe</span>
           </div>
           <div class="form-group mb-3" [ngClass]="caseACocherActif == 0 ? 'locked': ''">
             <b>Actif</b>
