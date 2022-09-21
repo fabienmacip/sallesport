@@ -10,31 +10,20 @@
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['home']" routerLinkActive="active-link">Accueil</a>
         </li>
-        <li class="nav-item" *ngIf="!loggedInToken()">
+        <li class="nav-item" *ngIf="!currentUser">
           <a class="nav-link" [routerLink]="['/auth','signin']" routerLinkActive="active-link">Connexion</a>
         </li>
-
-<!--         <li class="nav-item" *ngIf="!currentUser">
-          <a class="nav-link" [routerLink]="['/auth','signup']" routerLinkActive="active-link">Inscription</a>
-        </li> -->
-
-        <li class="nav-item dropdown" *ngIf="loggedInToken()">
+        <li class="nav-item dropdown" *ngIf="currentUser">
           <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" data-toggle="dropdown" aria-expanded="false">
             Admin
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbar-dropdown">
-<!--             <li>
-              <a class="dropdown-item" [routerLink]="['/admin','patients']" routerLinkActive="active-link">Patients</a>
-            </li>
-            <li class="nav-item">
-              <a class="dropdown-item" [routerLink]="['/admin','recettes']" routerLinkActive="active-link">Recettes</a>
-            </li> -->
             <li>
               <a class="dropdown-item" [routerLink]="['/account']" routerLinkActive="active-link">Mon compte</a>
             </li>
             <li class="dropdown-divider"></li>
             <li>
-              <a class="dropdown-item text-danger pointer-cursor" *ngIf="loggedInToken()" routerLinkActive="active-link" (click)="onSignOut()">Déconnexion</a>
+              <a class="dropdown-item text-danger pointer-cursor" *ngIf="currentUser" routerLinkActive="active-link" (click)="onSignOut()">Déconnexion</a>
             </li>
           </ul>
         </li>
@@ -47,15 +36,6 @@
         <li *ngIf="role == 'partenaire'">
           <a class="nav-link" [routerLink]="['admin','mails']" routerLinkActive="active-link">Mails</a>
         </li>
-<!--         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['contact']" routerLinkActive="active-link">Contact</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['mentions-legales']" routerLinkActive="active-link">Mentions Légales</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['politique-confidentialite']" routerLinkActive="active-link">Politique de confidentialité</a>
-        </li> -->
       </ul>
     </div>
   </div>

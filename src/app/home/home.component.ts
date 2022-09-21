@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { User } from 'firebase/auth';
+//import { User } from 'firebase/auth';
+import { User } from '../interfaces/user';
 import { ApiService } from '../services/api.service';
 import { Structure } from '../interfaces/structure';
-import { RecettesService } from '../services/recettes.service';
+//import { RecettesService } from '../services/recettes.service';
 import { AuthService } from '../services/auth.service';
 import { Partenaire } from '../interfaces/partenaire';
 
@@ -29,7 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private recettesService: RecettesService,
+  //  private recettesService: RecettesService,
     private authService: AuthService
   ) { }
 
@@ -50,7 +51,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
 
 
-    this.currentPartenaireEmail = <string>this.authService.currentUserSubject.value?.email ?? '';
+    //this.currentPartenaireEmail = <string>this.authService.currentUserSubject.value?.email ?? '';
 
     if(this.currentPartenaireEmail !== '' && this.currentPartenaireEmail !== 'fabien.macip@gmail.com'){
       this.currentPartenaire = this.partenaires.filter(e => e.mail === this.currentPartenaireEmail);
@@ -89,7 +90,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.currentPatient[0]?.dietVegetarien
         ); */
     } else {
-      this.recettesService.getRecettes();
+      //this.recettesService.getRecettes();
     }
   }
 

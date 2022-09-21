@@ -29,15 +29,15 @@ const routes: Routes = [
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
   { path: 'account', component: AccountComponent},
   /* { path: 'account', canActivate: [AuthGuard], loadChildren: () => import('./account/account.module').then(m => m.AccountModule) }, */
-  { path: 'recettes', loadChildren: () => import('./recettes/recettes.module').then(m => m.RecettesModule) },
+//  { path: 'recettes', loadChildren: () => import('./recettes/recettes.module').then(m => m.RecettesModule) },
 /*   { path: 'partenaires', component: PartenaireComponent},
   { path: 'structures', component: StructureComponent},
   { path: 'structures/:partenaireId/:partenaireNomFranchise', component: StructureComponent},
   { path: 'mails', component: MailsComponent }, */
-  { path: 'contact', component: ContactComponent},
+  //{ path: 'contact', component: ContactComponent},
 
-  { path: 'mentions-legales', component: MentionsLegalesComponent},
-  { path: 'politique-confidentialite', component: PolitiqueConfidentialiteComponent},
+  //{ path: 'mentions-legales', component: MentionsLegalesComponent},
+  //{ path: 'politique-confidentialite', component: PolitiqueConfidentialiteComponent},
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: '**', redirectTo: 'home' }

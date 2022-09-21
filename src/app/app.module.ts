@@ -9,10 +9,10 @@ import { HeaderComponent } from './header/header.component';
 /* import { RegimeListComponent } from './regime-list/regime-list.component'; */
 /* import { AllergeneListComponent } from './allergene-list/allergene-list.component'; */
 import { StructureComponent } from './admin/structure/structure.component';
-import { RegimeComponent } from './admin/regime/regime.component';
-import { AllergeneComponent } from './admin/allergene/allergene.component';
+//import { RegimeComponent } from './admin/regime/regime.component';
+//import { AllergeneComponent } from './admin/allergene/allergene.component';
 import { PartenaireComponent } from './admin/partenaire/partenaire.component';
-import { RecettesComponent } from './recettes/recettes.component';
+//import { RecettesComponent } from './recettes/recettes.component';
 import { ContactComponent } from './contact/contact.component';
 import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component';
 import { PolitiqueConfidentialiteComponent } from './politique-confidentialite/politique-confidentialite.component';
@@ -46,9 +46,9 @@ import { GrantsComponent } from './admin/grants/grants.component';
     /* RegimeListComponent, */
     /* AllergeneListComponent, */
     /* RecetteComponent, */
-    RegimeComponent,
+/*     RegimeComponent,
     AllergeneComponent,
-    PartenaireComponent,
+ */    PartenaireComponent,
     StructureComponent,
     ContactComponent,
     MentionsLegalesComponent,

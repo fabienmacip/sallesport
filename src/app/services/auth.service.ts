@@ -6,12 +6,15 @@ import { ApiService } from './api.service';
 import { Subscription } from 'rxjs';
 import { Admin } from '../interfaces/admin';
 import { Router } from '@angular/router';
+import { CurrentUser } from '../interfaces/current-user';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
   currentUserSubject = new BehaviorSubject<User | null>(null);
+  //currentUserSubject = new BehaviorSubject<CurrentUser | null>(null);
+  user!: User;
 
   subscription! : Subscription;
 
@@ -23,9 +26,9 @@ export class AuthService {
     private apiService: ApiService,
     private router: Router
   ) {
-    this.auth.onAuthStateChanged(user => {
+/*     this.auth.onAuthStateChanged(user => {
       this.currentUserSubject.next(user);
-    }, console.error);
+    }, console.error); */
   }
 
   signupUser(email: string, password: string): Promise<any> {
@@ -94,6 +97,14 @@ export class AuthService {
               this.apiService.setRole(role);
               this.apiService.setId(id);
               this.getLoggedInName.emit(true);
+              this.user = {
+                id: id,
+                role: role,
+                name: name
+              }
+              this.currentUserSubject.next(this.user);
+              console.log(this.user);
+              console.log(this.currentUserSubject);
               this.router.navigate(['home']);
           }
         },
@@ -132,6 +143,7 @@ export class AuthService {
       this.deleteToken();
       this.deleteRole();
       this.deleteId();
+      this.currentUserSubject.next(null);
       this.router.navigate(['home']);
     }
     return new Promise((resolve, reject) => {
