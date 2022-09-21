@@ -29,7 +29,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.currentUserSubscription.unsubscribe();
+    //this.currentUserSubscription.unsubscribe();
   }
 
 }

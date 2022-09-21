@@ -149,9 +149,20 @@ export class StructureComponent implements OnInit, OnDestroy {
 
   onToggleStructureActif(id: string, actif: number): void{
 
+    /* if(confirm(confirmMsg)){ */
     const confirmMsg = actif == 1 ? "Confirmer la désactivation ?" : "Confirmer l'activation ?";
-
-    if(confirm(confirmMsg)){
+    const btnMsg = actif == 1 ? "désactiver !" : "activer !";
+    Swal.fire({
+      title: confirmMsg,
+      text: "",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Annuler',
+      confirmButtonText: 'Oui, '+ btnMsg
+    }).then((result: any) => {
+      if (result.isConfirmed) {
       actif = actif == 1 ? 0 : 1;
 
       this.structureForm.reset();
@@ -172,8 +183,8 @@ export class StructureComponent implements OnInit, OnDestroy {
         }
       });
     }
-
-  }
+  });
+}
 
   sexeGerant(e: string) {
     return e.toLowerCase() == 'f' ? 'Mme' : 'M.';

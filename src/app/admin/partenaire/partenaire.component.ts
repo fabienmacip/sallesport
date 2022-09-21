@@ -126,25 +126,40 @@ export class PartenaireComponent implements OnInit, OnDestroy {
   onTogglePartenaireActif(id: string, actif: number): void{
 
     const confirmMsg = actif == 1 ? "Confirmer la désactivation ?" : "Confirmer l'activation ?";
+    const btnMsg = actif == 1 ? "désactiver !" : "activer !";
+    Swal.fire({
+      title: confirmMsg,
+      text: "",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Annuler',
+      confirmButtonText: 'Oui, '+ btnMsg
+    }).then((result: any) => {
+      if (result.isConfirmed) {
+        actif = actif == 1 ? 0 : 1;
+        this.partenaireForm.reset();
+        this.apiService.updatePartenaireActif(id, actif).subscribe({
+          next: data => {
+            this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
+              this.partenaires = partenaires;
+              this.partenairesToDisplay = partenaires;
+            })
 
-    if(confirm(confirmMsg)){
-      actif = actif == 1 ? 0 : 1;
-      this.partenaireForm.reset();
-      this.apiService.updatePartenaireActif(id, actif).subscribe({
-        next: data => {
-          this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
-            this.partenaires = partenaires;
-            this.partenairesToDisplay = partenaires;
-          })
+          },
+          error: error => {
+            //this.errorMessage = error.message;
+            console.error('There was an error!', error);
+          }
+        });
+      }
+    });
 
-        },
-        error: error => {
-          //this.errorMessage = error.message;
-          console.error('There was an error!', error);
-        }
-      });
+
+/*     if(confirm(confirmMsg)){
     }
-
+ */
   }
 
   onSubmitPartenaireForm(): void{
@@ -216,7 +231,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
 
     this.grantsFormToggle = 0;
 
-    const that = this;
+    /* const that = this; */
     Swal.fire({
       title: 'Etes-vous sûr(e) de vouloir effacer ce partenaire ?',
       text: "Cette opération est irréversible !",

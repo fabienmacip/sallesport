@@ -31,6 +31,12 @@
         <form [formGroup]="partenaireForm" (ngSubmit)="onSubmitPartenaireForm()">
           <input type="text" formControlName="id" hidden>
           <div class="form-group mb-3">
+
+
+
+            <span *ngIf="partenaireForm.errors">Formulaire non valide : {{ partenaireForm.errors}}</span>
+
+
             <label for="nomfranchise">NOM FRANCHISE</label>
             <input type="text" id="nomfranchise" class="form-control" formControlName="nomfranchise" appUppercaseInput >
           </div>
