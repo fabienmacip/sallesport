@@ -15,29 +15,9 @@ import { AccountComponent } from './account/account.component';
 //import { RecettesComponent } from './recettes/recettes.component';
 
 const routes: Routes = [
-  // Avant modif
-  /* { path: 'admin', canActivate: [AuthGuard], loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) }, */
-
-
-
-  // Après modif
-  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
-
-
-
-  // Pas touché
+  { path: 'admin', canActivate: [AuthGuard], loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
-  { path: 'account', component: AccountComponent},
-  /* { path: 'account', canActivate: [AuthGuard], loadChildren: () => import('./account/account.module').then(m => m.AccountModule) }, */
-//  { path: 'recettes', loadChildren: () => import('./recettes/recettes.module').then(m => m.RecettesModule) },
-/*   { path: 'partenaires', component: PartenaireComponent},
-  { path: 'structures', component: StructureComponent},
-  { path: 'structures/:partenaireId/:partenaireNomFranchise', component: StructureComponent},
-  { path: 'mails', component: MailsComponent }, */
-  //{ path: 'contact', component: ContactComponent},
-
-  //{ path: 'mentions-legales', component: MentionsLegalesComponent},
-  //{ path: 'politique-confidentialite', component: PolitiqueConfidentialiteComponent},
+  { path: 'account', canActivate: [AuthGuard], component: AccountComponent},
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: '**', redirectTo: 'home' }

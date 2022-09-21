@@ -3,12 +3,12 @@
     <div class="col-12 col-md-6 col-lg-4 col-xl-3 mx-auto">
       <h2 class="display-5">Partenaires</h2>
       Voir les partenaires
-      <a *ngIf="role == 'admin' || role == 'partenaire'" class="nav-link" [routerLink]="['/admin','partenaires']" routerLinkActive="active-link">Partenaires</a>
+      <a *ngIf="currentUser" class="nav-link" [routerLink]="['/admin','partenaires']" routerLinkActive="active-link">Partenaires</a>
     </div>
     <div class="col-12 col-md-6 col-lg-4 col-xl-3 mx-auto">
       <h2 class="display-5">Structures</h2>
       Voir les structures
-      <a *ngIf="role == 'admin'" class="nav-link" [routerLink]="['/admin','structures']" routerLinkActive="active-link">Structures</a>
+      <a *ngIf="currentUser && role == 'admin'" class="nav-link" [routerLink]="['/admin','structures']" routerLinkActive="active-link">Structures</a>
     </div>
   </div>
 </div>

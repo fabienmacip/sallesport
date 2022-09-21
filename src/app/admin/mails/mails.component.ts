@@ -4,7 +4,7 @@ import { Mail } from 'src/app/interfaces/mail';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 
-
+declare const Swal: any;
 @Component({
   selector: 'app-mails',
   templateUrl: './mails.component.html',
@@ -85,7 +85,19 @@ export class MailsComponent implements OnInit, OnDestroy {
 
   activeStructure(mailId: number, lien: string): void{
 
-      if(confirm("Confirmer l'activation de cette structure ?")){
+      /* if(confirm("Confirmer l'activation de cette structure ?")){ */
+    const confirmMsg = "Confirmer l'activation de cette structure ?";
+    Swal.fire({
+      title: confirmMsg,
+      text: "",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Annuler',
+      confirmButtonText: 'OK'
+    }).then((result: any) => {
+      if (result.isConfirmed) {
 
         this.apiService.turnOnStructureActifAndDeleteMailLink(lien, mailId).subscribe({
           next: data => {
@@ -99,8 +111,8 @@ export class MailsComponent implements OnInit, OnDestroy {
           }
         });
       }
-
-    }
+  });
+}
 
 
 

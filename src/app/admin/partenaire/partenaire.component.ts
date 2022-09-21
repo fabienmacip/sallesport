@@ -35,15 +35,6 @@ export class PartenaireComponent implements OnInit, OnDestroy {
   lesChecboxesFonctionnent = false; // Utilisé pour savoir si on affiche les checkboxes comme indiqué ici :
   // https://remotestack.io/angular-checkboxes-tutorial-example/
 
-/*   allergens: Array<any> = [
-    { name: 'cacao', value: 'cacao' },
-    { name: 'lait', value: 'lait' },
-    { name: 'gluten', value: 'gluten' },
-    { name: 'cacahuètes', value: 'cacahuètes' },
-    { name: 'arachides', value: 'arachides' }
-  ];
- */
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private apiService: ApiService,
