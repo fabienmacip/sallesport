@@ -1,3 +1,12 @@
+# GIT Pages
+ng build --prod --base-href "https://fabienmacip.github.io/sallesport/" -> ok
+"https://github.com/fabienmacip/sallesport.git" -> nok
+
+
+npx angular-cli-ghpages --dir=dist/scd/
+
+
+
 # Ancien contenu de angular.json -> deploy
   "builder": "@angular/fire:deploy",
   "options": {

@@ -16,7 +16,8 @@ import { HttpHeaders } from '@angular/common/http';
 })
 export class ApiService {
 
-  PHP_API_SERVER = "http://localhost:8080/sallesportapi/backend/api/";
+  //PHP_API_SERVER = "http://localhost:8080/sallesportapi/backend/api/";
+  PHP_API_SERVER = "https://fatabien.com/sallesportapi/api/";
 
   @Output() getLoggedInName: EventEmitter<any> = new EventEmitter();
 
