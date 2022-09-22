@@ -27,8 +27,7 @@
             </li>
           </ul>
         </li>
-        <!-- <li *ngIf="role == 'admin' || role == 'partenaire'"> -->
-          <li *ngIf="currentUser">
+        <li *ngIf="currentUser">
           <a class="nav-link" [routerLink]="['admin','partenaires']" routerLinkActive="active-link">Partenaires</a>
         </li>
         <li *ngIf="currentUser && currentUser.role == 'admin'">

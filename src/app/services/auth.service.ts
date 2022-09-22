@@ -1,12 +1,12 @@
 import { Injectable, EventEmitter, Output } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { BehaviorSubject, empty } from 'rxjs';
+/* import { AngularFireAuth } from '@angular/fire/compat/auth'; */
+import { BehaviorSubject } from 'rxjs';
 import { User } from '../interfaces/user';
 import { ApiService } from './api.service';
 import { Subscription } from 'rxjs';
-import { Admin } from '../interfaces/admin';
+/* import { Admin } from '../interfaces/admin'; */
 import { Router } from '@angular/router';
-import { CurrentUser } from '../interfaces/current-user';
+/* import { CurrentUser } from '../interfaces/current-user'; */
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +22,7 @@ export class AuthService {
   private logged: boolean = false;
 
   constructor(
-    private auth: AngularFireAuth,
+    /* private auth: AngularFireAuth, */
     private apiService: ApiService,
     private router: Router
   ) {
@@ -31,7 +31,7 @@ export class AuthService {
     }, console.error); */
   }
 
-  signupUser(email: string, password: string): Promise<any> {
+/*   signupUser(email: string, password: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.auth.createUserWithEmailAndPassword(email, password)
       .then(user => {
@@ -39,7 +39,7 @@ export class AuthService {
       }).catch(reject);
     });
   }
-
+ */
 
   setToken(token: string) {
     localStorage.setItem('token', token);
@@ -103,8 +103,6 @@ export class AuthService {
                 name: name
               }
               this.currentUserSubject.next(this.user);
-              console.log(this.user);
-              console.log(this.currentUserSubject);
               this.router.navigate(['home']);
           }
         },
@@ -117,27 +115,17 @@ export class AuthService {
     .then()
     .catch(console.error);
 
-
-      /* return this.logged; */
-
-/*        return new Promise((res, rej) => {
-        if(this.logged){
-          return res;
-        }else {
-          return rej;
-        }
-      });
- */  }
+  }
 
 
-  firebaseSigninUser(email: string, password: string): Promise<any> {
+/*   firebaseSigninUser(email: string, password: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.auth.signInWithEmailAndPassword(email, password)
       .then(resolve)
       .catch(reject);
     });
   }
-
+ */
   signoutUser(): Promise<void> {
     {
       this.deleteToken();
@@ -157,7 +145,7 @@ export class AuthService {
   }
 
 
-  firebaseSignoutUser(): Promise<void> {
+/*   firebaseSignoutUser(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.auth.signOut()
       .then(() => {
@@ -167,12 +155,12 @@ export class AuthService {
       .catch(reject);
     });
   }
-
-  sendPasswordResetEmail(email: string): Promise<void> {
+ */
+/*   sendPasswordResetEmail(email: string): Promise<void> {
     return new Promise((resolve, reject) => {
       this.auth.sendPasswordResetEmail(email).then(resolve).catch(reject);
     })
   }
-
+ */
 
 }

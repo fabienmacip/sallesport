@@ -33,11 +33,11 @@ export class AppComponent {
     this.loginbtn = !name;
   }
 
-  private logout()
+/*   private logout()
   {
     this.authService.deleteToken();
     this.loginbtn = true;
     this.logoutbtn = false;
     window.location.href = window.location.href;
-  }
+  } */
 }

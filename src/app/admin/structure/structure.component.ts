@@ -1,5 +1,5 @@
-import { Component, Directive, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { Subscription } from 'rxjs';
@@ -45,7 +45,7 @@ export class StructureComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    /* private router: Router */
   ) {}
 
   ngOnInit(): void {
@@ -89,7 +89,6 @@ export class StructureComponent implements OnInit, OnDestroy {
     }
   }
 
-
   initStructureForm(): void{
     this.structureForm = this.formBuilder.group({
       id: [0],
@@ -106,8 +105,6 @@ export class StructureComponent implements OnInit, OnDestroy {
       partenaire: [this.partenaireId ?? 0],
       passwordConfirm: ['mlkjmlkj', [Validators.required]]
     });
-
-    console.log(this.structureForm);
   }
 
   toggleDisplayCreateStructureForm(): void{
@@ -147,14 +144,10 @@ export class StructureComponent implements OnInit, OnDestroy {
       left: 0,
       behavior: 'smooth'
     });
-
-console.log(this.structureForm);
-
   }
 
   onToggleStructureActif(id: string, actif: number): void{
 
-    /* if(confirm(confirmMsg)){ */
     const confirmMsg = actif == 1 ? "Confirmer la désactivation ?" : "Confirmer l'activation ?";
     const btnMsg = actif == 1 ? "désactiver !" : "activer !";
     Swal.fire({
@@ -241,12 +234,6 @@ console.log(this.structureForm);
               }
             });
           })
-
-          // Rechargement des données
-          /* this.subscription = this.apiService.readStructureAll().subscribe((structures: Structure[])=>{
-            this.structures = structures;
-          }) */
-
         },
         error: error => {
           console.error('There was an error!', error);
@@ -258,15 +245,8 @@ console.log(this.structureForm);
       delete structure.passwordConfirm;
 
       // UPDATE
-      //delete structure.id;
       this.apiService.updateStructure(structureId, structure).subscribe({
         next: data => {
-          //this.postId = data.id;
-          //console.log(data);
-/*           this.subscription = this.apiService.readStructureAll().subscribe((structures: Structure[])=>{
-            this.structures = structures;
-          });
- */
           this.subscription = this.apiService.readStructuresOfPartenaire(this.partenaireId).subscribe((structures: Structure[])=>{
             this.structures = structures;
             this.structuresToDisplay = structures;
@@ -274,26 +254,22 @@ console.log(this.structureForm);
           });
         },
         error: error => {
-          //this.errorMessage = error.message;
           console.error('There was an error!', error);
         }
       });
-
     }
-
     this.structureForm.reset();
     this.caseACocherActif = 0;
     this.structureForm.controls['partenaire'].setValue(this.partenaireId);
     this.titrePage = 'Enregistrer une nouvelle structure';
-
-
+    this.displayCreateStructureForm = false;
   }
 
   onDeleteStructure(structureId?: number): void{
 
     this.grantsFormToggle = 0;
 
-    const that = this;
+/*     const that = this; */
     Swal.fire({
       title: 'Etes-vous sûr(e) de vouloir effacer cette structure ?',
       text: "Cette opération est irréversible !",
@@ -318,30 +294,14 @@ console.log(this.structureForm);
         }
       }
     });
-/*     if(confirm("SUPPRIMER ?")){
-      if(structureId && structureId != 0){
-        this.apiService.deleteStructure(structureId).subscribe((part: Structure)=>{
-          this.subscription = this.apiService.readStructuresOfPartenaire(this.partenaireId).subscribe((structures: Structure[])=>{
-            this.structures = structures;
-            this.structuresToDisplay = structures;
-            this.sousTitrePage = "Structure(s) du partenaire " + this.partenaireNomFranchise;
-          });
-        });
-      } else {
-        console.error('Un id doit être fourni pour pouvoir supprimer cette structure.');
-      }
-    }
- */
   }
 
   onToggleGrantsForm(structureId: number = 0){
-
     if(this.grantsFormToggle == structureId){
       this.grantsFormToggle = 0;
     } else {
       this.grantsFormToggle = structureId;
     }
-
   }
 
   onChangeSeekStructure(event : any): void{
@@ -362,9 +322,6 @@ console.log(this.structureForm);
   }
 
   ngOnDestroy(): void {
-
-    //this.linkToHereParams.unsubscribe();
-
     if (this.subscription) {
            this.subscription.unsubscribe();
          }

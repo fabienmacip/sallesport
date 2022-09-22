@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-//import { User } from 'firebase/auth';
 import { User } from '../interfaces/user';
-import { refFromURL } from 'firebase/database';
-import { Subscription, TimeoutError } from 'rxjs';
+//import { refFromURL } from 'firebase/database';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 @Component({

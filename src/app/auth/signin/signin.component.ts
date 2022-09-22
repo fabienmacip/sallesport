@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
@@ -34,9 +33,6 @@ export class SigninComponent implements OnInit {
     .then(() => {
       this.router.navigate(['partenaires']);
     }).catch(console.error);
-
-
-
-
   }
+
 }

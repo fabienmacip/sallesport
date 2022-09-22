@@ -81,17 +81,4 @@ export class EditAuthInfosComponent implements OnInit {
     }
 
   }
-
-
-/*   onSubmitPasswordForm(): void {
-
-    this.authService.signinUser(<string>this.currentUser.email, this.passwordForm.value.oldPassword)
-      this.currentUser.updatePassword(this.passwordForm.value.newPassword)
-      .then(() => {
-        this.modalService.dismissAll();
-        this.passwordForm.reset();
-      }).catch(console.error);
-
-    }
- */
 }

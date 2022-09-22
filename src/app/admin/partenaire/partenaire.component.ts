@@ -1,5 +1,5 @@
-import { Component, Directive, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { Subscription } from 'rxjs';
@@ -24,6 +24,8 @@ export class PartenaireComponent implements OnInit, OnDestroy {
 
   currentPartenaire: any;
 
+  currentPartenairePhotoFile!: File;
+
   displayCreatePartenaireForm: boolean = false;
 
   subscription! : Subscription;
@@ -32,15 +34,15 @@ export class PartenaireComponent implements OnInit, OnDestroy {
 
   grantsFormToggle: number = 0;
 
-  lesChecboxesFonctionnent = false; // Utilisé pour savoir si on affiche les checkboxes comme indiqué ici :
+  //lesChecboxesFonctionnent = false; // Utilisé pour savoir si on affiche les checkboxes comme indiqué ici :
   // https://remotestack.io/angular-checkboxes-tutorial-example/
 
   constructor(
-    private activatedRoute: ActivatedRoute,
+    /* private activatedRoute: ActivatedRoute, */
     private apiService: ApiService,
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router,
+    /* private router: Router, */
   ) {}
 
   ngOnInit(): void {
@@ -71,6 +73,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
     this.partenaireForm = this.formBuilder.group({
       id: [0],
       nomfranchise: ['TEST', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],
+      //photoPartenaire: [''],
       sexegerant: ['M', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
       nomgerant: ['Durand', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],
       mail: ['dudu@gmail.fr', [Validators.email, Validators.required, Validators.maxLength(45)]],
@@ -80,6 +83,11 @@ export class PartenaireComponent implements OnInit, OnDestroy {
       passwordConfirm: ['qsdfqsdf', [Validators.required]]
     })
   }
+
+/*   onChangePartenairePhoto($event: any): void{
+    this.currentPartenairePhotoFile = $event.target.files[0];
+    console.log(this.currentPartenairePhotoFile);
+  } */
 
   toggleDisplayCreatePartenaireForm(): void{
     this.displayCreatePartenaireForm = !this.displayCreatePartenaireForm;
@@ -100,6 +108,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
     this.partenaireForm.setValue({
       id: partenaire.id ?? '',
       nomfranchise : partenaire.nomfranchise ?? '',
+      /* photoPartenaire: partenaire.photoPartenaire ?? '', */
       sexegerant : partenaire.sexegerant ?? 'M',
       nomgerant: partenaire.nomgerant ?? '',
       mail: partenaire.mail,
@@ -150,11 +159,6 @@ export class PartenaireComponent implements OnInit, OnDestroy {
         });
       }
     });
-
-
-/*     if(confirm(confirmMsg)){
-    }
- */
   }
 
   onSubmitPartenaireForm(): void{
@@ -163,22 +167,11 @@ export class PartenaireComponent implements OnInit, OnDestroy {
 
     let partenaire = this.partenaireForm.value;
     if(!partenaireId || partenaireId && partenaireId == 0){
-
       // CREATE ligne PARTENAIRE
       partenaire.id = "";
       delete partenaire.passwordConfirm;
-      //this.router.navigate(['/admin','dashboard']);
-
-
-
       this.apiService.createPartenaire(partenaire).subscribe({
         next: data => {
-          //this.postId = data.id;
-          //console.log(data);
-          //this.partenaires.push(partenaire);
-
-
-
           // Rechargement des données
           this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
             this.partenaires = partenaires;
@@ -187,39 +180,28 @@ export class PartenaireComponent implements OnInit, OnDestroy {
 
         },
         error: error => {
-          //this.errorMessage = error.message;
           console.error('There was an error!', error);
         }
       });
 
     } else {
-
-      delete partenaire.passwordConfirm;
-
-
       // UPDATE
-      //delete partenaire.id;
+      delete partenaire.passwordConfirm;
       this.apiService.updatePartenaire(partenaireId, partenaire).subscribe({
         next: data => {
-          //this.postId = data.id;
-          //console.log(data);
           this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
             this.partenaires = partenaires;
             this.partenairesToDisplay = partenaires;
           });
         },
         error: error => {
-          //this.errorMessage = error.message;
           console.error('There was an error!', error);
         }
       });
-
     }
-
     this.partenaireForm.reset();
     this.titrePage = 'Enregistrer un nouveau partenaire';
-
-
+    this.displayCreatePartenaireForm = false;
   }
 
   onDeletePartenaire(partenaireId?: number): void{
@@ -255,22 +237,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
         }
       }
     });
-
-/*     if(confirm("SUPPRIMER ?")){
-      if(partenaireId && partenaireId != 0){
-        this.apiService.deletePartenaire(partenaireId).subscribe((part: Partenaire)=>{
-          this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
-            this.partenaires = partenaires;
-            this.partenairesToDisplay = partenaires;
-          });
-        });
-      } else {
-        console.error('Un id doit être fourni pour pouvoir supprimer ce partenaire.');
-      }
-    }
- */
-
-}
+  }
 
   onToggleGrantsForm(partenaireId: number = 0){
 
@@ -299,12 +266,9 @@ export class PartenaireComponent implements OnInit, OnDestroy {
     }
   }
 
-
-
   ngOnDestroy(): void {
     if (this.subscription) {
            this.subscription.unsubscribe();
          }
   }
-
 }

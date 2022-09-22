@@ -1,3 +1,15 @@
+# Ancien contenu de angular.json -> deploy
+  "builder": "@angular/fire:deploy",
+  "options": {
+    "prerender": false,
+    "ssr": false,
+    "browserTarget": "scd:build:production",
+      "firebaseProject": "sandrine-coupart-dieteticienne",
+    "firebaseHostingSite": "sandrine-coupart-dieteticienne"
+  }
+
+# package.json -> dependencies
+"firebase": "^9.9.3", 
 # Scd
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.2.
