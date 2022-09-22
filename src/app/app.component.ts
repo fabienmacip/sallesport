@@ -18,7 +18,7 @@ export class AppComponent {
       authService.getLoggedInName.subscribe(name => this.changeName(name));
       if(this.authService.isLoggedIn())
       {
-        console.log("logged in");
+        //console.log("logged in");
         this.loginbtn=false;
         this.logoutbtn=true
       }

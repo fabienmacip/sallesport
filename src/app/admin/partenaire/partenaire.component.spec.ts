@@ -5,14 +5,14 @@ import { PartenaireComponent } from "./partenaire.component";
 
 
 
-describe('Test admin/partenaires component', () => {
+/* describe('Test admin/partenaires component', () => {
 
   let component: PartenaireComponent;
   let fixture: ComponentFixture<PartenaireComponent>;
   let fakeApiService: any;
   let fakeFormBuilder: any
   let userService: any;
-
+ */
 /*   beforeEach(() => {
     fakeUserService = {
       isAuth: true,
@@ -48,5 +48,5 @@ describe('Test admin/partenaires component', () => {
     }
   }); */
 
-});
+/* }); */
 
