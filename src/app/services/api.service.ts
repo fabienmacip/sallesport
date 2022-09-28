@@ -66,6 +66,9 @@ export class ApiService {
 
   updatePartenaire(id: number, partenaire: Partenaire): Observable<Partenaire>{
     let headers = this.createAuthorizationHeader();
+
+console.log("HEADERS : ", headers);
+
     return this.httpClient.put<Partenaire>(`${this.PHP_API_SERVER}partenaire.php/${id}`, partenaire, { headers : headers, responseType: "json" });
   }
 
