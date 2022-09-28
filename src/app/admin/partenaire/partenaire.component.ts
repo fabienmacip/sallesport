@@ -35,6 +35,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
   subscription! : Subscription;
 
   libelleFilterButton: string = "Tous";
+  wordToFind : string = '';
   h1: string = 'PARTENAIRES';
   titrePage: string = 'Enregistrer un nouveau partenaire';
 
@@ -47,7 +48,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
     /* private activatedRoute: ActivatedRoute, */
     private apiService: ApiService,
     private formBuilder: FormBuilder,
-    private authService: AuthService,
+    private authService: AuthService
     /* private router: Router, */
   ) {}
 
@@ -267,18 +268,28 @@ export class PartenaireComponent implements OnInit, OnDestroy {
   onChangeSeekPartenaire(event : any): void{
     if(event.target.value.length >= 2){
       let wordToFind = event.target.value.toLowerCase();
+      this.wordToFind = wordToFind; // On garde en mémoire au cas où la fonction togglePartenaireFilter() soit appelée
       this.partenairesToDisplay = this.partenaires;
       if(this.partenairesToDisplay.length > 0){
         this.partenairesToDisplay = this.partenairesToDisplay.filter((line) => {
-          console.log(line.mail!.search(wordToFind));
+          //console.log(line.mail!.search(wordToFind));
           return (line.mail!.toLowerCase().search(wordToFind) >= 0 ||
                   line.nomfranchise!.toLowerCase().search(wordToFind) >= 0 ||
                   line.nomgerant!.toLowerCase().search(wordToFind) >= 0);
         });
       }
     } else {
+      this.wordToFind = '';
       this.partenairesToDisplay = this.partenaires;
     }
+
+    if(this.libelleFilterButton == 'Actifs'){
+      this.partenairesToDisplay = this.partenairesToDisplay.filter(p => p.actif == 1);
+    }
+    if(this.libelleFilterButton == 'Inactifs'){
+      this.partenairesToDisplay = this.partenairesToDisplay.filter(p => p.actif == 0);
+    }
+
   }
 
   togglePartenairesFilter(): void{
@@ -292,7 +303,15 @@ export class PartenaireComponent implements OnInit, OnDestroy {
       this.libelleFilterButton = "Tous";
       this.partenairesToDisplay = this.partenaires;
     }
-    console.log(this.libelleFilterButton);
+
+    if(this.wordToFind.length >= 2){
+      let wordToFind = this.wordToFind;
+      this.partenairesToDisplay = this.partenairesToDisplay.filter((line) => {
+        return (line.mail!.toLowerCase().search(wordToFind) >= 0 ||
+                line.nomfranchise!.toLowerCase().search(wordToFind) >= 0 ||
+                line.nomgerant!.toLowerCase().search(wordToFind) >= 0);
+      });
+    }
   }
 
   ngOnDestroy(): void {
