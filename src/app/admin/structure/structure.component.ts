@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Structure } from 'src/app/interfaces/structure';
 import { Mail } from 'src/app/interfaces/mail';
 import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/interfaces/user';
 
 declare const Swal: any;
 @Component({
@@ -35,6 +36,7 @@ export class StructureComponent implements OnInit, OnDestroy {
 
   displayCreateStructureForm: boolean = false;
 
+  retour: string = 'Partenaires';
   titrePage: string = 'Enregistrer une nouvelle structure';
   sousTitrePage: string = 'Toutes les structures';
 
@@ -79,6 +81,7 @@ export class StructureComponent implements OnInit, OnDestroy {
       }
     } else if(this.role == 'partenaire'){
       if(this.partenaireId !== 0) {
+        this.retour = 'Ma fiche';
         this.subscription = this.apiService.readStructuresOfPartenaire(this.partenaireId).subscribe((structures: Structure[])=>{
           structures = structures.filter((s) => s.actif == 1);
           this.structures = structures;
@@ -87,6 +90,7 @@ export class StructureComponent implements OnInit, OnDestroy {
         })
       }
     }
+
   }
 
   initStructureForm(): void{

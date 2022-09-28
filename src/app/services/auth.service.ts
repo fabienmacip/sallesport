@@ -45,10 +45,17 @@ export class AuthService {
     localStorage.setItem('token', token);
   }
 
+  setEmail(email: string) {
+    localStorage.setItem('email', email);
+  }
+
   getToken() {
     return localStorage.getItem('token');
   }
 
+  getEmail() {
+    return localStorage.getItem('email');
+  }
 
   getRole() {
     return localStorage.getItem('role');
@@ -58,16 +65,24 @@ export class AuthService {
     return localStorage.getItem('id');
   }
 
-  deleteToken() {
-    localStorage.removeItem('token');
+  deleteId() {
+    localStorage.removeItem('id');
   }
 
   deleteRole() {
     localStorage.removeItem('role');
   }
 
-  deleteId() {
-    localStorage.removeItem('id');
+  deleteName() {
+    localStorage.removeItem('name');
+  }
+
+  deleteEmail() {
+    localStorage.removeItem('email');
+  }
+
+  deleteToken() {
+    localStorage.removeItem('token');
   }
 
 
@@ -89,21 +104,31 @@ export class AuthService {
           if(typeof(data) == 'object' && Object.keys(data).length > 0){
               let result2 = Object.values(data);
               this.logged = true;
-
-              let name = result2[0].name ?? result2[0].nomfranchise;
-              let role = result2[0].name ? 'admin' : 'partenaire';
               let id = result2[0].id ?? 0;
-              this.apiService.setToken(name);
-              this.apiService.setRole(role);
+              let role = result2[0].role ?? '';
+              let name = result2[0].name ?? result2[0].nomfranchise;
+              let email = result2[0].mail ?? result2[0].email ?? '';
+              let token = result2[0].token ?? '';
               this.apiService.setId(id);
+              this.apiService.setRole(role);
+              this.apiService.setName(name);
+              this.apiService.setEmail(email);
+              this.apiService.setToken(token);
               this.getLoggedInName.emit(true);
               this.user = {
                 id: id,
                 role: role,
-                name: name
+                name: name,
+                email: email,
+                token: token
               }
+
               this.currentUserSubject.next(this.user);
-              this.router.navigate(['home']);
+              if(role == 'admin'){
+                this.router.navigate(['home']);
+              } else {
+                this.router.navigate(['admin','partenaires']);
+              }
           }
         },
         error: error => {

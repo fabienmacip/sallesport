@@ -1,4 +1,4 @@
-<h1>PARTENAIRES</h1>
+<h1>{{ h1 }}</h1>
 
 <div class="container py-1" *ngIf="role == 'admin'">
   <div class="col-12 col-md-6">
@@ -113,14 +113,14 @@
 </div>
 
 <div class="container py-5">
-  <h1 class="display-5 mb-5">Tous les partenaires</h1>
+  <h2 class="display-5 mb-5" *ngIf="currentUser && currentUser.role == 'admin'">Tous les partenaires</h2>
   <div class="row">
     <div class="col-12 col-md-6 col-lg-4 col-xxl-3 py-2" *ngFor="let partenaire of partenairesToDisplay; let i = index">
       <div class="card" [ngClass]="partenaire.actif == 1 ? 'partenaire-actif' : 'partenaire-inactif'">
         <!-- <img [src]="" alt="Photo du partenaire" class="card-img-top"> -->
         <div class="card-body">
           <h5 class="card-title">{{ partenaire.nomfranchise }}</h5>
-          <a class="nav-link" [routerLink]="['../structures', partenaire.id, partenaire.nomfranchise]" routerLinkActive="active-link">Voir les structures</a><br/>
+          <a class="link" [routerLink]="['../structures', partenaire.id, partenaire.nomfranchise]" routerLinkActive="active-link">Voir les structures</a><br/>
           <!-- [queryParams]="{partenaireId: partenaire.id}" -->
           <p class="card-text">
             N°{{ i }} - #{{ partenaire.id }}<br/>

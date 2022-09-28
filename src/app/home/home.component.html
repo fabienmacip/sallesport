@@ -2,13 +2,11 @@
   <div class="row">
     <div class="col-12 col-md-6 col-lg-4 col-xl-3 mx-auto">
       <h2 class="display-5">Partenaires</h2>
-      Voir les partenaires
-      <a *ngIf="currentUser" class="nav-link" [routerLink]="['/admin','partenaires']" routerLinkActive="active-link">Partenaires</a>
+      <a *ngIf="currentUser" class="link" [routerLink]="['/admin','partenaires']" routerLinkActive="active-link">Partenaires</a>
     </div>
-    <div class="col-12 col-md-6 col-lg-4 col-xl-3 mx-auto">
+    <div class="col-12 col-md-6 col-lg-4 col-xl-3 mx-auto" *ngIf="currentUser && role == 'admin'">
       <h2 class="display-5">Structures</h2>
-      Voir les structures
-      <a *ngIf="currentUser && role == 'admin'" class="nav-link" [routerLink]="['/admin','structures']" routerLinkActive="active-link">Structures</a>
+      <a class="link" [routerLink]="['/admin','structures']" routerLinkActive="active-link">Structures</a>
     </div>
   </div>
 </div>

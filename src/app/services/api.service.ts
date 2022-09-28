@@ -25,23 +25,30 @@ export class ApiService {
     private httpClient: HttpClient
   ) { }
 
-  createAuthorizationHeader(headers: HttpHeaders) {
-    headers.append('Authorization', 'Basic ');
+  createAuthorizationHeader() {
+    /* headers.append('Authorization', 'Basic ');
+    headers.append('X-API-KEY',this.getToken()!); */
+    //console.log(headers.keys());
+    return new HttpHeaders({
+      'Authorization': 'Basic',
+      'X-API-KEY': this.getToken()!
+     });
   }
 
   // * * * * *  PARTENAIRES  * * * * *
 
   readPartenaireAll(): Observable<Partenaire[]>{
-    return this.httpClient.get<Partenaire[]>(`${this.PHP_API_SERVER}partenaire.php`);
+    let headers = this.createAuthorizationHeader();
+    return this.httpClient.get<Partenaire[]>(`${this.PHP_API_SERVER}partenaire.php`, { headers : headers, responseType: "json" });
   }
 
   readPartenaire(id: number): Observable<Partenaire[]>{
-    return this.httpClient.get<Grants[]>(`${this.PHP_API_SERVER}partenaire.php?id=${id}`);
+     let headers = this.createAuthorizationHeader();
+     return this.httpClient.get<Grants[]>(`${this.PHP_API_SERVER}partenaire.php?id=${id}`,  { headers : headers, responseType: "json" });
   }
 
   createPartenaire(partenaire: Partenaire, currentPartenairePhotoFile: any = null): Observable<Partenaire>{
-    let headers = new HttpHeaders();
-    this.createAuthorizationHeader(headers);
+    let headers = this.createAuthorizationHeader();
 
     // Si Photo
 /*     if(currentPartenairePhotoFile){
@@ -58,15 +65,12 @@ export class ApiService {
   }
 
   updatePartenaire(id: number, partenaire: Partenaire): Observable<Partenaire>{
-    let headers = new HttpHeaders();
-    this.createAuthorizationHeader(headers);
-
+    let headers = this.createAuthorizationHeader();
     return this.httpClient.put<Partenaire>(`${this.PHP_API_SERVER}partenaire.php/${id}`, partenaire, { headers : headers, responseType: "json" });
   }
 
   updatePartenaireActif(id: string, actif: number): Observable<Partenaire>{
-    let headers = new HttpHeaders();
-    this.createAuthorizationHeader(headers);
+    let headers = this.createAuthorizationHeader();
     const datas = {
       id: id,
       actif: actif,
@@ -77,8 +81,7 @@ export class ApiService {
   }
 
   updatePartenairePwd(id: string, pwd: string): Observable<Partenaire>{
-    let headers = new HttpHeaders();
-    this.createAuthorizationHeader(headers);
+    let headers = this.createAuthorizationHeader();
     const datas = {
       id: id,
       onlyone: true,
@@ -88,7 +91,8 @@ export class ApiService {
   }
 
   deletePartenaire(id: number){
-    return this.httpClient.delete<Partenaire>(`${this.PHP_API_SERVER}partenaire.php?id=${id}`);
+    let headers = this.createAuthorizationHeader();
+    return this.httpClient.delete<Partenaire>(`${this.PHP_API_SERVER}partenaire.php?id=${id}`, { headers : headers, responseType: "json" });
   }
 
   // * * * * *  STRUCTURES  * * * * *
@@ -110,21 +114,17 @@ export class ApiService {
   }
 
   createStructure(structure: Structure): Observable<Structure>{
-    let headers = new HttpHeaders();
-    this.createAuthorizationHeader(headers);
+    let headers = this.createAuthorizationHeader();
     return this.httpClient.post<Structure>(`${this.PHP_API_SERVER}structure.php`, structure, { headers : headers, responseType: "json" });
   }
 
   updateStructure(id: number, structure: Structure): Observable<Structure>{
-    let headers = new HttpHeaders();
-    this.createAuthorizationHeader(headers);
-
+    let headers = this.createAuthorizationHeader();
     return this.httpClient.put<Structure>(`${this.PHP_API_SERVER}structure.php/${id}`, structure, { headers : headers, responseType: "json" });
   }
 
   updateStructureActif(id: string, actif: number): Observable<Structure>{
-    let headers = new HttpHeaders();
-    this.createAuthorizationHeader(headers);
+    let headers = this.createAuthorizationHeader();
     const datas = {
       id: id,
       actif: actif,
@@ -135,8 +135,7 @@ export class ApiService {
   }
 
   turnOnStructureActifAndDeleteMailLink(structureId: string, mailId: number){
-    let headers = new HttpHeaders();
-    this.createAuthorizationHeader(headers);
+    let headers = this.createAuthorizationHeader();
     const datas = {
       id: structureId,
       actif: 1,
@@ -149,7 +148,8 @@ export class ApiService {
   }
 
   deleteStructure(id: number){
-    return this.httpClient.delete<Structure>(`${this.PHP_API_SERVER}structure.php?id=${id}`);
+    let headers = this.createAuthorizationHeader();
+    return this.httpClient.delete<Structure>(`${this.PHP_API_SERVER}structure.php?id=${id}`, { headers : headers, responseType: "json" });
   }
 
   // * * * * *  GRANTS  * * * * *
@@ -163,12 +163,12 @@ export class ApiService {
   }
 
   createGrants(grants: Grants): Observable<Grants>{
-    return this.httpClient.post<Grants>(`${this.PHP_API_SERVER}grants.php`, grants);
+    let headers = this.createAuthorizationHeader();
+    return this.httpClient.post<Grants>(`${this.PHP_API_SERVER}grants.php`, grants, { headers : headers, responseType: "json" });
   }
 
   updateOneGrant(id: number, grant: string, actif: number): Observable<Grants>{
-    let headers = new HttpHeaders();
-    this.createAuthorizationHeader(headers);
+    let headers = this.createAuthorizationHeader();
     const datas = {
       id: id,
       grant: grant,
@@ -178,11 +178,13 @@ export class ApiService {
   }
 
   updateGrants(id: number, grants: Grants): Observable<Grants>{
-    return this.httpClient.put<Grants>(`${this.PHP_API_SERVER}grants.php?id=${id}`, grants);
+    let headers = this.createAuthorizationHeader();
+    return this.httpClient.put<Grants>(`${this.PHP_API_SERVER}grants.php?id=${id}`, grants, { headers : headers, responseType: "json" });
   }
 
   deleteGrants(id: number){
-    return this.httpClient.delete<Grants>(`${this.PHP_API_SERVER}grants.php?id=${id}`);
+    let headers = this.createAuthorizationHeader();
+    return this.httpClient.delete<Grants>(`${this.PHP_API_SERVER}grants.php?id=${id}`, { headers : headers, responseType: "json" });
   }
 
   // * * * * *  MAILS  * * * * *
@@ -196,7 +198,8 @@ export class ApiService {
   }
 
   createMail(mail: Mail): Observable<Mail>{
-    return this.httpClient.post<Mail>(`${this.PHP_API_SERVER}mail.php`, mail);
+    let headers = this.createAuthorizationHeader();
+    return this.httpClient.post<Mail>(`${this.PHP_API_SERVER}mail.php`, mail, { headers : headers, responseType: "json" });
   }
 
   updateMailLu(id: number, mail: Mail): Observable<Mail>{
@@ -206,8 +209,7 @@ export class ApiService {
       lu: 1,
       onlyLu: "yes"
     };
-    let headers = new HttpHeaders();
-    this.createAuthorizationHeader(headers);
+    let headers = this.createAuthorizationHeader();
     return this.httpClient.put<Mail>(`${this.PHP_API_SERVER}mail.php?id=${id}`, datas, { headers : headers, responseType: "json" });
   }
 
@@ -228,8 +230,7 @@ export class ApiService {
   }
 
   updateAdminPwd(id: string, pwd: string): Observable<Partenaire>{
-    let headers = new HttpHeaders();
-    this.createAuthorizationHeader(headers);
+    let headers = this.createAuthorizationHeader();
     const datas = {
       id: id,
       pwd: pwd
@@ -240,6 +241,14 @@ export class ApiService {
   //token
   setToken(token: string) {
     localStorage.setItem('token', token);
+  }
+
+  setName(name: string) {
+    localStorage.setItem('name', name);
+  }
+
+  setEmail(email: string) {
+    localStorage.setItem('email', email);
   }
 
   setRole(role: string) {
@@ -253,6 +262,10 @@ export class ApiService {
 
   getToken() {
     return localStorage.getItem('token');
+  }
+
+  getName() {
+    return localStorage.getItem('name');
   }
 
   deleteToken() {

@@ -5,6 +5,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { Subscription } from 'rxjs';
 import { Partenaire } from 'src/app/interfaces/partenaire';
 import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/interfaces/user';
 
 declare const Swal: any;
 @Component({
@@ -13,6 +14,9 @@ declare const Swal: any;
   styleUrls: ['./partenaire.component.css']
 })
 export class PartenaireComponent implements OnInit, OnDestroy {
+
+  currentUserSubscription!: Subscription;
+  currentUser!: User;
 
   partenaireForm!: FormGroup;
 
@@ -30,6 +34,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
 
   subscription! : Subscription;
 
+  h1: string = 'PARTENAIRES';
   titrePage: string = 'Enregistrer un nouveau partenaire';
 
   grantsFormToggle: number = 0;
@@ -49,6 +54,9 @@ export class PartenaireComponent implements OnInit, OnDestroy {
 
     if(this.authService.getRole() != ''){
       this.role = <string>this.authService.getRole();
+      if(this.role == 'partenaire'){
+        this.h1 = 'MA FICHE';
+      }
     }
 
     if(this.authService.getId() != ''){
@@ -67,6 +75,12 @@ export class PartenaireComponent implements OnInit, OnDestroy {
         this.partenairesToDisplay = partenaires;
       })
     }
+
+    this.currentUserSubscription = this.authService.currentUserSubject.subscribe({
+      next: user => this.currentUser = <User>user,
+      error: console.error
+    });
+
   }
 
   initPartenaireForm(): void{
@@ -124,7 +138,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
       left: 0,
       behavior: 'smooth'
     });
-    console.log(this.partenaireForm);
+    //console.log(this.partenaireForm);
 }
 
   onTogglePartenaireActif(id: string, actif: number): void{

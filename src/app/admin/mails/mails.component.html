@@ -5,7 +5,9 @@
     <div class="col-12 py-2" *ngFor="let mail of mails; let i = index">
       <div class="card">
         <div class="card-body" [ngClass]="mail.lu == 0 ? 'mail-non-lu' : ''"
-        (click)="toggleDisplayMail(mail.id, mail.lu)">
+        (click)="toggleDisplayMail(mail.id, mail.lu)"
+        style="cursor: pointer"
+        >
           <p class="card-text">
             {{ mail.titre }}<br/>
           </p>

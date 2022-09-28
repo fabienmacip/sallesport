@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['home']" routerLinkActive="active-link">Accueil</a>
+          <a class="nav-link" [routerLink]="['home']" *ngIf="currentUser && currentUser.role == 'admin'" routerLinkActive="active-link">Accueil</a>
         </li>
         <li class="nav-item" *ngIf="!currentUser">
           <a class="nav-link" [routerLink]="['/auth','signin']" routerLinkActive="active-link">Connexion</a>
