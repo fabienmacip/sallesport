@@ -157,7 +157,7 @@ export class AuthService {
       this.deleteRole();
       this.deleteId();
       this.currentUserSubject.next(null);
-      this.router.navigate(['home']);
+      this.router.navigate(['auth','signin']);
     }
     return new Promise((resolve, reject) => {
 /*       this.auth.signOut()
