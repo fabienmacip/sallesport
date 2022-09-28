@@ -203,6 +203,9 @@ export class PartenaireComponent implements OnInit, OnDestroy {
       delete partenaire.passwordConfirm;
       this.apiService.updatePartenaire(partenaireId, partenaire).subscribe({
         next: data => {
+
+          console.log(data);
+
           this.subscription = this.apiService.readPartenaireAll().subscribe((partenaires: Partenaire[])=>{
             this.partenaires = partenaires;
             this.partenairesToDisplay = partenaires;
