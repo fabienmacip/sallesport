@@ -34,6 +34,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
 
   subscription! : Subscription;
 
+  libelleFilterButton: string = "Tous";
   h1: string = 'PARTENAIRES';
   titrePage: string = 'Enregistrer un nouveau partenaire';
 
@@ -278,6 +279,20 @@ export class PartenaireComponent implements OnInit, OnDestroy {
     } else {
       this.partenairesToDisplay = this.partenaires;
     }
+  }
+
+  togglePartenairesFilter(): void{
+    if(this.libelleFilterButton === "Tous"){
+      this.libelleFilterButton = "Actifs";
+      this.partenairesToDisplay = this.partenaires.filter(p => p.actif == 1);
+    } else if (this.libelleFilterButton === "Actifs"){
+      this.libelleFilterButton = "Inactifs";
+      this.partenairesToDisplay = this.partenaires.filter(p => p.actif == 0);
+    } else {
+      this.libelleFilterButton = "Tous";
+      this.partenairesToDisplay = this.partenaires;
+    }
+    console.log(this.libelleFilterButton);
   }
 
   ngOnDestroy(): void {
