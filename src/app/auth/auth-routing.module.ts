@@ -4,6 +4,8 @@ import { SigninComponent } from './signin/signin.component';
 
 const routes: Routes = [
   { path: 'signin', component: SigninComponent },
+  { path: '', redirectTo: 'signin', pathMatch: 'full'},
+  { path: '**', redirectTo: 'signin' }
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

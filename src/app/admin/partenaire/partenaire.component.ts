@@ -88,7 +88,7 @@ export class PartenaireComponent implements OnInit, OnDestroy {
       id: [0],
       nomfranchise: ['TEST', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],
       //photoPartenaire: [''],
-      sexegerant: ['M', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
+      sexegerant: ['M', [Validators.required, Validators.minLength(1), Validators.maxLength(1), Validators.pattern('(^f$f?|^F$F?|^m$m?|^M$M?)')]],
       nomgerant: ['Durand', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],
       mail: ['dudu@gmail.fr', [Validators.email, Validators.required, Validators.maxLength(45)]],
       password: ['qsdfqsdf', [Validators.required, Validators.minLength(8), Validators.maxLength(256)]],

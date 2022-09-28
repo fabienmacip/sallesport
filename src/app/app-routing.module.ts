@@ -9,8 +9,8 @@ const routes: Routes = [
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
   { path: 'account', canActivate: [AuthGuard], component: AccountComponent},
   { path: 'home', component: HomeComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full'},
-  { path: '**', redirectTo: 'home' }
+  { path: '', redirectTo: 'auth', pathMatch: 'full'},
+  { path: '**', redirectTo: 'auth' }
 ];
 
 @NgModule({

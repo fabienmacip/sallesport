@@ -51,6 +51,7 @@
             <span *ngIf="partenaireForm.controls['sexegerant'].errors?.['required']">Merci de saisir 'f' ou 'm'</span>
             <span *ngIf="partenaireForm.controls['sexegerant'].errors?.['minlength']">Minimum 1 caractère</span>
             <span *ngIf="partenaireForm.controls['sexegerant'].errors?.['maxlength']">Maximum 1 caractère</span>
+            <span *ngIf="partenaireForm.controls['sexegerant'].errors?.['pattern']">f ou m</span>
           </div>
           <div class="form-group mb-3">
             <label for="nomgerant">Gérant</label>

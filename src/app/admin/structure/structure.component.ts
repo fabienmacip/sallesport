@@ -100,7 +100,7 @@ export class StructureComponent implements OnInit, OnDestroy {
       adr2: ['3, rue des prés', [Validators.minLength(2), Validators.maxLength(60)]],
       cp: ['75003', [Validators.required, Validators.minLength(5), Validators.maxLength(5), Validators.pattern('[0-9]{5}')]],
       ville: ['PARIS', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],
-      sexegerant: ['F', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
+      sexegerant: ['F', [Validators.required, Validators.minLength(1), Validators.maxLength(1), Validators.pattern('(^f$f?|^F$F?|^m$m?|^M$M?)')]],
       nomgerant: ['Gineste', [Validators.required, Validators.minLength(2), Validators.maxLength(45)]],
       mail: ['gigi@yahoo.fr', [Validators.required, Validators.email, Validators.maxLength(45)]],
       password: ['mlkjmlkj', [Validators.required, Validators.minLength(8), Validators.maxLength(256)]],
