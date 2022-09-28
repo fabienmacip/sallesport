@@ -16,7 +16,16 @@
   </div>
 </div>
 
-<div class="container py-5" *ngIf="role == 'admin'">
+<div class="container py-5" *ngIf="role == 'admin' && !partenaireId || partenaireId == 0">
+  <div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto d-flex justify-content-end text-secondary">
+    Ajouter une structure <img src="https://fatabien.com/sallesport/assets/plus-circle.svg" alt="PLUS" class="mx-3" width="30"><br/>
+  </div>
+  <div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto d-flex justify-content-end text-secondary">
+    Vous devez d'abord choisir un partenaire pour pouvoir ajouter une structure.
+  </div>
+</div>
+
+<div class="container py-5" *ngIf="role == 'admin' && partenaireId && partenaireId != 0">
   <div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto d-flex justify-content-end" *ngIf="displayCreateStructureForm == false">
     Ajouter une structure <img src="https://fatabien.com/sallesport/assets/plus-circle.svg" alt="PLUS" class="mx-3 img-link" width="30" (click)="toggleDisplayCreateStructureForm()">
   </div>

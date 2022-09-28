@@ -26,9 +26,6 @@ export class ApiService {
   ) { }
 
   createAuthorizationHeader() {
-    /* headers.append('Authorization', 'Basic ');
-    headers.append('X-API-KEY',this.getToken()!); */
-    //console.log(headers.keys());
     return new HttpHeaders({
       'Authorization': 'Basic',
       'X-API-KEY': this.getToken()!
