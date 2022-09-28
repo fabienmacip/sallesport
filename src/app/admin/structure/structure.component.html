@@ -7,7 +7,7 @@
     <div class="row align-items-end">
         <div class="col-10 input-group">
           <div class="input-group-text">
-            <img src="../assets/search.svg" alt="SEARCH"/>
+            <img src="https://fatabien.com/sallesport/assets/search.svg" alt="SEARCH"/>
           </div>
           <input type="text" id="seekstructure" name="seekstructure" maxlength="40" class="form-control" placeholder="minimum 2 caractères" (keyup)="onChangeSeekStructure($event)">
           <!-- <button type="submit" class="btn btn-primary">GO !</button> -->
@@ -18,13 +18,13 @@
 
 <div class="container py-5" *ngIf="role == 'admin'">
   <div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto d-flex justify-content-end" *ngIf="displayCreateStructureForm == false">
-    Ajouter une structure <img src="../assets/plus-circle.svg" alt="PLUS" class="mx-3 img-link" width="30" (click)="toggleDisplayCreateStructureForm()">
+    Ajouter une structure <img src="https://fatabien.com/sallesport/assets/plus-circle.svg" alt="PLUS" class="mx-3 img-link" width="30" (click)="toggleDisplayCreateStructureForm()">
   </div>
   <div class="row mb-5" *ngIf="displayCreateStructureForm == true">
     <div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto">
       <div class="bg-white shadow rounded p-4">
         <div class="d-flex justify-content-end">
-          <img src="../assets/dash-circle.svg" alt="MOINS" class="img-link" width="30" (click)="toggleDisplayCreateStructureForm()">
+          <img src="https://fatabien.com/sallesport/assets/dash-circle.svg" alt="MOINS" class="img-link" width="30" (click)="toggleDisplayCreateStructureForm()">
         </div>
         <h2 class="display-5 text-dark">
           {{ titrePage }}

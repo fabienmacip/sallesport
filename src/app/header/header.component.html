@@ -27,8 +27,11 @@
             </li>
           </ul>
         </li>
-        <li *ngIf="currentUser">
+        <li *ngIf="currentUser && currentUser.role == 'admin'">
           <a class="nav-link" [routerLink]="['admin','partenaires']" routerLinkActive="active-link">Partenaires</a>
+        </li>
+        <li *ngIf="currentUser && currentUser.role == 'partenaire'">
+          <a class="nav-link" [routerLink]="['admin','partenaires']" routerLinkActive="active-link">Ma fiche</a>
         </li>
         <li *ngIf="currentUser && currentUser.role == 'admin'">
           <a class="nav-link" [routerLink]="['admin','structures']" routerLinkActive="active-link">Structures</a>
